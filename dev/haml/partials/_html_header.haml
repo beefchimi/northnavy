@@ -1,0 +1,41 @@
+%header
+
+	%div{"data-container" => "width_848"}
+
+		%nav
+			%ul
+				%li
+					%a{:href => "#reserve", :title => "Reserve"} Reserve
+				%li
+					%a{:href => "#foodwine", :title => "Food and Wine"} Food &amp; Wine
+				%li
+					%a{:href => "#bacaro", :title => "Bacaro"} Bacaro
+				%li
+					%a{:href => "#private", :title => "Private Dining"} Private Dining
+				%li
+					%a{:href => "#photos", :title => "Photos"} Photos
+				%li
+					%a{:href => "#contact", :title => "Get in Touch"} Get in Touch
+
+		%svg.svg_nm-logo
+			%use{"xlink:href" => "#nm_logo"}
+
+		%h2.tagline A Northern Italian Kitchen
+
+		%h1.visuallyhidden North and Navy
+		.wordmark.wrap_svg
+			%svg.svg_nm-wordmark
+				%use{"xlink:href" => "#nm_wordmark"}
+
+		%h3.address 226 Nepean St.
+		%a{:href => "tel:+1-613-232-6289", :title => "Call us"} (613) 232-6289
+
+		%ul.social_links
+			%li.social_twitter
+				%a.wrap_svg{:href => "#", :title => "Follow us on Twitter"}
+					%svg.svg_ui-twitter
+						%use{"xlink:href" => "#ui_twitter"}
+			%li.social_instagram
+				%a.wrap_svg{:href => "#", :title => "Follow us on Instagram"}
+					%svg.svg_ui-instagram
+						%use{"xlink:href" => "#ui_instagram"}

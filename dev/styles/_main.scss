@@ -1,0 +1,346 @@
+// ==|== primary styles =======================================================
+// ============================================================================
+
+// Foundation
+// ----------------------------------------------------------------------------
+html,
+button,
+input,
+optgroup,
+select,
+textarea {
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	// font-variant-numeric: oldstyle-nums;
+}
+body {
+	position: relative;
+	border-top: 0.6rem solid $hsla_blue;
+	background: $hsla_L96;
+}
+::selection {
+	color: $hsla_L96;
+	background-color: $hsla_blue;
+}
+
+/*
+// + autoprefixer does not recognize placeholder + \\
+::-webkit-input-placeholder {
+	color: #000;
+}
+::-moz-placeholder {
+	color: #000;
+	opacity: 1;
+}
+:-ms-input-placeholder {
+	color: #000;
+}
+*/
+
+
+// Transitions
+// ----------------------------------------------------------------------------
+a,
+input,
+button {
+	transition: all 0.3s ease-in-out;
+	// backface-visibility: hidden;
+}
+svg {
+	transition: fill 0.3s ease-in-out;
+}
+
+
+nav.nav_primary {
+	transition: max-height 0.4s ease-in-out;
+}
+a.nav_toggle div.wrap_menu span {
+	transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+}
+
+[data-overlay] {
+	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+
+// --- Animations --- \\
+@keyframes animShow {
+	0%   { opacity: 0; }
+	100% { opacity: 1; }
+}
+@keyframes animHide {
+	0%   { opacity: 1; left: 0; }
+	99%  { opacity: 0; left: 0; }
+	100% { opacity: 0; left: -200%; }
+}
+[data-modal="active"] {
+	left: 0;
+	animation: animShow 0.4s ease-in-out;
+}
+[data-modal="inactive"] {
+	left: -200%;
+	animation: animHide 0.4s ease-in-out forwards;
+}
+
+/*
+// --- FOUT --- \\
+main,
+header,
+footer {
+	opacity: 0; // begin by setting opacity to 0
+}
+.wf-active main,
+.wf-active header,
+.wf-active footer {
+	// IE9 does not support Animations... we will need to use modernizr to force opacity: 1;
+	// test this thoroughly to make sure it actually works consistently
+	animation: animShow 0.4s ease-in-out forwards;
+}
+*/
+
+// General Styles
+// ----------------------------------------------------------------------------
+.wrap_element {
+	position: relative;
+}
+// + SVGs + \\
+#svgInject {
+	display: none;
+	visibility: hidden;
+}
+.wrap_svg {
+	display: block;
+}
+.wrap_svg svg {
+	width: 100%;
+	height: 100%;
+}
+.wrap_svg svg[viewBox] {
+	display: inline;
+}
+
+// --- Containers --- \\
+[data-container] {
+	margin-left: auto;
+	margin-right: auto;
+}
+[data-container="width-padding_1440"] {
+	max-width: 150.4rem; // 1440px + padding (64px)
+}
+[data-container="width_848"] {
+	max-width: 84.8rem;
+}
+
+// --- Modals --- \\
+[data-modal] {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: #000;
+	visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'loaded'
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+[data-modal] div.modal_body {
+	overflow: hidden;
+}
+
+// --- Overlays --- \\
+// created and added (also destroyed) to DOM via JS
+// opacity and visibility applied via JS
+// transition applied through CSS
+[data-overlay] {
+	position: fixed;
+	z-index: 998;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	background-color: hsla(0,0%,0%,0.6);
+}
+// --- Overlay Active --- \\
+html.overlay_active,
+html.overlay_active body {
+	overflow-y: hidden;
+}
+[data-modal].loaded,
+[data-overlay].loaded {
+	visibility: visible;
+}
+
+/*
+// Buttons
+// ----------------------------------------------------------------------------
+.btn_rnd {
+	display: table; // inline-block does not allow margin centering
+	margin: 0 auto;
+	padding: 0 2rem;
+	height: 4.8rem;
+	line-height: 4.8rem;
+	font-size: 1.4rem;
+	letter-spacing: 0.2rem;
+	text-align: center;
+	text-transform: uppercase;
+	border-radius: 0.8rem;
+}
+a[class*="brd_"],
+button[class*="brd_"] {
+	box-shadow: inset 0 0 0 0.2rem;
+}
+// + fill: orange + \\
+.fill_orange {
+	color: #000;
+	background-color: #fff;
+}
+.fill_orange:focus,
+.fill_orange:hover {
+	color: #fff;
+	background-color: #000;
+}
+.fill_orange:active {
+	color: #fff;
+	background-color: #000;
+}
+*/
+
+// ==|== common sections ======================================================
+// ============================================================================
+
+// Header
+// ----------------------------------------------------------------------------
+header {
+}
+header div[data-container] {
+}
+
+/*
+// --- Nav Toggle --- \\
+a.nav_toggle {
+	display: block;
+	position: absolute;
+	z-index: 100;
+	top: 2rem;
+	right: 1.6rem;
+	width: 4rem;
+	height: 4rem;
+}
+a.nav_toggle div.wrap_menu {
+	position: relative;
+	top: 0.9rem;
+	left: 0.4rem;
+	width: 3.2rem;
+	height: 2.2rem;
+}
+a.nav_toggle div.wrap_menu span {
+	display: block;
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 0.3rem;
+	background-color: #fff;
+}
+a.nav_toggle div.wrap_menu span.one {
+	top: 0;
+}
+a.nav_toggle div.wrap_menu span.two {
+	top: 0.9rem;
+}
+a.nav_toggle div.wrap_menu span.three {
+	top: 1.8rem;
+}
+*/
+
+/*
+// --- Navigation --- \\
+nav.nav_primary {
+	max-height: 0;
+	text-align: center;
+	background-color: #fff;
+	overflow-y: hidden;
+}
+nav.nav_primary ul {
+	padding: 3.2rem 1.6rem;
+}
+nav.nav_primary ul li {
+	margin-bottom: 2.6rem;
+}
+nav.nav_primary ul li:last-child {
+	margin-bottom: 0;
+}
+nav.nav_primary ul li a {
+	font-size: 1.8rem;
+	color: #000;
+}
+nav.nav_primary ul li a:hover {
+	color: hsla(0,0%,20%,1);
+}
+nav.nav_primary ul li a:active {
+	color: hsla(0,0%,40%,1);
+}
+// + social links + \\
+nav.nav_primary div.social_links {
+	padding-bottom: 3.2rem;
+	text-align: center;
+}
+nav.nav_primary div.social_links a {
+	display: inline-block;
+	width: 2.8rem;
+	height: 2.8rem;
+}
+nav.nav_primary div.social_links a.social_twitter {
+	margin-right: 4rem;
+}
+nav.nav_primary div.social_links a svg {
+	fill: #000;
+}
+nav.nav_primary div.social_links a:hover svg {
+	fill: hsla(0,0%,20%,1);
+}
+nav.nav_primary div.social_links a:active svg {
+	fill: hsla(0,0%,40%,1);
+}
+// --- Toggled: Mobile Nav --- \\
+body.toggled_mobile-nav nav.nav_primary {
+	max-height: 32rem;
+}
+body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.one {
+	top: 0.9rem;
+	transform: rotate(-45deg);
+}
+body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.two {
+	opacity: 0;
+	transform: scale(0.2);
+}
+body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.three {
+	top: 0.9rem;
+	transform: rotate(45deg);
+}
+*/
+
+// Footer
+// ----------------------------------------------------------------------------
+footer {
+	padding: 4rem 1.6rem;
+	text-align: center;
+}
+// --- Contact Info --- \\
+ul.footer_contact {
+	margin-bottom: 4rem;
+}
+ul.footer_contact li {
+	margin-bottom: 1rem;
+	font-size: 1.1rem;
+	font-style: italic;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	color: #fff;
+}
+ul.footer_contact li:last-child {
+	margin-bottom: 0;
+}
+
+
+// ==|== page styles ==========================================================
+// ============================================================================
+
+

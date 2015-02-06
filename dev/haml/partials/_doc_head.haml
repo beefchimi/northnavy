@@ -1,0 +1,21 @@
+%head
+
+	%meta{:charset => "utf-8"}
+	%meta{"http-equiv" => "X-UA-Compatible", :content => "IE=edge"}
+
+	%title North &amp; Navy | A Northern Italian Kitchen
+
+	%meta{:name => "description", :content => "Inspired by tradition and dictated by the quality and availability of ingredients."}
+	%meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+
+	%meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
+	%meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black"}
+
+	-# !!! REMOVE FOR LIVE !!!
+	%meta{:name => "robots", :content => "noindex, nofollow"}
+
+	%link{:rel => "stylesheet", :href => "assets/css/styles.css?v=1"}
+
+	%script
+		= Haml::Engine.new(File.read("dev/haml/partials/_js_fonts.haml")).render
+		= Haml::Engine.new(File.read("dev/haml/partials/_js_svg.haml")).render

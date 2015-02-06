@@ -1,0 +1,22 @@
+%footer
+
+	%ul.footer_contact
+		%li.contact_title North &amp; Navy
+		%li.contact_email
+			%a#secret_email{:href => "#", :title => "Email North and Navy"} email us
+		%li.contact_phone
+			%a{:href => "tel:+1-613-232-6289", :title => "Call us"} 613.232.6289
+
+	%ul.footer_pride
+		%li.pride_can
+			%span.wrap_txt Can
+		%li.pride_cross
+			%span.wrap_svg
+				%svg.svg_ui-close
+					%use{"xlink:href" => "#ui_close"}
+		%li.pride_ita
+			%span.wrap_txt Ita
+
+	%p &copy; 2015
+
+= Haml::Engine.new(File.read("dev/haml/partials/_doc_scripts.haml")).render
