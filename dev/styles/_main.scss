@@ -495,11 +495,17 @@ section article:last-child {
 	margin-bottom: 0;
 }
 
+section.bacaro {
+	margin-bottom: 0;
+}
 
 section.reserve,
-section.foodwine {
+section.foodwine,
+section.bacaro {
 	padding: 0 1.6rem;
 }
+
+
 
 // --- Content --- \\
 article h3,
@@ -537,6 +543,7 @@ div.wrap_content p a {
 }
 div.wrap_content p a[href^="tel:"] {
 	text-decoration: none;
+	white-space: nowrap;
 }
 div.wrap_content cite {
 	font-style: normal;
@@ -662,4 +669,186 @@ a.tag_circle.wine_full:active {
 	border-color: $hsla_blue-D;
 }
 
+
+
+
+// Bacaro
+// ----------------------------------------------------------------------------
+section.bacaro {
+	background-color: $hsla_blue;
+	background-image: url('../img/bg_bacaro.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+
+article.message {
+	padding: 6rem 0;
+}
+article.message img {
+	margin: 0 auto 7.2rem auto;
+}
+article.message h5 {
+	margin-bottom: 6rem;
+}
+article.message h5,
+article.message p {
+	color: $hsla_L96;
+}
+
+
+
+// Private Dining
+// ----------------------------------------------------------------------------
+section.private {
+	padding-top: 16rem;
+}
+
+
+div.sea-monster_top,
+div.sea-monster_btm {
+	position: relative;
+}
+
+
+img.octo-top {
+	position: absolute;
+	top: -9.8rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: 30rem; // 68.5rem
+	// height: 17rem; // 38.8rem
+}
+
+// img.octo-top,
+img.octo-btm {
+	margin: 0 auto;
+	width: 12.9rem; // 29.7rem
+	// height: 4.9rem; // 11.2rem
+}
+span.divider_double {
+	display: block;
+	height: 2.6rem;
+	border-top: 0.1rem solid $hsla_gold;
+	border-bottom: 0.1rem solid $hsla_gold;
+}
+
+
+
+
+article.dining {
+	padding-top: 3.2rem;
+	// padding-bottom: 6rem;
+}
+
+article.dining div.wrap_content {
+	padding: 0 1.6rem;
+}
+
+
+
+article.dining div.wrap_content ul {
+	margin-bottom: 3.2rem;
+	padding: 3.2rem 1.6rem;
+	border: 0.1rem solid $hsla_blue;
+}
+article.dining div.wrap_content ul li {
+	margin-bottom: 1rem;
+	font-size: 1.3rem; // 1.4rem;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+article.dining div.wrap_content ul li:last-child {
+	margin-bottom: 0;
+}
+
+
+article.dining a.button {
+	margin-bottom: 3.2rem;
+}
+article.dining div.wrap_content p:last-child {
+	font-size: 1.3rem; // 1.6rem
+}
+
+
+
+
+// Gift Certificates
+// ----------------------------------------------------------------------------
+section.gift {
+	padding: 0 1.6rem;
+}
+article.certificates,
+article.certificates div.wrap_content {
+	border: 0.1rem solid $hsla_gold;
+}
+article.certificates {
+	padding: 1.6rem;
+}
+article.certificates div.wrap_content {
+	padding: 3.2rem 1.6rem;
+	border: 0.1rem solid $hsla_gold;
+}
+svg.svg_ui-heart {
+	margin: 0 auto 3.2rem auto;
+	width: 5.2rem;
+	height: 8.8rem;
+	fill: $hsla_blue;
+}
+
+
+
+
+// Photos
+// ----------------------------------------------------------------------------
+section.photos {
+	padding: 0 1.6rem;
+}
+
+section.photos div.wrap_rule {
+	// margin-bottom: 6rem;
+}
+section.photos div.wrap_rule::before {
+	top: 48%; // was 49%
+	background-color: $hsla_blue;
+}
+
+section.photos div.wrap_svg {
+	display: inline-block;
+	padding: 0 1.4rem;
+	background-color: $hsla_L96;
+}
+svg.svg_ui-eye {
+	width: 4.6rem;
+	height: 2.8rem;
+	fill: $hsla_blue;
+}
+
+
+
+
+
+article.packery div.gutter-sizer {
+	width: 1.6rem;
+}
+article.packery a.gallery_link {
+	display: block;
+	margin-bottom: 2rem;
+	width: calc(50% - 3.2rem);
+	opacity: 0.01;
+}
+article.packery a.gallery_link.loaded {
+	opacity: 1;
+}
+article.packery a.gallery_link:last-child {
+	margin-bottom: 0;
+}
+
+article.packery a.gallery_link:hover {
+	opacity: 0.86;
+}
+article.packery a.gallery_link:active {
+	opacity: 0.96;
+}
 

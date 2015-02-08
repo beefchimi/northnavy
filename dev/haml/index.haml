@@ -11,7 +11,9 @@
 
 			= Haml::Engine.new(File.read("dev/haml/partials/_sec_reserve.haml")).render
 			= Haml::Engine.new(File.read("dev/haml/partials/_sec_foodwine.haml")).render
-
-			%section
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_bacaro.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_private.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_gift.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_photos.haml")).render
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
