@@ -1,0 +1,238 @@
+%section#foodwine.foodwine
+
+	%article.intro{"data-container" => "848"}
+
+		.wrap_heading
+
+			%h3
+				%span.letter_1
+					F
+				%span.letter_2
+					o
+				%span.letter_3
+					o
+				%span.letter_4
+					d
+
+			%img{:src => "assets/img/ill_fish.png", :alt => ""}
+
+		.wrap_content
+			%p Our menu is inspired by tradition and dictated by the quality and availability of ingredients. We play off the similarities between the climates of eastern Ontario and northwest Italy, and create our take on classic dishes made with seasonal game, seafood and vegetables. Plus, sometimes we’ll just add whatever we want.
+
+	%article.lunchdinner{"data-container" => "848"}
+
+		-# Detect what time it is and toggle Dinner if after a certain time?
+
+		%ul.menu_toggle
+			%li.menu_lunch
+				%a#toggle_lunch.toggled{:href => "#", :title => "See our Lunch menu"}
+					%h4 Lunch
+			%li.menu_dinner
+				%a#toggle_dinner{:href => "#", :title => "See our Dinner menu"}
+					%h4 Dinner
+
+		%h6.tag_circle.updated Updated Feb 9
+
+		.wrap_menu
+
+			#menu_lunch.menu_list.toggled
+
+				%h5 Cicheti
+				%ul
+					%li
+						%span.menu_item Baccala Cappucina (whipped salt cod with parsley & capers)
+						%span.menu_price 15
+					%li
+						%span.menu_item Battered and Fried Olives and Mozzarella
+						%span.menu_price 14
+					%li
+						%span.menu_item Anchovy and White Bean
+						%span.menu_price 12
+					%li
+						%span.menu_item Lardo Wrapped Figs and Blue Cheese
+						%span.menu_price 11
+					%li
+						%span.menu_item Smoked Ricotta and Fennel
+						%span.menu_price 14
+					%li
+						%span.menu_item Bresola Lettuce Wraps
+						%span.menu_price 13
+					%li
+						%span.menu_item Cicheti Plate (one of each)
+						%span.menu_price 28
+
+				%h5 Primi
+				%ul
+					%li
+						%span.menu_item Bigoli in Salsa
+						%span.menu_price 15
+					%li
+						%span.menu_item Pumpkin and Amaretti Cookie Filled Ravioli
+						%span.menu_price 17
+					%li
+						%span.menu_item Rise e Bisi (risotto and peas)
+						%span.menu_price 14
+					%li
+						%span.menu_item Farfalle with Pancetta and Mushrooms
+						%span.menu_price 16
+
+				%h5 Antipasta
+				%ul
+					%li
+						%span.menu_item Citrus Salad
+						%span.menu_price 13
+					%li
+						%span.menu_item Raw Mushroom Carpaccio
+						%span.menu_price 12
+					%li
+						%span.menu_item Endive Caesar Salad
+						%span.menu_price 13
+					%li
+						%span.menu_item Polpette
+						%span.menu_price 14
+					%li
+						%span.menu_item Scotto Deo Clams
+						%span.menu_price 14
+
+				%h5 Secondi
+				%ul
+					%li
+						%span.menu_item Warm Octopus and Potatoes
+						%span.menu_price 20
+					%li
+						%span.menu_item Venetian Liver & Onions
+						%span.menu_price 21
+					%li
+						%span.menu_item Flatiron with Peperonata Fried Salami and Sunnyside Egg
+						%span.menu_price 23
+					%li
+						%span.menu_item Quail in Polenta
+						%span.menu_price 24
+					%li
+						%span.menu_item Mackerel in Saor
+						%span.menu_price 22
+					%li
+						%span.menu_item Bisteka Fiorintine
+						%span.menu_price 25
+
+				%h5 Dolce
+				%ul
+					%li
+						%span.menu_item Baicoli & Coffee
+						%span.menu_price 11
+					%li
+						%span.menu_item Tiramisu
+						%span.menu_price 12
+					%li
+						%span.menu_item Olive Oil Cake with Black Pepper Ice Cream
+						%span.menu_price 13
+
+		.wrap_svg.divider
+			%svg.svg_ui-close
+				%use{"xlink:href" => "#ui_close"}
+
+	%article.wine{"data-container" => "848"}
+
+		.wrap_heading
+
+			%h3
+				%span.letter_1
+					W
+				%span.letter_2
+					i
+				%span.letter_3
+					n
+				%span.letter_4
+					e
+
+			%img{:src => "assets/img/ill_bottle.png", :alt => ""}
+
+		.wrap_content
+			%blockquote
+				%p In vino veritas.
+				%cite –Piny the Elder
+
+		%a.tag_circle.wine_full{:href => "#", :title => "View Full Wine List"} View Full Wine List
+
+		#menu_wine.menu_list
+
+			%h5 Prosecco
+			%ul
+				%li
+					%span.menu_item Baccala Cappucina (whipped salt cod with parsley & capers)
+					%span.menu_price 15
+				%li
+					%span.menu_item Battered and Fried Olives and Mozzarella
+					%span.menu_price 14
+				%li
+					%span.menu_item Anchovy and White Bean
+					%span.menu_price 12
+				%li
+					%span.menu_item Lardo Wrapped Figs and Blue Cheese
+					%span.menu_price 11
+				%li
+					%span.menu_item Smoked Ricotta and Fennel
+					%span.menu_price 14
+				%li
+					%span.menu_item Bresola Lettuce Wraps
+					%span.menu_price 13
+				%li
+					%span.menu_item Cicheti Plate (one of each)
+					%span.menu_price 28
+
+			%h5 Spumante
+			%ul
+				%li
+					%span.menu_item Citrus Salad
+					%span.menu_price 13
+				%li
+					%span.menu_item Raw Mushroom Carpaccio
+					%span.menu_price 12
+				%li
+					%span.menu_item Endive Caesar Salad
+					%span.menu_price 13
+				%li
+					%span.menu_item Polpette
+					%span.menu_price 14
+				%li
+					%span.menu_item Scotto Deo Clams
+					%span.menu_price 14
+
+			%h5 Bianco
+			%ul
+				%li
+					%span.menu_item Warm Octopus and Potatoes
+					%span.menu_price 20
+				%li
+					%span.menu_item Venetian Liver & Onions
+					%span.menu_price 21
+				%li
+					%span.menu_item Flatiron with Peperonata Fried Salami and Sunnyside Egg
+					%span.menu_price 23
+				%li
+					%span.menu_item Quail in Polenta
+					%span.menu_price 24
+				%li
+					%span.menu_item Mackerel in Saor
+					%span.menu_price 22
+				%li
+					%span.menu_item Bisteka Fiorintine
+					%span.menu_price 25
+
+			%h5 Rosso
+			%ul
+				%li
+					%span.menu_item Baicoli & Coffee
+					%span.menu_price 11
+				%li
+					%span.menu_item Tiramisu
+					%span.menu_price 12
+				%li
+					%span.menu_item Olive Oil Cake with Black Pepper Ice Cream
+					%span.menu_price 13
+
+		.wrap_svg.divider
+			%svg.svg_ui-close
+				%use{"xlink:href" => "#ui_close"}
+
+

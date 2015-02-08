@@ -9,35 +9,9 @@
 
 		%main{:role => "main"}
 
-			%section#reserve
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_reserve.haml")).render
+			= Haml::Engine.new(File.read("dev/haml/partials/_sec_foodwine.haml")).render
 
-				%article
-
-					%h4 Reserve
-					%p To reserve a table, book online or give us a call at (613) 232-6289. You can also stop by our Bacaro anytime and enjoy a snack and a drink. No reservations necessary. For large groups, we also offer a private dining room that’s perfect for parties or meetings.
-					%p
-						North & Navy is located at 226 Nepean Street in downtown Ottawa.
-						%a{:href => "#", :title => "Get Directions"} Get directions.
-
-					%a.button{:href => "#", :title => "Reserve a Table"} Reserve a Table
-
-			%section#foodwine
-
-				%article
-
-					.wrap_food
-
-						%h4
-							%span.food_1
-								F
-							%span.food_2
-								o
-							%span.food_3
-								o
-							%span.food_4
-								d
-
-						%img{:src => "assets/img/ill_fish.png", :alt => ""}
-
+			%section
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_html_footer.haml")).render
