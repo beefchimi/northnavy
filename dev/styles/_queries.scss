@@ -24,8 +24,71 @@
 
 @media only screen and (min-width: 48em) { // 768px / 16px = 48em
 
+// ==|== common sections ======================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	h2.tagline {
+		font-size: 2.2rem;
+	}
+
 // ==|== page styles ==========================================================
 // ============================================================================
+
+	// Sections
+	// ----------------------------------------------------------------------------
+	// --- Content --- \\
+	div.wrap_content p,
+	div.wrap_content cite {
+		font-size: 1.8rem;
+	}
+	// --- Tag: Circle --- \\
+	.tag_circle {
+		position: absolute;
+		top: 0;
+		left: 0;
+		margin-bottom: 0;
+		width: 14.6rem;
+		height: 14.6rem;
+		line-height: 14.6rem;
+		border-radius: 50%;
+	}
+	.tag_circle .tag_text {
+		padding: 2rem;
+	}
+
+	// Food & Wine
+	// ----------------------------------------------------------------------------
+	// --- Lunch & Dinner --- \\
+	div.menu_list ul li {
+		font-size: 1.8rem;
+	}
+	div.menu_list ul li span {
+		display: inline-block;
+	}
+	div.menu_list ul li span.menu_item {
+		margin-right: 1rem;
+		margin-bottom: 0;
+	}
+
+	// Private Dining
+	// ----------------------------------------------------------------------------
+	img.octo-top {
+		// top: -9.8rem;
+		width: 68.5rem;
+		// height: 17rem; // 38.8rem
+	}
+	img.octo-btm {
+		width: 29.7rem;
+		// height: 4.9rem; // 11.2rem
+	}
+	article.dining div.wrap_content ul li {
+		font-size: 1.4rem;
+	}
+	article.dining div.wrap_content p:last-child {
+		font-size: 1.6rem;
+	}
 
 	// Photos
 	// ----------------------------------------------------------------------------
