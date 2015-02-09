@@ -10,7 +10,6 @@ optgroup,
 select,
 textarea {
 	font-family: 'Slabo 13px', Georgia, Times, "Times New Roman", serif;
-	// font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	// font-variant-numeric: oldstyle-nums;
 	color: $hsla_blue;
 }
@@ -24,7 +23,6 @@ body {
 	color: $hsla_blue;
 	background-color: $hsla_gold;
 }
-
 /*
 // + autoprefixer does not recognize placeholder + \\
 ::-webkit-input-placeholder {
@@ -39,7 +37,6 @@ body {
 }
 */
 
-
 // Transitions
 // ----------------------------------------------------------------------------
 a,
@@ -51,19 +48,17 @@ button {
 svg {
 	transition: fill 0.3s ease-in-out;
 }
-
-
+/*
 nav.nav_primary {
 	transition: max-height 0.4s ease-in-out;
 }
 a.nav_toggle div.wrap_menu span {
 	transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
 }
-
 [data-overlay] {
 	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
-
+*/
 // --- Animations --- \\
 @keyframes animShow {
 	0%   { opacity: 0; }
@@ -74,6 +69,7 @@ a.nav_toggle div.wrap_menu span {
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
+/*
 [data-modal="active"] {
 	left: 0;
 	animation: animShow 0.4s ease-in-out;
@@ -82,29 +78,29 @@ a.nav_toggle div.wrap_menu span {
 	left: -200%;
 	animation: animHide 0.4s ease-in-out forwards;
 }
-
-/*
+*/
 // --- FOUT --- \\
 main,
 header,
 footer {
 	opacity: 0; // begin by setting opacity to 0
+	animation: animShow 0.6s ease-in-out 0.2s forwards;
 }
-.wf-active main,
-.wf-active header,
-.wf-active footer {
-	// IE9 does not support Animations... we will need to use modernizr to force opacity: 1;
-	// test this thoroughly to make sure it actually works consistently
-	animation: animShow 0.4s ease-in-out forwards;
-}
-*/
 
 // General Styles
 // ----------------------------------------------------------------------------
-.wrap_element {
-	position: relative;
+// --- Containers --- \\
+[data-container] {
+	margin-left: auto;
+	margin-right: auto;
 }
-// + SVGs + \\
+[data-container="width_1200"] {
+	max-width: 120rem;
+}
+[data-container="width_848"] {
+	max-width: 84.8rem;
+}
+// --- SVGs --- \\
 #svgInject {
 	display: none;
 	visibility: hidden;
@@ -117,11 +113,9 @@ footer {
 	height: 100%;
 }
 .wrap_svg svg[viewBox] {
-	display: inline;
+	display: inline; // doesn't seem to work in webkit
 }
-
-
-// + links + \\
+// --- Links --- \\
 a {
 	color: $hsla_blue;
 }
@@ -131,19 +125,25 @@ a:hover {
 a:active {
 	color: $hsla_gold-D;
 }
+// + buttons + \\
+.button {
+	display: inline-block;
+	margin: 0 auto;
+	padding: 2.2rem 2.6rem; // computed height is 65px
+	font-size: 1.5rem;
+	letter-spacing: 0.2rem;
+	text-align: center;
+	text-transform: uppercase;
+	border: 0.1rem solid $hsla_blue;
+}
+.button:hover {
+	border-color: $hsla_gold;
+}
+.button:active {
+	border-color: $hsla_gold-D;
+}
 
-// --- Containers --- \\
-[data-container] {
-	margin-left: auto;
-	margin-right: auto;
-}
-[data-container="width-padding_1440"] {
-	max-width: 150.4rem; // 1440px + padding (64px)
-}
-[data-container="width_848"] {
-	max-width: 84.8rem;
-}
-
+/*
 // --- Modals --- \\
 [data-modal] {
 	position: fixed;
@@ -182,29 +182,7 @@ html.overlay_active body {
 [data-overlay].loaded {
 	visibility: visible;
 }
-
-
-// Buttons
-// ----------------------------------------------------------------------------
-.button {
-	display: inline-block;
-	margin: 0 auto;
-	padding: 2.2rem 2.6rem; // computed height is 65px
-	font-size: 1.5rem;
-	letter-spacing: 0.2rem;
-	text-align: center;
-	text-transform: uppercase;
-	border: 0.1rem solid $hsla_blue;
-}
-.button:hover {
-	// color: $hsla_gold;
-	border-color: $hsla_gold;
-}
-.button:active {
-	// color: $hsla_gold-D;
-	border-color: $hsla_gold-D;
-}
-
+*/
 
 // ==|== common sections ======================================================
 // ============================================================================
@@ -212,32 +190,16 @@ html.overlay_active body {
 // Header
 // ----------------------------------------------------------------------------
 header {
-	padding: 6rem 1.6rem;
+	padding: 6rem 1.6rem 8rem 1.6rem;
 }
-header div[data-container] {
-}
-
-
 svg.svg_nn-logo {
 	margin: 0 auto 4rem auto;
 	width: 12rem;
 	height: 9.8rem;
 	fill: $hsla_blue;
 }
-div.wrap_rule {
-	position: relative;
+header div.wrap_rule {
 	margin-bottom: 6rem;
-}
-div.wrap_rule::before {
-	content: "";
-	display: block;
-	position: absolute;
-	z-index: -1;
-	top: 49%;
-	right: 0;
-	left: 0;
-	height: 0.1rem;
-	background-color: $hsla_gold;
 }
 h2.tagline {
 	display: inline-block;
@@ -250,12 +212,9 @@ div.wordmark.wrap_svg {
 	margin-bottom: 6rem;
 }
 svg.svg_nn-wordmark {
-	// display: inline;
+	display: inline; // webkit does not respect [viewBox] attribute selector
 	fill: $hsla_blue;
 }
-
-
-
 h3.address {
 	margin-bottom: 2rem;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
@@ -269,9 +228,7 @@ a.phone {
 	font-size: 1.4rem;
 	letter-spacing: 0.2rem;
 }
-
-ul.social_links {
-}
+// --- Social Links --- \\
 ul.social_links li {
 	display: inline-block;
 }
@@ -280,7 +237,7 @@ ul.social_links li a.wrap_svg {
 	height: 2.8rem;
 }
 ul.social_links li a.wrap_svg svg {
-	display: inline; // webkit does not respect [viewBox] selector
+	display: inline; // webkit does not respect [viewBox] attribute selector
 	fill: $hsla_blue;
 }
 ul.social_links li.social_twitter {
@@ -292,147 +249,34 @@ ul.social_links li.social_twitter a.wrap_svg {
 ul.social_links li.social_instagram a.wrap_svg {
 	width: 2.8rem; // webkit requires an explicit width
 }
-
 ul.social_links li a.wrap_svg:hover svg {
 	fill: $hsla_gold;
 }
 ul.social_links li a.wrap_svg:active svg {
 	fill: $hsla_gold-D;
 }
-
-/*
-		%h1.visuallyhidden North and Navy
-		.wordmark.wrap_svg
-			%svg.svg_nn-wordmark
-				%use{"xlink:href" => "#nn_wordmark"}
-
-		%h3.address 226 Nepean St.
-		%a{:href => "tel:+1-613-232-6289", :title => "Call us"} (613) 232-6289
-
-		%ul.social_links
-			%li.social_twitter
-				%a.wrap_svg{:href => "#", :title => "Follow us on Twitter"}
-					%svg.svg_ui-twitter
-						%use{"xlink:href" => "#ui_twitter"}
-			%li.social_instagram
-				%a.wrap_svg{:href => "#", :title => "Follow us on Instagram"}
-					%svg.svg_ui-instagram
-						%use{"xlink:href" => "#ui_instagram"}
-*/
-
-/*
-// --- Nav Toggle --- \\
-a.nav_toggle {
-	display: block;
-	position: absolute;
-	z-index: 100;
-	top: 2rem;
-	right: 1.6rem;
-	width: 4rem;
-	height: 4rem;
-}
-a.nav_toggle div.wrap_menu {
-	position: relative;
-	top: 0.9rem;
-	left: 0.4rem;
-	width: 3.2rem;
-	height: 2.2rem;
-}
-a.nav_toggle div.wrap_menu span {
-	display: block;
-	position: absolute;
-	left: 0;
-	width: 100%;
-	height: 0.3rem;
-	background-color: #fff;
-}
-a.nav_toggle div.wrap_menu span.one {
-	top: 0;
-}
-a.nav_toggle div.wrap_menu span.two {
-	top: 0.9rem;
-}
-a.nav_toggle div.wrap_menu span.three {
-	top: 1.8rem;
-}
-*/
-
+// --- Navigation --- \\
 nav {
 	display: none;
 }
-
-/*
-// --- Navigation --- \\
-nav.nav_primary {
-	max-height: 0;
-	text-align: center;
-	background-color: #fff;
-	overflow-y: hidden;
+nav ul {
 }
-nav.nav_primary ul {
-	padding: 3.2rem 1.6rem;
-}
-nav.nav_primary ul li {
-	margin-bottom: 2.6rem;
-}
-nav.nav_primary ul li:last-child {
-	margin-bottom: 0;
-}
-nav.nav_primary ul li a {
-	font-size: 1.8rem;
-	color: #000;
-}
-nav.nav_primary ul li a:hover {
-	color: hsla(0,0%,20%,1);
-}
-nav.nav_primary ul li a:active {
-	color: hsla(0,0%,40%,1);
-}
-// + social links + \\
-nav.nav_primary div.social_links {
-	padding-bottom: 3.2rem;
-	text-align: center;
-}
-nav.nav_primary div.social_links a {
+nav ul li {
 	display: inline-block;
-	width: 2.8rem;
-	height: 2.8rem;
+	margin-right: 3.2rem;
 }
-nav.nav_primary div.social_links a.social_twitter {
-	margin-right: 4rem;
+nav ul li:last-child {
+	margin-right: 0;
 }
-nav.nav_primary div.social_links a svg {
-	fill: #000;
+nav ul li a {
+	font-size: 1.8rem;
 }
-nav.nav_primary div.social_links a:hover svg {
-	fill: hsla(0,0%,20%,1);
-}
-nav.nav_primary div.social_links a:active svg {
-	fill: hsla(0,0%,40%,1);
-}
-// --- Toggled: Mobile Nav --- \\
-body.toggled_mobile-nav nav.nav_primary {
-	max-height: 32rem;
-}
-body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.one {
-	top: 0.9rem;
-	transform: rotate(-45deg);
-}
-body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.two {
-	opacity: 0;
-	transform: scale(0.2);
-}
-body.toggled_mobile-nav a.nav_toggle div.wrap_menu span.three {
-	top: 0.9rem;
-	transform: rotate(45deg);
-}
-*/
-
 
 // Footer
 // ----------------------------------------------------------------------------
 footer {
-	padding-bottom: 8rem;
+	padding-top: 10rem;
+	padding-bottom: 10rem;
 	text-align: center;
 }
 p.copyright {
@@ -484,50 +328,20 @@ ul.footer_pride li.pride_cross {
 
 // Sections
 // ----------------------------------------------------------------------------
-main {
+section.reserve,
+section.foodwine,
+section.private,
+section.gift,
+article.intro,
+article.lunchdinner {
+	margin-bottom: 8rem;
 }
-section,
-section article {
-	margin-bottom: 6rem;
-}
-section:last-child,
-section article:last-child {
-	margin-bottom: 0;
-}
-
-section.bacaro {
-	margin-bottom: 0;
-}
-
 section.reserve,
 section.foodwine,
 section.bacaro {
 	padding: 0 1.6rem;
 }
-
-
-
 // --- Content --- \\
-article h3,
-article h4,
-article h5 {
-	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
-	text-transform: uppercase;
-}
-article h3 {
-	font-size: 2.4rem;
-	letter-spacing: 0.3rem;
-}
-article h4 {
-	font-size: 1.8rem;
-	letter-spacing: 0.3rem;
-}
-article h5 {
-	margin-bottom: 3.2rem;
-	font-size: 1.6rem;
-	letter-spacing: 0.3rem;
-}
-
 div.wrap_content p,
 div.wrap_content cite {
 	margin-bottom: 2rem;
@@ -548,7 +362,26 @@ div.wrap_content p a[href^="tel:"] {
 div.wrap_content cite {
 	font-style: normal;
 }
-
+// + headings + \\
+article h3,
+article h4,
+article h5 {
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	text-transform: uppercase;
+}
+article h3 {
+	font-size: 2.4rem;
+	letter-spacing: 0.3rem;
+}
+article h4 {
+	font-size: 1.8rem;
+	letter-spacing: 0.3rem;
+}
+article h5 {
+	margin-bottom: 3.2rem;
+	font-size: 1.6rem;
+	letter-spacing: 0.3rem;
+}
 // --- Wrap Heading --- \\
 div.wrap_heading {
 	position: relative;
@@ -566,28 +399,62 @@ div.wrap_heading img {
 	margin: 0 auto;
 	width: 8rem;
 }
-
+// --- Wrap Rule --- \\
+div.wrap_rule {
+	position: relative;
+}
+div.wrap_rule::before {
+	content: "";
+	display: block;
+	position: absolute;
+	z-index: -1;
+	top: 48%;
+	right: 0;
+	left: 0;
+	height: 0.1rem;
+	background-color: $hsla_gold;
+}
 // --- Divider --- \\
 div.divider {
-	margin: 6rem auto 0 auto;
+	margin: 8rem auto 0 auto;
 	width: 2.6rem;
 	height: 2.6rem;
 }
 div.divider svg {
 	fill: $hsla_gold;
 }
-
 // --- Tag: Circle --- \\
 .tag_circle {
 	display: inline-block;
 	margin-bottom: 5.2rem;
+	color: $hsla_gold;
+	border: 0.1rem solid $hsla_gold;
+	overflow: hidden;
+}
+.tag_circle .tag_text {
+	display: inline-block;
 	padding: 1.4rem 2.2rem;
 	font-size: 1.5rem;
 	letter-spacing: 0.1rem;
+	line-height: 1.2;
 	text-transform: uppercase;
-	color: $hsla_gold;
-	border: 0.1rem solid $hsla_gold;
+	vertical-align: middle;
 }
+/*
+.tag_circle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin-bottom: 0;
+	width: 14.6rem;
+	height: 14.6rem;
+	line-height: 14.6rem;
+	border-radius: 50%;
+}
+.tag_circle .tag_text {
+	padding: 2rem;
+}
+*/
 
 // Reserve
 // ----------------------------------------------------------------------------
@@ -626,10 +493,8 @@ ul.menu_toggle li.menu_lunch::after {
 ul.menu_toggle li a.toggled {
 	color: $hsla_gold;
 }
-h6.tag_circle.updated {
-}
 div.menu_list ul {
-	margin-bottom: 6rem;
+	margin-bottom: 6.8rem;
 }
 div.menu_list ul:last-child {
 	margin-bottom: 0;
@@ -646,7 +511,6 @@ div.menu_list ul li span.menu_item {
 	// margin-right: 1rem;
 	margin-bottom: 0.6rem;
 }
-
 // --- Wine --- \\
 article.wine div.wrap_heading h3 {
 	top: 58%;
@@ -654,8 +518,6 @@ article.wine div.wrap_heading h3 {
 article.wine div.wrap_content {
 	margin-bottom: 5.2rem;
 }
-
-
 a.tag_circle.wine_full {
 	color: $hsla_pink;
 	border-color: $hsla_pink;
@@ -669,21 +531,16 @@ a.tag_circle.wine_full:active {
 	border-color: $hsla_blue-D;
 }
 
-
-
-
 // Bacaro
 // ----------------------------------------------------------------------------
 section.bacaro {
+	padding-top: 8rem;
+	padding-bottom: 8rem;
 	background-color: $hsla_blue;
 	background-image: url('../img/bg_bacaro.png');
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: cover;
-}
-
-article.message {
-	padding: 6rem 0;
 }
 article.message img {
 	margin: 0 auto 7.2rem auto;
@@ -696,21 +553,15 @@ article.message p {
 	color: $hsla_L96;
 }
 
-
-
 // Private Dining
 // ----------------------------------------------------------------------------
 section.private {
 	padding-top: 16rem;
 }
-
-
 div.sea-monster_top,
 div.sea-monster_btm {
 	position: relative;
 }
-
-
 img.octo-top {
 	position: absolute;
 	top: -9.8rem;
@@ -720,8 +571,6 @@ img.octo-top {
 	width: 30rem; // 68.5rem
 	// height: 17rem; // 38.8rem
 }
-
-// img.octo-top,
 img.octo-btm {
 	margin: 0 auto;
 	width: 12.9rem; // 29.7rem
@@ -733,21 +582,13 @@ span.divider_double {
 	border-top: 0.1rem solid $hsla_gold;
 	border-bottom: 0.1rem solid $hsla_gold;
 }
-
-
-
-
 article.dining {
-	padding-top: 3.2rem;
-	// padding-bottom: 6rem;
+	padding-top: 4rem;
+	padding-bottom: 6rem;
 }
-
 article.dining div.wrap_content {
 	padding: 0 1.6rem;
 }
-
-
-
 article.dining div.wrap_content ul {
 	margin-bottom: 3.2rem;
 	padding: 3.2rem 1.6rem;
@@ -762,17 +603,12 @@ article.dining div.wrap_content ul li {
 article.dining div.wrap_content ul li:last-child {
 	margin-bottom: 0;
 }
-
-
 article.dining a.button {
 	margin-bottom: 3.2rem;
 }
 article.dining div.wrap_content p:last-child {
 	font-size: 1.3rem; // 1.6rem
 }
-
-
-
 
 // Gift Certificates
 // ----------------------------------------------------------------------------
@@ -796,24 +632,21 @@ svg.svg_ui-heart {
 	height: 8.8rem;
 	fill: $hsla_blue;
 }
-
-
-
+article.certificates div.wrap_content p {
+	margin-bottom: 4rem;
+}
 
 // Photos
 // ----------------------------------------------------------------------------
 section.photos {
 	padding: 0 1.6rem;
 }
-
 section.photos div.wrap_rule {
-	// margin-bottom: 6rem;
+	margin-bottom: 4.8rem;
 }
 section.photos div.wrap_rule::before {
-	top: 48%; // was 49%
 	background-color: $hsla_blue;
 }
-
 section.photos div.wrap_svg {
 	display: inline-block;
 	padding: 0 1.4rem;
@@ -824,31 +657,22 @@ svg.svg_ui-eye {
 	height: 2.8rem;
 	fill: $hsla_blue;
 }
-
-
-
-
-
+// --- Packery --- \\
 article.packery div.gutter-sizer {
 	width: 1.6rem;
+	height: 1.6rem;
 }
 article.packery a.gallery_link {
 	display: block;
-	margin-bottom: 2rem;
-	width: calc(50% - 3.2rem);
+	width: calc(50% - 0.8rem);
 	opacity: 0.01;
 }
 article.packery a.gallery_link.loaded {
 	opacity: 1;
 }
-article.packery a.gallery_link:last-child {
-	margin-bottom: 0;
-}
-
 article.packery a.gallery_link:hover {
 	opacity: 0.86;
 }
 article.packery a.gallery_link:active {
 	opacity: 0.96;
 }
-

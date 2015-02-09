@@ -4,7 +4,15 @@
 
 @media only screen and (min-width: 30em) { // 480px / 16px = 30em
 
+// ==|== page styles ==========================================================
+// ============================================================================
 
+	// Photos
+	// ----------------------------------------------------------------------------
+	// --- Packery --- \\
+	article.packery a.gallery_link {
+		width: calc(33.3333333% - 1.1rem);
+	}
 
 }
 
@@ -16,59 +24,37 @@
 
 @media only screen and (min-width: 48em) { // 768px / 16px = 48em
 
-/*
-
-// ==|== primary styles =======================================================
+// ==|== page styles ==========================================================
 // ============================================================================
 
-	// General Styles
+	// Photos
 	// ----------------------------------------------------------------------------
-	// --- Containers --- \\
-	[data-container="width-padding_1440"] {
-		padding-left: 3.2rem;
-		padding-right: 3.2rem;
+	// --- Packery --- \\
+	article.packery div.gutter-sizer {
+		width: 3.2rem;
+		height: 3.2rem;
 	}
-	// --- Modals --- \\
-	[data-modal] {
-		right: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto;
-		width: 52rem;
-		height: auto;
-		max-height: 54.8rem;
-		border-radius: 1.6rem;
+	article.packery a.gallery_link {
+		width: calc(33.3333333% - 2.2rem);
 	}
-
-	// Buttons
-	// ----------------------------------------------------------------------------
-	.btn_rnd {
-		padding: 0 2.4rem;
-		height: 5.2rem;
-		line-height: 5.2rem;
-	}
-
-// ==|== common sections ======================================================
-// ============================================================================
-
-	// Header
-	// ----------------------------------------------------------------------------
-	// --- Wordmark --- \\
-	header a.wordmark {
-		left: 3.2rem;
-	}
-	// --- Nav Toggle --- \\
-	a.nav_toggle {
-		right: 3.2rem;
-	}
-
-*/
 
 }
 
 @media only screen and (min-width: 60em) { // 960px / 16px = 60em
 
+// ==|== page styles ==========================================================
+// ============================================================================
 
+	// Photos
+	// ----------------------------------------------------------------------------
+	// --- Packery --- \\
+	article.packery div.gutter-sizer {
+		width: 10.5rem;
+		height: 10.5rem;
+	}
+	article.packery a.gallery_link {
+		width: calc(33.3333333% - 7.2rem);
+	}
 
 }
 
