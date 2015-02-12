@@ -9,8 +9,8 @@ input,
 optgroup,
 select,
 textarea {
-	font-family: 'Slabo 13px', Georgia, Times, "Times New Roman", serif;
-	// font-variant-numeric: oldstyle-nums;
+	font-family: 'Archer SSm A', 'Archer SSm B', Georgia, Times, 'Times New Roman', serif;
+	// font-variant-numeric: lining-nums;
 	color: $hsla_blue;
 }
 body {
@@ -99,6 +99,18 @@ footer {
 }
 [data-container="width_848"] {
 	max-width: 84.8rem;
+}
+[data-container="width_768"] {
+	max-width: 76.8rem;
+}
+[data-container="width_720"] {
+	max-width: 72rem;
+}
+[data-container="width_680"] {
+	max-width: 68rem;
+}
+[data-container="width_660"] {
+	max-width: 66rem;
 }
 // --- SVGs --- \\
 #svgInject {
@@ -190,7 +202,7 @@ html.overlay_active body {
 // Header
 // ----------------------------------------------------------------------------
 header {
-	padding: 6rem 1.6rem 8rem 1.6rem;
+	padding: 6rem 1.6rem 10rem 1.6rem;
 }
 svg.svg_nn-logo {
 	margin: 0 auto 4rem auto;
@@ -203,7 +215,8 @@ header div.wrap_rule {
 }
 h2.tagline {
 	display: inline-block;
-	padding: 0 1.4rem;
+	padding-left: 1rem;
+	padding-right: 1rem;
 	font-size: 1.8rem; // 2.2rem;
 	color: $hsla_gold;
 	background-color: $hsla_L96;
@@ -219,8 +232,9 @@ h3.address {
 	margin-bottom: 2rem;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 2.2rem;
+	font-weight: 400;
 	text-transform: uppercase;
-	letter-spacing: 0.2rem;
+	letter-spacing: 0.5rem;
 }
 a.phone {
 	display: inline-block;
@@ -241,7 +255,7 @@ ul.social_links li a.wrap_svg svg {
 	fill: $hsla_blue;
 }
 ul.social_links li.social_twitter {
-	margin-right: 1rem;
+	margin-right: 1.4rem;
 }
 ul.social_links li.social_twitter a.wrap_svg {
 	width: 3.9rem; // webkit requires an explicit width
@@ -258,18 +272,27 @@ ul.social_links li a.wrap_svg:active svg {
 // --- Navigation --- \\
 nav {
 	display: none;
-}
-nav ul {
+	position: fixed;
+	z-index: 200;
+	top: 0;
+	left: 0;
+	right: 0;
+	padding: 3.2rem 0;
+	background-color: hsla(0,0%,96%,0.98);
+	border-top: 0.6rem solid $hsla_blue;
+	// box-shadow: 0 0.1rem 0.2rem hsla(0,0%,0%,0.2);
 }
 nav ul li {
 	display: inline-block;
-	margin-right: 3.2rem;
+	margin-right: 2rem; // 3.2rem;
 }
 nav ul li:last-child {
 	margin-right: 0;
 }
 nav ul li a {
-	font-size: 1.8rem;
+	padding: 1rem;
+	font-size: 1.6rem; // 1.8rem;
+	// background-color: hsla(0,0%,0%,0.4);
 }
 
 // Footer
@@ -280,7 +303,7 @@ footer {
 	text-align: center;
 }
 p.copyright {
-	font-size: 1.1rem;
+	font-size: 1.2rem;
 	letter-spacing: 0.1rem;
 }
 // --- Footer Contact --- \\
@@ -298,6 +321,7 @@ ul.footer_contact li:last-child {
 ul.footer_contact li.contact_title {
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 1.3rem;
+	font-weight: 400;
 	letter-spacing: 0.1rem;
 	text-transform: uppercase;
 }
@@ -309,6 +333,7 @@ ul.footer_pride li {
 	display: inline-block;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 1.1rem;
+	font-weight: 400;
 	letter-spacing: 0.1rem;
 	text-transform: uppercase;
 	vertical-align: middle;
@@ -334,18 +359,20 @@ section.private,
 section.gift,
 article.intro,
 article.lunchdinner {
-	margin-bottom: 8rem;
+	margin-bottom: 10rem;
 }
 section.reserve,
 section.foodwine,
-section.bacaro {
-	padding: 0 1.6rem;
+section.bacaro,
+section.gift {
+	padding-left: 1.6rem;
+	padding-right: 1.6rem;
 }
 // --- Content --- \\
 div.wrap_content p,
 div.wrap_content cite {
 	margin-bottom: 2rem;
-	font-size: 1.4rem; // 1.8rem;
+	font-size: 1.4rem;
 	line-height: 1.5;
 }
 div.wrap_content blockquote p,
@@ -367,20 +394,21 @@ article h3,
 article h4,
 article h5 {
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	font-weight: 400;
 	text-transform: uppercase;
 }
 article h3 {
 	font-size: 2.4rem;
-	letter-spacing: 0.3rem;
+	letter-spacing: 0.4rem;
 }
 article h4 {
 	font-size: 1.8rem;
-	letter-spacing: 0.3rem;
+	letter-spacing: 0.5rem;
 }
 article h5 {
 	margin-bottom: 3.2rem;
 	font-size: 1.6rem;
-	letter-spacing: 0.3rem;
+	letter-spacing: 0.4rem;
 }
 // --- Wrap Heading --- \\
 div.wrap_heading {
@@ -434,32 +462,20 @@ div.divider svg {
 .tag_circle .tag_text {
 	display: inline-block;
 	padding: 1.4rem 2.2rem;
-	font-size: 1.5rem;
+	font-size: 1.4rem; // 1.5rem;
 	letter-spacing: 0.1rem;
 	line-height: 1.2;
 	text-transform: uppercase;
 	vertical-align: middle;
 }
-/*
-.tag_circle {
-	position: absolute;
-	top: 0;
-	left: 0;
-	margin-bottom: 0;
-	width: 14.6rem;
-	height: 14.6rem;
-	line-height: 14.6rem;
-	border-radius: 50%;
-}
-.tag_circle .tag_text {
-	padding: 2rem;
-}
-*/
 
 // Reserve
 // ----------------------------------------------------------------------------
 section.reserve article div.wrap_content {
-	margin-bottom: 3.2rem;
+	margin-bottom: 4.8rem;
+}
+section.reserve article div.wrap_content p:first-of-type a[href="#"] {
+	text-decoration: none;
 }
 
 // Food & Wine
@@ -488,13 +504,15 @@ ul.menu_toggle li.menu_lunch::after {
 	right: -4.4rem;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 1.8rem;
+	font-weight: 400;
 	color: $hsla_gold;
 }
 ul.menu_toggle li a.toggled {
 	color: $hsla_gold;
 }
+// + menu list + \\
 div.menu_list ul {
-	margin-bottom: 6.8rem;
+	margin-bottom: 8rem;
 }
 div.menu_list ul:last-child {
 	margin-bottom: 0;
@@ -503,6 +521,9 @@ div.menu_list ul li {
 	margin-bottom: 1.6rem;
 	font-size: 1.4rem; // 1.8rem;
 	line-height: 1.2;
+}
+div.menu_list ul li:last-child {
+	margin-bottom: 0;
 }
 div.menu_list ul li span {
 	display: block;
@@ -529,6 +550,12 @@ a.tag_circle.wine_full:hover {
 a.tag_circle.wine_full:active {
 	color: $hsla_blue-D;
 	border-color: $hsla_blue-D;
+}
+// + temp? + \\
+p.wines {
+	margin-bottom: 6rem;
+	font-size: 1.6rem;
+	line-height: 1.5;
 }
 
 // Bacaro
@@ -568,13 +595,11 @@ img.octo-top {
 	left: 0;
 	right: 0;
 	margin: 0 auto;
-	width: 30rem; // 68.5rem
-	// height: 17rem; // 38.8rem
+	width: 30rem;
 }
 img.octo-btm {
 	margin: 0 auto;
-	width: 12.9rem; // 29.7rem
-	// height: 4.9rem; // 11.2rem
+	width: 12.9rem;
 }
 span.divider_double {
 	display: block;
@@ -582,6 +607,7 @@ span.divider_double {
 	border-top: 0.1rem solid $hsla_gold;
 	border-bottom: 0.1rem solid $hsla_gold;
 }
+// + dining content + \\
 article.dining {
 	padding-top: 4rem;
 	padding-bottom: 6rem;
@@ -590,13 +616,14 @@ article.dining div.wrap_content {
 	padding: 0 1.6rem;
 }
 article.dining div.wrap_content ul {
-	margin-bottom: 3.2rem;
+	margin: 0 auto 3.2rem auto;
 	padding: 3.2rem 1.6rem;
+	max-width: 51.6rem;
 	border: 0.1rem solid $hsla_blue;
 }
 article.dining div.wrap_content ul li {
 	margin-bottom: 1rem;
-	font-size: 1.3rem; // 1.4rem;
+	font-size: 1.3rem;
 	line-height: 1.2;
 	text-transform: uppercase;
 }
@@ -607,14 +634,11 @@ article.dining a.button {
 	margin-bottom: 3.2rem;
 }
 article.dining div.wrap_content p:last-child {
-	font-size: 1.3rem; // 1.6rem
+	font-size: 1.3rem;
 }
 
 // Gift Certificates
 // ----------------------------------------------------------------------------
-section.gift {
-	padding: 0 1.6rem;
-}
 article.certificates,
 article.certificates div.wrap_content {
 	border: 0.1rem solid $hsla_gold;
@@ -632,9 +656,11 @@ svg.svg_ui-heart {
 	height: 8.8rem;
 	fill: $hsla_blue;
 }
+/*
 article.certificates div.wrap_content p {
 	margin-bottom: 4rem;
 }
+*/
 
 // Photos
 // ----------------------------------------------------------------------------

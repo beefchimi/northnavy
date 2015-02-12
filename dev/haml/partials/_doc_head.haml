@@ -14,7 +14,8 @@
 	-# !!! REMOVE FOR LIVE !!!
 	%meta{:name => "robots", :content => "noindex, nofollow"}
 
-	%link{:rel => "stylesheet", :href => "assets/css/styles.css?v=1"}
+	%link{:rel => "stylesheet", :type => "text/css", :href => "//cloud.typography.com/7172754/762086/css/fonts.css"}
+	%link{:rel => "stylesheet", :type => "text/css", :href => "assets/css/styles.css?v=1"}
 
 	%script
 		= Haml::Engine.new(File.read("dev/haml/partials/_js_fonts.haml")).render

@@ -24,13 +24,47 @@
 
 @media only screen and (min-width: 48em) { // 768px / 16px = 48em
 
+// ==|== primary styles =======================================================
+// ============================================================================
+
+	// Foundation
+	// ----------------------------------------------------------------------------
+	body {
+		border-top: none;
+	}
+
 // ==|== common sections ======================================================
 // ============================================================================
 
 	// Header
 	// ----------------------------------------------------------------------------
+	header {
+		padding: 20rem 3.2rem 18rem 3.2rem;
+	}
+	svg.svg_nn-logo {
+		margin-bottom: 9rem;
+	}
+	header div.wrap_rule {
+		margin-bottom: 10rem;
+	}
 	h2.tagline {
+		padding-left: 2.6rem;
+		padding-right: 2.6rem;
 		font-size: 2.2rem;
+		letter-spacing: 0.1rem;
+	}
+	div.wordmark.wrap_svg {
+		margin-bottom: 16rem;
+	}
+	h3.address {
+		letter-spacing: 1rem;
+	}
+	a.phone {
+		margin-bottom: 6rem;
+	}
+	// --- Navigation --- \\
+	nav {
+		display: block;
 	}
 
 // ==|== page styles ==========================================================
@@ -38,16 +72,50 @@
 
 	// Sections
 	// ----------------------------------------------------------------------------
+	section.reserve,
+	section.foodwine,
+	section.private,
+	section.gift,
+	article.lunchdinner {
+		margin-bottom: 16rem;
+	}
+	section.reserve,
+	section.foodwine,
+	section.bacaro,
+	section.gift {
+		padding-left: 3.2rem;
+		padding-right: 3.2rem;
+	}
 	// --- Content --- \\
 	div.wrap_content p,
 	div.wrap_content cite {
-		font-size: 1.8rem;
+		margin-bottom: 4rem;
+		font-size: 1.6rem; // was 18px and 600 weight
+		line-height: 1.6;
+	}
+	// + headings + \\
+	article h3 {
+		letter-spacing: 0.8rem;
+	}
+	article h5 {
+		// margin-bottom: 4rem;
+	}
+	// --- Wrap Heading --- \\
+	div.wrap_heading {
+		margin-bottom: 9rem;
+	}
+	div.wrap_heading img {
+		width: auto;
+	}
+	// --- Divider --- \\
+	div.divider {
+		margin-top: 16rem;
 	}
 	// --- Tag: Circle --- \\
 	.tag_circle {
 		position: absolute;
-		top: 0;
-		left: 0;
+		// top: 0;
+		// left: 0;
 		margin-bottom: 0;
 		width: 14.6rem;
 		height: 14.6rem;
@@ -58,36 +126,139 @@
 		padding: 2rem;
 	}
 
+	// Reserve
+	// ----------------------------------------------------------------------------
+	section.reserve article div.wrap_content {
+		margin-bottom: 6rem;
+	}
+
 	// Food & Wine
 	// ----------------------------------------------------------------------------
+	article.intro div.wrap_heading h3 {
+		top: 46%;
+		margin-left: 2.8rem;
+	}
+	article.intro div.wrap_heading h3 span.letter_2 {
+		margin-right: 9rem;
+	}
 	// --- Lunch & Dinner --- \\
+	article.lunchdinner {
+		position: relative;
+	}
+	article.lunchdinner span.tag_circle {
+		top: 10rem;
+		right: -3.2rem;
+	}
+	ul.menu_toggle {
+		margin-bottom: 10rem;
+	}
+	ul.menu_toggle li.menu_lunch {
+		margin-right: 12rem;
+	}
+	ul.menu_toggle li.menu_lunch::after {
+		right: -6.6rem;
+	}
+	// + menu list + \\
+	div.menu_list ul {
+		// margin-bottom: 10rem;
+	}
 	div.menu_list ul li {
-		font-size: 1.8rem;
+		font-size: 1.6rem;
+		line-height: 1;
 	}
 	div.menu_list ul li span {
 		display: inline-block;
 	}
 	div.menu_list ul li span.menu_item {
-		margin-right: 1rem;
+		margin-right: 2.6rem;
 		margin-bottom: 0;
+		// truncate styles
+		overflow: hidden;
+		padding-bottom: 0.2em;
+		max-width: 44rem;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	div.menu_list ul li span.menu_price {
+		transform: translateY(-0.5rem);
+	}
+	// --- Wine --- \\
+	article.wine {
+		position: relative;
+	}
+	article.wine a.tag_circle {
+		top: 32rem;
+		left: -3.2rem;
+	}
+	article.wine div.wrap_heading h3 {
+		margin-left: 0.4rem;
+	}
+	article.wine div.wrap_heading h3 span.letter_2 {
+		margin-right: 6rem;
+	}
+	article.wine div.wrap_content {
+		margin-bottom: 7.2rem;
+	}
+	// + temp? + \\
+	p.wines {
+		// margin-bottom: 10rem;
+		font-size: 1.8rem;
+	}
+
+	// Bacaro
+	// ----------------------------------------------------------------------------
+	section.bacaro {
+		padding-top: 12rem;
+		padding-bottom: 12rem;
 	}
 
 	// Private Dining
 	// ----------------------------------------------------------------------------
-	img.octo-top {
-		// top: -9.8rem;
-		width: 68.5rem;
-		// height: 17rem; // 38.8rem
+	section.private {
+		padding-top: 32rem;
 	}
+	img.octo-top,
 	img.octo-btm {
-		width: 29.7rem;
-		// height: 4.9rem; // 11.2rem
+		width: auto;
+	}
+	img.octo-top {
+		top: -22.5rem;
+	}
+	// + dining content + \\
+	article.dining {
+		padding-top: 8rem;
+		padding-bottom: 8rem;
+	}
+	article.dining h5 {
+		margin-bottom: 6rem;
+	}
+	article.dining div.wrap_content ul {
+		margin-top: 4.8rem;
+		margin-bottom: 6rem;
 	}
 	article.dining div.wrap_content ul li {
 		font-size: 1.4rem;
 	}
+	article.dining a.button {
+		margin-bottom: 6rem;
+	}
 	article.dining div.wrap_content p:last-child {
-		font-size: 1.6rem;
+		font-size: 1.3rem;
+	}
+
+	// Gift Certificates
+	// ----------------------------------------------------------------------------
+	article.certificates {
+		padding: 3.2rem;
+	}
+	article.certificates div.wrap_content {
+		padding: 6rem;
+	}
+	article.certificates div.wrap_content h5 {
+		margin-bottom: 6rem;
+	}
+	svg.svg_ui-heart {
+		margin-bottom: 4rem;
 	}
 
 	// Photos
@@ -105,8 +276,38 @@
 
 @media only screen and (min-width: 60em) { // 960px / 16px = 60em
 
+// ==|== common sections ======================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	// --- Navigation --- \\
+	nav ul li {
+		margin-right: 3.2rem;
+	}
+	nav ul li a {
+		font-size: 1.8rem;
+	}
+
 // ==|== page styles ==========================================================
 // ============================================================================
+
+	// Food & Wine
+	// ----------------------------------------------------------------------------
+	// --- Lunch & Dinner --- \\
+	article.lunchdinner span.tag_circle {
+		right: -13.2rem;
+	}
+	// + menu list + \\
+	div.menu_list ul li span.menu_item {
+		// truncate styles
+		max-width: 54rem;
+	}
+	// --- Wine --- \\
+	article.wine a.tag_circle {
+		top: 52rem;
+		left: -13.2rem;
+	}
 
 	// Photos
 	// ----------------------------------------------------------------------------
@@ -123,12 +324,40 @@
 
 @media only screen and (min-width: 75em) { // 1200px / 16px = 75em
 
+// ==|== common sections ======================================================
+// ============================================================================
 
+	// Header
+	// ----------------------------------------------------------------------------
+	header {
+		padding-bottom: 20rem;
+	}
 
-}
+// ==|== page styles ==========================================================
+// ============================================================================
 
-@media only screen and (min-width: 90em) { // 1440px / 16px = 90em
+	// Sections
+	// ----------------------------------------------------------------------------
+	section.reserve,
+	section.foodwine,
+	section.private,
+	section.gift,
+	article.lunchdinner {
+		margin-bottom: 20rem;
+	}
 
+	// Bacaro
+	// ----------------------------------------------------------------------------
+	section.bacaro {
+		padding-top: 20rem;
+		padding-bottom: 20rem;
+	}
+
+	// Private Dining
+	// ----------------------------------------------------------------------------
+	section.private {
+		padding-top: 42rem;
+	}
 
 
 }
