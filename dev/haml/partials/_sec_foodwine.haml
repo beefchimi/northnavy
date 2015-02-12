@@ -23,92 +23,112 @@
 
 		-# Detect what time it is and toggle Dinner if after a certain time?
 
-		%ul.menu_toggle
-			%li.menu_lunch
-				%a#toggle_lunch.toggled{:href => "#", :title => "See our Lunch menu"}
-					%h4 Lunch
-			%li.menu_dinner
-				%a#toggle_dinner{:href => "#", :title => "See our Dinner menu"}
-					%h4 Dinner
+		-# %ul.menu_toggle
+			-# %li.menu_lunch
+				-# %a#toggle_lunch.toggled{:href => "#", :title => "See our Lunch menu"}
+					-# %h4 Lunch
+			-# %li.menu_dinner
+				-# %a#toggle_dinner{:href => "#", :title => "See our Dinner menu"}
+					-# %h4 Dinner
+
+		%h4.temp_title Dinner
 
 		%span.tag_circle.updated
-			%h6.tag_text Updated Feb 9
+			%h6.tag_text Updated Feb 12
 
 		.wrap_menu
 
-			#menu_lunch.menu_list.toggled
+			#menu_dinner.menu_list
 
-				%h5 Main
+				%h5 Cich&egrave;ti
 				%ul
 					%li
-						%span.menu_item Minestrone Soup
-						%span.menu_price 7
+						%span.menu_item Baccala Cappucina
+						%span.menu_price 3
 					%li
-						%span.menu_item Peperonata with Poached Egg
+						%span.menu_item Anchovy and White Bean
+						%span.menu_price 3
+					%li
+						%span.menu_item Sard&egrave;le in sa&oacute;r
+						%span.menu_price 3
+					%li
+						%span.menu_item Smoked Ricotta and Fennel
+						%span.menu_price 4
+					%li
+						%span.menu_item Bresola Lettuce Wraps
+						%span.menu_price 4
+					%li
+						%span.menu_item Pork &amp; Beef Polpette
+						%span.menu_price 4
+					%li
+						%span.menu_item Cich&egrave;ti Plate (one of each)
+						%span.menu_price 18
+
+				%h5 Primi
+				%ul
+					%li
+						%span.menu_item Rise e bisi
 						%span.menu_price 8
 					%li
-						%span.menu_item Endive Caesar Salad
-						%span.menu_price 9
-					%li
-						%span.menu_item Citrus Salad
+						%span.menu_item Potato and Ricotta Tortelletti in Parmesan Potato Skin Brodo
 						%span.menu_price 10
 					%li
 						%span.menu_item Bigoli in salsa
-						%span.menu_price 8
+						%span.menu_price 9
 					%li
 						%span.menu_item Corzetti with Walnuts and Pancetta
 						%span.menu_price 9
-					%li
-						%span.menu_item Mackerel in sa&oacute;r
-						%span.menu_price 22
-					%li
-						%span.menu_item Warm Octopus and Potato Salad
-						%span.menu_price 22
-					%li
-						%span.menu_item Mortadella bianca
-						%span.menu_price 12
-					%li
-						%span.menu_item Venetian Liver and Onions
-						%span.menu_price 18
 
-				%h5 Sweet
+				%h5 Antipasta
 				%ul
 					%li
-						%span.menu_item Baicoli and Coffee
+						%span.menu_item Citrus Salad
+						%span.menu_price 12
+					%li
+						%span.menu_item Raw Mushroom Carpaccio
+						%span.menu_price 9
+					%li
+						%span.menu_item Endive Caesar Salad
+						%span.menu_price 10
+					%li
+						%span.menu_item Fried Smelts
+						%span.menu_price 12
+					%li
+						%span.menu_item Pork and Beef Polpette (3)
+						%span.menu_price 12
+
+				%h5 Secondi
+				%ul
+					%li
+						%span.menu_item Warm Octopus and Potatoes
+						%span.menu_price 28
+					%li
+						%span.menu_item Mackerel in sa&oacute;r
+						%span.menu_price 24
+					%li
+						%span.menu_item Turkey and Polenta
+						%span.menu_price 23
+					%li
+						%span.menu_item Venetian Liver &amp; Onions
+						%span.menu_price 22
+					%li
+						%span.menu_item Flatiron with Fried Salami and Sunny Side Egg
+						%span.menu_price 24
+					%li
+						%span.menu_item Bistecca Fiorintina (460z, serves two)
+						%span.menu_price 130
+
+				%h5 Dolce
+				%ul
+					%li
+						%span.menu_item Baicoli &amp; Coffee
 						%span.menu_price 6
 					%li
 						%span.menu_item Tiramisu
 						%span.menu_price 8
 					%li
-						%span.menu_item Cacio e pepe Twinkie
+						%span.menu_item Giuseppe Luigi
 						%span.menu_price 9
-
-				%h5 To Drink
-				%ul
-					%li
-						%span.menu_item Alois Lageder, Pinot Grigio 2013
-						%span.menu_price 4
-					%li
-						%span.menu_item Negrar, Valpolicella Ripasso 2012
-						%span.menu_price 4
-					%li
-						%span.menu_item Hinterland Whitecap 2013
-						%span.menu_price 4
-
-				%h5 Beer
-				%ul
-					%li
-						%span.menu_item Mini Beau&rsquo;s
-						%span.menu_price 3
-					%li
-						%span.menu_item Peroni
-						%span.menu_price 3
-
-
-
-
-
-
 
 		.wrap_svg.divider
 			%svg.svg_ui-close
@@ -130,10 +150,10 @@
 
 			%img{:src => "assets/img/ill_bottle.png", :alt => ""}
 
-		.wrap_content
-			%blockquote
-				%p In vino veritas.
-				%cite –Piny the Elder
+		-# .wrap_content
+			-# %blockquote
+				-# %p In vino veritas.
+				-# %cite –Piny the Elder
 
 		-# %a.tag_circle.wine_full{:href => "#", :title => "View Full Wine List"}
 			-# %span.tag_text View Full Wine List

@@ -9,26 +9,6 @@
 
 		.gutter-sizer
 
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_pasta.jpg", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_plate.jpg", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_whisky.jpg", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_coffee.png", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_bacon.jpg", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_spoon.png", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_eggs.jpg", :alt => ""}
-
-		%a.gallery_link{:href => "#", :title => ""}
-			%img{:src => "assets/img/gallery_nepean.jpg", :alt => ""}
+		- (1..17).each do |i|
+			.gallery_link
+				%img{:src => "assets/img/nn_#{i}.jpg", :alt => ""}

@@ -10,7 +10,7 @@
 	// Photos
 	// ----------------------------------------------------------------------------
 	// --- Packery --- \\
-	article.packery a.gallery_link {
+	article.packery .gallery_link {
 		width: calc(33.3333333% - 1.1rem);
 	}
 
@@ -82,7 +82,8 @@
 	section.reserve,
 	section.foodwine,
 	section.bacaro,
-	section.gift {
+	section.gift,
+	section.photos {
 		padding-left: 3.2rem;
 		padding-right: 3.2rem;
 	}
@@ -149,6 +150,7 @@
 		top: 10rem;
 		right: -3.2rem;
 	}
+	h4.temp_title, // remove this
 	ul.menu_toggle {
 		margin-bottom: 10rem;
 	}
@@ -196,13 +198,15 @@
 	article.wine div.wrap_heading h3 span.letter_2 {
 		margin-right: 6rem;
 	}
+/*
 	article.wine div.wrap_content {
 		margin-bottom: 7.2rem;
 	}
+*/
 	// + temp? + \\
 	p.wines {
 		// margin-bottom: 10rem;
-		font-size: 1.8rem;
+		// font-size: 1.8rem;
 	}
 
 	// Bacaro
@@ -263,12 +267,15 @@
 
 	// Photos
 	// ----------------------------------------------------------------------------
+	section.photos div.wrap_rule {
+		margin-bottom: 8rem;
+	}
 	// --- Packery --- \\
 	article.packery div.gutter-sizer {
 		width: 3.2rem;
 		height: 3.2rem;
 	}
-	article.packery a.gallery_link {
+	article.packery .gallery_link {
 		width: calc(33.3333333% - 2.2rem);
 	}
 
@@ -286,8 +293,16 @@
 		margin-right: 3.2rem;
 	}
 	nav ul li a {
-		font-size: 1.8rem;
+		// font-size: 1.8rem;
 	}
+
+	// Footer
+	// ----------------------------------------------------------------------------
+	footer {
+		padding-top: 24rem;
+		padding-bottom: 18rem;
+	}
+
 
 // ==|== page styles ==========================================================
 // ============================================================================
@@ -316,7 +331,7 @@
 		width: 10.5rem;
 		height: 10.5rem;
 	}
-	article.packery a.gallery_link {
+	article.packery .gallery_link {
 		width: calc(33.3333333% - 7.2rem);
 	}
 

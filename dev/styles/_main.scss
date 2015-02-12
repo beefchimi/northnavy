@@ -48,6 +48,9 @@ button {
 svg {
 	transition: fill 0.3s ease-in-out;
 }
+div.gallery_link {
+	transition: opacity 0.3s ease-in-out;
+}
 /*
 nav.nav_primary {
 	transition: max-height 0.4s ease-in-out;
@@ -80,12 +83,14 @@ a.nav_toggle div.wrap_menu span {
 }
 */
 // --- FOUT --- \\
+/*
 main,
 header,
 footer {
 	opacity: 0; // begin by setting opacity to 0
 	animation: animShow 0.6s ease-in-out 0.2s forwards;
 }
+*/
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -273,7 +278,7 @@ ul.social_links li a.wrap_svg:active svg {
 nav {
 	display: none;
 	position: fixed;
-	z-index: 200;
+	z-index: 999;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -281,6 +286,8 @@ nav {
 	background-color: hsla(0,0%,96%,0.98);
 	border-top: 0.6rem solid $hsla_blue;
 	// box-shadow: 0 0.1rem 0.2rem hsla(0,0%,0%,0.2);
+}
+nav ul {
 }
 nav ul li {
 	display: inline-block;
@@ -298,7 +305,7 @@ nav ul li a {
 // Footer
 // ----------------------------------------------------------------------------
 footer {
-	padding-top: 12rem;
+	padding-top: 14rem;
 	padding-bottom: 10rem;
 	text-align: center;
 }
@@ -312,7 +319,7 @@ ul.footer_contact {
 }
 ul.footer_contact li {
 	margin-bottom: 1.4rem;
-	font-size: 1.4rem;
+	font-size: 1.3rem;
 	letter-spacing: 0.1rem;
 }
 ul.footer_contact li:last-child {
@@ -320,7 +327,6 @@ ul.footer_contact li:last-child {
 }
 ul.footer_contact li.contact_title {
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
-	font-size: 1.3rem;
 	font-weight: 400;
 	letter-spacing: 0.1rem;
 	text-transform: uppercase;
@@ -364,7 +370,8 @@ article.lunchdinner {
 section.reserve,
 section.foodwine,
 section.bacaro,
-section.gift {
+section.gift,
+section.photos {
 	padding-left: 1.6rem;
 	padding-right: 1.6rem;
 }
@@ -474,7 +481,7 @@ div.divider svg {
 section.reserve article div.wrap_content {
 	margin-bottom: 4.8rem;
 }
-section.reserve article div.wrap_content p:first-of-type a[href="#"] {
+section.reserve article div.wrap_content p:first-of-type a[target] {
 	text-decoration: none;
 }
 
@@ -486,6 +493,7 @@ article.intro div.wrap_heading h3 {
 	margin-left: 1.4rem;
 }
 // --- Lunch & Dinner --- \\
+h4.temp_title, // remove this
 ul.menu_toggle {
 	margin-bottom: 4rem;
 }
@@ -536,9 +544,11 @@ div.menu_list ul li span.menu_item {
 article.wine div.wrap_heading h3 {
 	top: 58%;
 }
+/*
 article.wine div.wrap_content {
 	margin-bottom: 5.2rem;
 }
+*/
 a.tag_circle.wine_full {
 	color: $hsla_pink;
 	border-color: $hsla_pink;
@@ -553,7 +563,8 @@ a.tag_circle.wine_full:active {
 }
 // + temp? + \\
 p.wines {
-	margin-bottom: 6rem;
+	margin: 0 auto 6rem auto;
+	max-width: 39rem;
 	font-size: 1.6rem;
 	line-height: 1.5;
 }
@@ -664,9 +675,6 @@ article.certificates div.wrap_content p {
 
 // Photos
 // ----------------------------------------------------------------------------
-section.photos {
-	padding: 0 1.6rem;
-}
 section.photos div.wrap_rule {
 	margin-bottom: 4.8rem;
 }
@@ -688,17 +696,17 @@ article.packery div.gutter-sizer {
 	width: 1.6rem;
 	height: 1.6rem;
 }
-article.packery a.gallery_link {
-	display: block;
+article.packery .gallery_link {
+	// display: block;
 	width: calc(50% - 0.8rem);
 	opacity: 0.01;
 }
-article.packery a.gallery_link.loaded {
+article.packery .gallery_link.loaded {
 	opacity: 1;
 }
-article.packery a.gallery_link:hover {
+article.packery .gallery_link:hover {
 	opacity: 0.86;
 }
-article.packery a.gallery_link:active {
+article.packery .gallery_link:active {
 	opacity: 0.96;
 }

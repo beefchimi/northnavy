@@ -19,6 +19,27 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+	// smoothScrollNav: Smooth scrollin' for nav links
+	// ----------------------------------------------------------------------------
+/*
+	function smoothScrollNav() {
+
+		var arrNavLinks = document.getElementsByTagName('nav')[0],
+			scrollOptions = {
+				speed: 1000,
+				easing: 'easeInOutQuint',
+				updateURL: false,
+				offset: 0 // numOffset
+			};
+
+			for (var i = 0; i < arrNavLinks.length; i++) {
+				smoothScroll.animateScroll(null, '#form_quote', scrollOptions);
+			}
+
+	}
+*/
+
+
 	// layoutPackery: Wait until images are loaded then layout with packery.js
 	// ----------------------------------------------------------------------------
 	function layoutPackery() {
@@ -31,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// initalize packery
 			var elPackery = new Packery(elPackeryContainer, {
-				itemSelector: 'a.gallery_link',
+				itemSelector: '.gallery_link',
 				gutter: 'div.gutter-sizer',
 				transitionDuration: '0.6s',
 				visibleStyle: {
@@ -62,6 +83,13 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	secretEmail();
 	layoutPackery();
+
+	smoothScroll.init({
+		speed: 1000,
+		easing: 'easeInOutQuint',
+		updateURL: false,
+		offset: 200 // numOffset
+	});
 
 
 }, false);
