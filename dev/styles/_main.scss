@@ -43,10 +43,16 @@ a,
 input,
 button {
 	transition: all 0.3s ease-in-out;
-	// backface-visibility: hidden;
 }
 svg {
 	transition: fill 0.3s ease-in-out;
+}
+div.wrap_menu {
+	transition: height 0.6s ease-in-out;
+}
+div.wrap_menu div.menu_list {
+	transition: opacity 0.6s ease-in-out;
+	// will-change: opacity;
 }
 div.gallery_link {
 	transition: opacity 0.3s ease-in-out;
@@ -209,11 +215,14 @@ html.overlay_active body {
 header {
 	padding: 6rem 1.6rem 10rem 1.6rem;
 }
-svg.svg_nn-logo {
+div.nn_logo {
 	margin: 0 auto 4rem auto;
-	width: 12rem;
-	height: 9.8rem;
-	fill: $hsla_blue;
+	max-width: 12rem;
+}
+header div.wrap_rule,
+div.nn_wordmark {
+	margin-left: auto;
+	margin-right: auto;
 }
 header div.wrap_rule {
 	margin-bottom: 6rem;
@@ -226,15 +235,16 @@ h2.tagline {
 	color: $hsla_gold;
 	background-color: $hsla_L96;
 }
-div.wordmark.wrap_svg {
+div.nn_wordmark {
 	margin-bottom: 6rem;
 }
-svg.svg_nn-wordmark {
+div.nn_logo svg,
+div.nn_wordmark svg {
 	display: inline; // webkit does not respect [viewBox] attribute selector
 	fill: $hsla_blue;
 }
 h3.address {
-	margin-bottom: 2rem;
+	margin-bottom: 1.6rem;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 2.2rem;
 	font-weight: 400;
@@ -286,6 +296,16 @@ nav {
 	background-color: hsla(0,0%,96%,0.98);
 	border-top: 0.6rem solid $hsla_blue;
 	// box-shadow: 0 0.1rem 0.2rem hsla(0,0%,0%,0.2);
+}
+nav svg {
+	display: none;
+	position: absolute;
+	top: 1.4rem;
+	left: 3.2rem;
+	width: 6.4rem;
+	height: 5.2rem;
+	fill: $hsla_blue;
+	opacity: 0;
 }
 nav ul {
 }
@@ -402,6 +422,7 @@ article h4,
 article h5 {
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-weight: 400;
+	line-height: 1.3;
 	text-transform: uppercase;
 }
 article h3 {
@@ -493,6 +514,21 @@ article.intro div.wrap_heading h3 {
 	margin-left: 1.4rem;
 }
 // --- Lunch & Dinner --- \\
+div.wrap_menu {
+	position: relative;
+	overflow: hidden;
+}
+div.wrap_menu div.menu_list {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	opacity: 0;
+}
+div.wrap_menu div.menu_list.toggled {
+	opacity: 1;
+}
+// + menu toggle + \\
 h4.temp_title, // remove this
 ul.menu_toggle {
 	margin-bottom: 4rem;
@@ -516,6 +552,7 @@ ul.menu_toggle li.menu_lunch::after {
 	color: $hsla_gold;
 }
 ul.menu_toggle li a.toggled {
+	pointer-events: none;
 	color: $hsla_gold;
 }
 // + menu list + \\
@@ -527,7 +564,7 @@ div.menu_list ul:last-child {
 }
 div.menu_list ul li {
 	margin-bottom: 1.6rem;
-	font-size: 1.4rem; // 1.8rem;
+	font-size: 1.4rem;
 	line-height: 1.2;
 }
 div.menu_list ul li:last-child {

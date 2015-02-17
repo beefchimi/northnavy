@@ -16,9 +16,22 @@
 
 }
 
-@media only screen and (min-width: 35.5em) { // 568px / 16px = 35.5em
+@media only screen and (min-width: 48em) and (min-height: 37.5em) { // 600px / 16px = 37.5em
 
+// ==|== common sections ======================================================
+// ============================================================================
 
+	// Header
+	// ----------------------------------------------------------------------------
+	header div.wrap_rule {
+		margin-bottom: 9rem;
+	}
+	h2.tagline {
+		padding-left: 2.6rem;
+		padding-right: 2.6rem;
+		font-size: 2.2rem;
+		letter-spacing: 0.1rem;
+	}
 
 }
 
@@ -39,28 +52,31 @@
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
-		padding: 20rem 3.2rem 18rem 3.2rem;
+		display: table;
+		table-layout: fixed;
+		position: relative;
+		margin-bottom: 7.2rem;
+		padding: 10rem 3.2rem 3.2rem 3.2rem;
+		// padding: 20rem 3.2rem 18rem 3.2rem;
+		// padding: 0 3.2rem;
+		width: 100%;
+		height: 100vh;
 	}
-	svg.svg_nn-logo {
-		margin-bottom: 9rem;
+	div.wrap_viewport {
+		display: table-cell;
+		vertical-align: middle;
 	}
-	header div.wrap_rule {
-		margin-bottom: 10rem;
+	div.nn_logo {
+		margin-bottom: 8rem;
 	}
-	h2.tagline {
-		padding-left: 2.6rem;
-		padding-right: 2.6rem;
-		font-size: 2.2rem;
-		letter-spacing: 0.1rem;
-	}
-	div.wordmark.wrap_svg {
-		margin-bottom: 16rem;
+	div.nn_wordmark {
+		margin-bottom: 14rem;
 	}
 	h3.address {
 		letter-spacing: 1rem;
 	}
 	a.phone {
-		margin-bottom: 6rem;
+		margin-bottom: 4.8rem;
 	}
 	// --- Navigation --- \\
 	nav {
@@ -150,6 +166,7 @@
 		top: 10rem;
 		right: -3.2rem;
 	}
+	// + menu toggle + \\
 	h4.temp_title, // remove this
 	ul.menu_toggle {
 		margin-bottom: 10rem;
@@ -281,6 +298,24 @@
 
 }
 
+@media only screen and (min-width: 57em) and (max-height: 57em) { // 912px / 16px = 57em
+
+// ==|== common sections ======================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	div.nn_logo {
+		display: none;
+	}
+	// --- Navigation --- \\
+	nav svg {
+		display: block;
+		opacity: 1;
+	}
+
+}
+
 @media only screen and (min-width: 60em) { // 960px / 16px = 60em
 
 // ==|== common sections ======================================================
@@ -345,7 +380,12 @@
 	// Header
 	// ----------------------------------------------------------------------------
 	header {
-		padding-bottom: 20rem;
+		// padding-bottom: 20rem;
+		margin-bottom: 13.2rem;
+	}
+	// --- Navigation --- \\
+	nav svg {
+		display: block;
 	}
 
 // ==|== page styles ==========================================================
@@ -373,7 +413,6 @@
 	section.private {
 		padding-top: 42rem;
 	}
-
 
 }
 

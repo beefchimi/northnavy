@@ -1,42 +1,47 @@
 %header
 
-	%div{"data-container" => "width_848"}
+	.wrap_viewport
 
-		%nav
-			%ul
-				%li
-					%a{:href => "#reserve", :title => "Reserve", "data-scroll" => true} Reserve
-				%li
-					%a{:href => "#foodwine", :title => "Food and Wine", "data-scroll" => true} Food &amp; Wine
-				%li
-					%a{:href => "#bacaro", :title => "Bacaro", "data-scroll" => true} Bacaro
-				%li
-					%a{:href => "#private", :title => "Private Dining", "data-scroll" => true} Private Dining
-				%li
-					%a{:href => "#photos", :title => "Photos", "data-scroll" => true} Photos
-				%li
-					%a#email_header{:href => "#", :title => "Get in Touch"} Get in Touch
+		%div{"data-container" => "width_848"}
 
-		%svg.svg_nn-logo
-			%use{"xlink:href" => "#nn_logo"}
+			%nav
+				%svg.svg_nn-logo-thick
+					%use{"xlink:href" => "#nn_logo-thick"}
+				%ul
+					%li
+						%a{:href => "#reserve", :title => "Reserve", "data-scroll" => true} Reserve
+					%li
+						%a{:href => "#foodwine", :title => "Food and Wine", "data-scroll" => true} Food &amp; Wine
+					%li
+						%a{:href => "#bacaro", :title => "Bacaro", "data-scroll" => true} Bacaro
+					%li
+						%a{:href => "#private", :title => "Private Dining", "data-scroll" => true} Private Dining
+					%li
+						%a{:href => "#photos", :title => "Photos", "data-scroll" => true} Photos
+					%li
+						%a#email_header{:href => "#", :title => "Get in Touch"} Get in Touch
 
-		.wrap_rule
-			%h2.tagline A Northern Italian Kitchen
+			#resize_logo.nn_logo.wrap_svg
+				%svg.svg_nn-logo{:viewBox => "0 0 120 98"}
+					%use{"xlink:href" => "#nn_logo"}
 
-		%h1.visuallyhidden North and Navy
-		.wordmark.wrap_svg
-			%svg.svg_nn-wordmark{:viewBox => "0 0 850 327"}
-				%use{"xlink:href" => "#nn_wordmark"}
+			#resize_rule.wrap_rule
+				%h2.tagline A Northern Italian Kitchen
 
-		%h3.address 226 Nepean St.
-		%a.phone{:href => "tel:+1-613-232-6289", :title => "Call us"} (613) 232-6289
+			%h1.visuallyhidden North and Navy
+			#resize_wordmark.nn_wordmark.wrap_svg
+				%svg.svg_nn-wordmark{:viewBox => "0 0 850 327"}
+					%use{"xlink:href" => "#nn_wordmark"}
 
-		%ul.social_links
-			%li.social_twitter
-				%a.wrap_svg{:href => "https://twitter.com/northandnavy", :title => "Follow us on Twitter", :target => "_blank"}
-					%svg.svg_ui-twitter{:viewBox => "0 0 64 46"}
-						%use{"xlink:href" => "#ui_twitter"}
-			%li.social_instagram
-				%a.wrap_svg{:href => "http://instagram.com/northandnavy", :title => "See us on Instagram", :target => "_blank"}
-					%svg.svg_ui-instagram{:viewBox => "0 0 64 64"}
-						%use{"xlink:href" => "#ui_instagram"}
+			%h3.address 226 Nepean St.
+			%a.phone{:href => "tel:+1-613-232-6289", :title => "Call us"} (613) 232-6289
+
+			%ul.social_links
+				%li.social_twitter
+					%a.wrap_svg{:href => "https://twitter.com/northandnavy", :title => "Follow us on Twitter", :target => "_blank"}
+						%svg.svg_ui-twitter{:viewBox => "0 0 64 46"}
+							%use{"xlink:href" => "#ui_twitter"}
+				%li.social_instagram
+					%a.wrap_svg{:href => "http://instagram.com/northandnavy", :title => "See us on Instagram", :target => "_blank"}
+						%svg.svg_ui-instagram{:viewBox => "0 0 64 64"}
+							%use{"xlink:href" => "#ui_instagram"}

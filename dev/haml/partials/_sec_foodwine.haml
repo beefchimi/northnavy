@@ -23,22 +23,91 @@
 
 		-# Detect what time it is and toggle Dinner if after a certain time?
 
-		-# %ul.menu_toggle
-			-# %li.menu_lunch
-				-# %a#toggle_lunch.toggled{:href => "#", :title => "See our Lunch menu"}
-					-# %h4 Lunch
-			-# %li.menu_dinner
-				-# %a#toggle_dinner{:href => "#", :title => "See our Dinner menu"}
-					-# %h4 Dinner
+		%ul.menu_toggle
+			%li.menu_lunch
+				%a#toggle_lunch.toggled{:href => "#", :title => "See our Lunch menu"}
+					%h4 Lunch
+			%li.menu_dinner
+				%a#toggle_dinner{:href => "#", :title => "See our Dinner menu"}
+					%h4 Dinner
 
-		%h4.temp_title Dinner
+		-# %h4.temp_title Dinner
 
 		%span.tag_circle.updated
 			%h6.tag_text Updated Feb 12
 
-		.wrap_menu
+		-# toggle defaut menu based on time of day
+		#wrap_menu.wrap_menu{'data-menu' => 'lunch'}
 
-			#menu_dinner.menu_list
+			#menu_lunch.menu_lunch.menu_list.toggled
+
+				%h5 Main
+				%ul
+					%li
+						%span.menu_item Minestrone Soup
+						%span.menu_price 7
+					%li
+						%span.menu_item Peperonata with Poached Egg
+						%span.menu_price 8
+					%li
+						%span.menu_item Endive Caesar Salad
+						%span.menu_price 9
+					%li
+						%span.menu_item Citrus Salad
+						%span.menu_price 10
+					%li
+						%span.menu_item Bigoli in salsa
+						%span.menu_price 8
+					%li
+						%span.menu_item Corzetti with Walnuts and Pancetta
+						%span.menu_price 9
+					%li
+						%span.menu_item Mackerel in sa&oacute;r
+						%span.menu_price 22
+					%li
+						%span.menu_item Warm Octopus and Potato Salad
+						%span.menu_price 22
+					%li
+						%span.menu_item Mortadella bianca
+						%span.menu_price 12
+					%li
+						%span.menu_item Venetian Liver and Onions
+						%span.menu_price 18
+
+				%h5 Sweet
+				%ul
+					%li
+						%span.menu_item Baicoli and Coffee
+						%span.menu_price 6
+					%li
+						%span.menu_item Tiramisu
+						%span.menu_price 8
+					%li
+						%span.menu_item Cacio e pepe Twinkie
+						%span.menu_price 9
+
+				%h5 To Drink
+				%ul
+					%li
+						%span.menu_item Alois Lageder, Pinot Grigio 2013
+						%span.menu_price 4
+					%li
+						%span.menu_item Negrar, Valpolicella Ripasso 2012
+						%span.menu_price 4
+					%li
+						%span.menu_item Hinterland Whitecap 2013
+						%span.menu_price 4
+
+				%h5 Beer
+				%ul
+					%li
+						%span.menu_item Mini Beau&rsquo;s
+						%span.menu_price 3
+					%li
+						%span.menu_item Peroni
+						%span.menu_price 3
+
+			#menu_dinner.menu_dinner.menu_list
 
 				%h5 Cich&egrave;ti
 				%ul
