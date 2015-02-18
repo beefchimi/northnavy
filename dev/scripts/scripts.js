@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Global Variables: Variables required for more than 1 function
 	// ----------------------------------------------------------------------------
 	var elBody           = document.body,
+		elNav            = document.getElementsByTagName('nav')[0],
 		elHeaderLogo     = document.getElementById('resize_logo'),
 		elHeaderRule     = document.getElementById('resize_rule'),
 		elHeaderWordmark = document.getElementById('resize_wordmark'),
@@ -11,15 +12,61 @@ document.addEventListener('DOMContentLoaded', function() {
 		elMenuLunch      = document.getElementById('menu_lunch'),
 		elMenuDinner     = document.getElementById('menu_dinner');
 
-	var numWindowWidth,
-		numWindowHeight,
+	var arrSections = [
+		{
+			title: 'home',
+			section: document.getElementsByTagName('header')[0],
+			height: 0
+		},
+		{
+			title: 'reserve',
+			section: document.getElementById('reserve'),
+			height: 0
+		},
+		{
+			title: 'foodwine',
+			section: document.getElementById('foodwine'),
+			height: 0
+		},
+		{
+			title: 'bacaro',
+			section: document.getElementById('bacaro'),
+			height: 0
+		},
+		{
+			title: 'private',
+			section: document.getElementById('private'),
+			height: 0
+		},
+		{
+			title: 'gift',
+			section: document.getElementById('gift'),
+			height: 0
+		},
+		{
+			title: 'photos',
+			section: document.getElementById('photos'),
+			height: 0
+		}
+	];
+
+	var numScrollWindow = window.pageYOffset,
+		numWindowWidth  = window.innerWidth,
+		numWindowHeight = window.innerHeight,
 		numRatio,
 		numThreshold,
 		numLogoMargin,
 		numRuleMargin,
 		numWordmarkMargin,
 		numLogoWidth,
-		numFullWidth;
+		numFullWidth,
+		numSectionMargin,
+		numBeginReserve,
+		numBeginFoodWine,
+		numBeginBacaro,
+		numBeginPrivate,
+		numBeginPhotos,
+		numBeginReserveAdjusted;
 
 
 	// Helper: Fire Window Resize Event Upon Finish
@@ -109,11 +156,40 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+	// measureSectionHeight: Get the height of each section in arrSections
+	// ----------------------------------------------------------------------------
+	function measureSectionHeight() {
+
+		if (numWindowWidth < 1200) {
+			numSectionMargin = 80;
+		} else {
+			numSectionMargin = 160;
+		}
+
+		// for each object in arrSections,
+		// measure the height of that section and update 'height' property
+		for (var i = 0; i < arrSections.length; i++) {
+			arrSections[i].height = arrSections[i].section.offsetHeight;
+		}
+
+		// update section 'begin' scroll points
+		numBeginReserve  = arrSections[0].height; // after 'home'
+		numBeginFoodWine = numBeginReserve  + arrSections[1].height + numSectionMargin; // after 'reserve'
+		numBeginBacaro   = numBeginFoodWine + arrSections[2].height + numSectionMargin; // after 'foodwine'
+		numBeginPrivate  = numBeginBacaro   + arrSections[3].height + numSectionMargin; // after 'bacaro'
+		numBeginPhotos   = numBeginPrivate  + arrSections[4].height + numSectionMargin + arrSections[5].height; // after 'private'... includes gift section (since not in nav)
+
+		// set 'reserve' earlier than the rest
+		numBeginReserveAdjusted = Math.floor( numBeginReserve / 1.25 );
+
+	}
+
+
 	// smoothScrollNav: Smooth scrollin' for nav links
 	// ----------------------------------------------------------------------------
-/*
 	function smoothScrollNav() {
 
+/*
 		var arrNavLinks = document.getElementsByTagName('nav')[0],
 			scrollOptions = {
 				speed: 1000,
@@ -122,36 +198,74 @@ document.addEventListener('DOMContentLoaded', function() {
 				offset: 0 // numOffset
 			};
 
-			for (var i = 0; i < arrNavLinks.length; i++) {
-				smoothScroll.animateScroll(null, '#form_quote', scrollOptions);
+		for (var i = 0; i < arrNavLinks.length; i++) {
+			smoothScroll.animateScroll(null, '#form_quote', scrollOptions);
+		}
+*/
+
+		if (numWindowWidth >= 768) {
+
+			switch (true) {
+				case (numScrollWindow < numBeginReserveAdjusted):
+					elNav.setAttribute('data-current', 'home');
+					break;
+				case (numScrollWindow < numBeginFoodWine):
+					elNav.setAttribute('data-current', 'reserve');
+					break;
+				case (numScrollWindow < numBeginBacaro):
+					elNav.setAttribute('data-current', 'foodwine');
+					break;
+				case (numScrollWindow < numBeginPrivate):
+					elNav.setAttribute('data-current', 'bacaro');
+					break;
+				case (numScrollWindow < numBeginPhotos):
+					elNav.setAttribute('data-current', 'private');
+					break;
+				case (numScrollWindow > numBeginPhotos):
+					elNav.setAttribute('data-current', 'photos');
+					break;
+				default:
+					elNav.setAttribute('data-current', 'footer');
+					break;
 			}
 
+		}
+
 	}
-*/
+
+
+	// toggleNavLogo: Hide / Show N&N Logo in Navigation on Scroll
+	// ----------------------------------------------------------------------------
+	function toggleNavLogo() {
+
+		// was checking for numWindowWidth >= 1024 as well... but not really necessary
+		if (numScrollWindow >= 200) {
+			classie.add(elNav, 'scrolled'); // if a 'has' conditional worthwhile?
+		} else {
+			classie.remove(elNav, 'scrolled');
+		}
+
+	}
 
 
 	// viewportHeader: Resize header elements to fit within the viewport
 	// ----------------------------------------------------------------------------
 	function viewportHeader() {
 
-		// measure window width on load and resize
-		numWindowWidth = window.innerWidth;
-
 		if (numWindowWidth >= 912) {
 
 			// calculate our sizing values
-			numWindowHeight   = window.innerHeight;
+			// margin & width values are hard coded to prevent additional math
 			numRatio          = numWindowHeight / 1100; // (912 / 2) + 912 = 1368
 			numThreshold      = numRatio >= 1 ? 1 : numRatio;
-			numLogoMargin     = 80  * numThreshold; // parseFloat( window.getComputedStyle(elHeaderLogo, null).getPropertyValue('margin-bottom') )
-			numRuleMargin     = 90 * numThreshold;
-			numWordmarkMargin = 140 * numThreshold;
+			numLogoMargin     = 70  * numThreshold; // parseFloat( window.getComputedStyle(elHeaderLogo, null).getPropertyValue('margin-bottom') )
+			numRuleMargin     = 90  * numThreshold;
+			numWordmarkMargin = 120 * numThreshold;
 			numLogoWidth      = 120 * numThreshold;
 			numFullWidth      = 912 * numThreshold;
 
 			// apply updated inline styles
-			elHeaderLogo.style.marginBottom = numRuleMargin + 'px';
-			// elHeaderLogo.style.cssText     += '; width:' + numLogoWidth + 'px; margin-bottom:' + numRuleMargin + 'px';
+			elHeaderLogo.style.marginBottom = numLogoMargin + 'px';
 			elHeaderRule.style.cssText     += '; width:' + numFullWidth + 'px; margin-bottom:' + numRuleMargin + 'px';
 			elHeaderWordmark.style.cssText += '; width:' + numFullWidth + 'px; margin-bottom:' + numWordmarkMargin + 'px';
 
@@ -290,44 +404,51 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Window Events: On - Scroll, Resize
 	// ----------------------------------------------------------------------------
-/*
 	window.addEventListener('scroll', function(e) {
 
-		updateColor();
+		// re-measure the window scroll distance
+		numScrollWindow = window.pageYOffset;
+
+		toggleNavLogo();
+		smoothScrollNav();
 
 	}, false);
-*/
-
-
 
 	window.addEventListener('resize', function(e) {
+
+		// re-measure window width and height on resize
+		numWindowWidth  = window.innerWidth;
+		numWindowHeight = window.innerHeight;
 
 		// do not fire resize event for every pixel... wait until finished
 		waitForFinalEvent(function() {
 
 			menuHeight();
-			viewportHeader();
+			measureSectionHeight();
 
 		}, 500, 'unique string');
 
+		viewportHeader();
+
 	}, false);
-
-
 
 
 	// Initialize Primary Functions
 	// ----------------------------------------------------------------------------
 	secretEmail();
+	toggleNavLogo();
 	viewportHeader();
 	menuToggle();
 	menuHeight();
 	layoutPackery();
 
+	measureSectionHeight();
+	// smoothScrollNav();
+
 	smoothScroll.init({
 		speed: 1000,
 		easing: 'easeInOutQuint',
-		updateURL: false,
-		offset: 200 // numOffset
+		updateURL: false
 	});
 
 

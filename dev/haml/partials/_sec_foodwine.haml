@@ -34,12 +34,14 @@
 		-# %h4.temp_title Dinner
 
 		%span.tag_circle.updated
-			%h6.tag_text Updated Feb 12
+			%p.tag_text Updated Feb 12
 
 		-# toggle defaut menu based on time of day
 		#wrap_menu.wrap_menu{'data-menu' => 'lunch'}
 
 			#menu_lunch.menu_lunch.menu_list.toggled
+
+				%h6 Lunch served 11am&ndash;2pm
 
 				%h5 Main
 				%ul
@@ -225,7 +227,7 @@
 				-# %cite –Piny the Elder
 
 		-# %a.tag_circle.wine_full{:href => "#", :title => "View Full Wine List"}
-			-# %span.tag_text View Full Wine List
+			-# %p.tag_text View Full Wine List
 
 		%p.wines We carry too many wines to list them all here, but here are a few of our favourites.
 

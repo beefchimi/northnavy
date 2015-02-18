@@ -47,6 +47,9 @@ button {
 svg {
 	transition: fill 0.3s ease-in-out;
 }
+ul.menu_toggle li a::before {
+	transition: width 0.3s ease-in-out;
+}
 div.wrap_menu {
 	transition: height 0.6s ease-in-out;
 }
@@ -295,20 +298,29 @@ nav {
 	padding: 3.2rem 0;
 	background-color: hsla(0,0%,96%,0.98);
 	border-top: 0.6rem solid $hsla_blue;
-	// box-shadow: 0 0.1rem 0.2rem hsla(0,0%,0%,0.2);
 }
-nav svg {
+nav a.nav_logo {
 	display: none;
 	position: absolute;
 	top: 1.4rem;
 	left: 3.2rem;
 	width: 6.4rem;
 	height: 5.2rem;
-	fill: $hsla_blue;
 	opacity: 0;
 }
-nav ul {
+nav a.nav_logo svg {
+	fill: $hsla_blue;
 }
+nav a.nav_logo:hover svg {
+	fill: $hsla_gold;
+}
+nav a.nav_logo:active svg {
+	fill: $hsla_gold-D;
+}
+nav.scrolled a.nav_logo {
+	opacity: 1;
+}
+// + navigation list + \\
 nav ul li {
 	display: inline-block;
 	margin-right: 2rem; // 3.2rem;
@@ -320,6 +332,13 @@ nav ul li a {
 	padding: 1rem;
 	font-size: 1.6rem; // 1.8rem;
 	// background-color: hsla(0,0%,0%,0.4);
+}
+nav[data-current="reserve"] a[href="#reserve"],
+nav[data-current="foodwine"] a[href="#foodwine"],
+nav[data-current="bacaro"] a[href="#bacaro"],
+nav[data-current="private"] a[href="#private"],
+nav[data-current="photos"] a[href="#photos"] {
+	color: $hsla_gold;
 }
 
 // Footer
@@ -408,10 +427,10 @@ div.wrap_content p:last-child {
 }
 div.wrap_content p a {
 	text-decoration: underline;
+	white-space: nowrap;
 }
 div.wrap_content p a[href^="tel:"] {
 	text-decoration: none;
-	white-space: nowrap;
 }
 div.wrap_content cite {
 	font-style: normal;
@@ -528,6 +547,11 @@ div.wrap_menu div.menu_list {
 div.wrap_menu div.menu_list.toggled {
 	opacity: 1;
 }
+div.wrap_menu div.menu_list h6 {
+	margin-bottom: 4rem;
+	font-size: 1.4rem;
+	font-style: italic;
+}
 // + menu toggle + \\
 h4.temp_title, // remove this
 ul.menu_toggle {
@@ -544,16 +568,35 @@ ul.menu_toggle li.menu_lunch::after {
 	content: "/";
 	display: block;
 	position: absolute;
-	top: 0;
+	top: 0.1rem;
 	right: -4.4rem;
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 1.8rem;
 	font-weight: 400;
 	color: $hsla_gold;
 }
+ul.menu_toggle li a {
+	display: block;
+	position: relative;
+}
+ul.menu_toggle li a::before {
+	content: "";
+	display: block;
+	position: absolute;
+	bottom: -0.1rem;
+	left: -0.2rem;
+	right: 0.2rem;
+	margin: 0 auto;
+	width: 0%;
+	height: 0.1rem;
+	background-color: $hsla_gold;
+}
 ul.menu_toggle li a.toggled {
 	pointer-events: none;
 	color: $hsla_gold;
+}
+ul.menu_toggle li a.toggled::before {
+	width: 100%;
 }
 // + menu list + \\
 div.menu_list ul {
