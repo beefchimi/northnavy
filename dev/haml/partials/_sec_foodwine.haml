@@ -41,7 +41,7 @@
 
 			#menu_lunch.menu_lunch.menu_list.toggled
 
-				%h6 Lunch served 11am&ndash;2pm
+				%h6.lunch_time Lunch served 11am&ndash;2pm
 
 				%h5 Main
 				%ul
@@ -89,6 +89,7 @@
 						%span.menu_price 9
 
 				%h5 To Drink
+				%h6 Ombra of wine
 				%ul
 					%li
 						%span.menu_item Alois Lageder, Pinot Grigio 2013
@@ -100,7 +101,7 @@
 						%span.menu_item Hinterland Whitecap 2013
 						%span.menu_price 4
 
-				%h5 Beer
+				%h6 Beer
 				%ul
 					%li
 						%span.menu_item Mini Beau&rsquo;s
@@ -150,7 +151,7 @@
 						%span.menu_item Corzetti with Walnuts and Pancetta
 						%span.menu_price 9
 
-				%h5 Antipasta
+				%h5 Antipasti
 				%ul
 					%li
 						%span.menu_item Citrus Salad
@@ -226,10 +227,10 @@
 				-# %p In vino veritas.
 				-# %cite –Piny the Elder
 
-		-# %a.tag_circle.wine_full{:href => "#", :title => "View Full Wine List"}
-			-# %p.tag_text View Full Wine List
+		%a.tag_circle.wine_full{:href => "assets/files/wine_list_web.pdf", :title => "View Full Wine List", :target => "_blank"}
+			%p.tag_text View Full Wine List
 
-		%p.wines We carry too many wines to list them all here, but here are a few of our favourites.
+		-# %p.wines We carry too many wines to list them all here, but here are a few of our favourites.
 
 		#menu_wine.menu_list
 

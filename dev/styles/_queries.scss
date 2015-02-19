@@ -54,7 +54,7 @@
 	header {
 		display: table;
 		table-layout: fixed;
-		position: relative;
+		// position: relative;
 		margin-bottom: 7.2rem;
 		padding: 10rem 3.2rem 3.2rem 3.2rem;
 		// padding: 20rem 3.2rem 18rem 3.2rem;
@@ -163,12 +163,15 @@
 		position: relative;
 	}
 	article.lunchdinner span.tag_circle {
-		top: 10rem;
+		top: 12rem;
 		right: -3.2rem;
 	}
 	div.wrap_menu div.menu_list h6 {
-		margin-bottom: 6rem;
+		margin-bottom: 3.2rem;
 		font-size: 1.6rem;
+	}
+	div.wrap_menu div.menu_list h6.lunch_time {
+		margin-bottom: 6rem;
 	}
 	// + menu toggle + \\
 	h4.temp_title, // remove this
@@ -210,7 +213,7 @@
 		position: relative;
 	}
 	article.wine a.tag_circle {
-		top: 32rem;
+		top: 24rem;
 		left: -3.2rem;
 	}
 	article.wine div.wrap_heading h3 {
@@ -218,16 +221,6 @@
 	}
 	article.wine div.wrap_heading h3 span.letter_2 {
 		margin-right: 6rem;
-	}
-/*
-	article.wine div.wrap_content {
-		margin-bottom: 7.2rem;
-	}
-*/
-	// + temp? + \\
-	p.wines {
-		// margin-bottom: 10rem;
-		// font-size: 1.8rem;
 	}
 
 	// Bacaro
@@ -316,9 +309,6 @@
 	nav ul li a {
 		// font-size: 1.8rem;
 	}
-	nav a.nav_logo {
-		display: block;
-	}
 
 	// Footer
 	// ----------------------------------------------------------------------------
@@ -344,7 +334,7 @@
 	}
 	// --- Wine --- \\
 	article.wine a.tag_circle {
-		top: 52rem;
+		top: 42rem;
 		left: -13.2rem;
 	}
 
@@ -357,6 +347,20 @@
 	}
 	article.packery .gallery_link {
 		width: calc(33.3333333% - 7.2rem);
+	}
+
+}
+
+@media only screen and (min-width: 64em) { // 1024px / 16px = 64em
+
+// ==|== common sections ======================================================
+// ============================================================================
+
+	// Header
+	// ----------------------------------------------------------------------------
+	// --- Navigation --- \\
+	nav a.nav_logo {
+		display: block;
 	}
 
 }

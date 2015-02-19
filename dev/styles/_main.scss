@@ -48,7 +48,7 @@ svg {
 	transition: fill 0.3s ease-in-out;
 }
 ul.menu_toggle li a::before {
-	transition: width 0.3s ease-in-out;
+	transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 div.wrap_menu {
 	transition: height 0.6s ease-in-out;
@@ -61,12 +61,6 @@ div.gallery_link {
 	transition: opacity 0.3s ease-in-out;
 }
 /*
-nav.nav_primary {
-	transition: max-height 0.4s ease-in-out;
-}
-a.nav_toggle div.wrap_menu span {
-	transition: top 0.4s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-}
 [data-overlay] {
 	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
@@ -92,14 +86,12 @@ a.nav_toggle div.wrap_menu span {
 }
 */
 // --- FOUT --- \\
-/*
-main,
-header,
-footer {
+header {
+	position: relative;
+	z-index: 200;
 	opacity: 0; // begin by setting opacity to 0
 	animation: animShow 0.6s ease-in-out 0.2s forwards;
 }
-*/
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -291,7 +283,7 @@ ul.social_links li a.wrap_svg:active svg {
 nav {
 	display: none;
 	position: fixed;
-	z-index: 999;
+	z-index: 201;
 	top: 0;
 	left: 0;
 	right: 0;
@@ -548,9 +540,12 @@ div.wrap_menu div.menu_list.toggled {
 	opacity: 1;
 }
 div.wrap_menu div.menu_list h6 {
-	margin-bottom: 4rem;
+	margin-bottom: 2.6rem;
 	font-size: 1.4rem;
 	font-style: italic;
+}
+div.wrap_menu div.menu_list h6.lunch_time {
+	margin-bottom: 4rem;
 }
 // + menu toggle + \\
 h4.temp_title, // remove this
@@ -590,6 +585,7 @@ ul.menu_toggle li a::before {
 	width: 0%;
 	height: 0.1rem;
 	background-color: $hsla_gold;
+	opacity: 0;
 }
 ul.menu_toggle li a.toggled {
 	pointer-events: none;
@@ -597,6 +593,7 @@ ul.menu_toggle li a.toggled {
 }
 ul.menu_toggle li a.toggled::before {
 	width: 100%;
+	opacity: 1;
 }
 // + menu list + \\
 div.menu_list ul {
