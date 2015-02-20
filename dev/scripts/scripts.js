@@ -25,20 +25,22 @@ document.addEventListener('DOMContentLoaded', function() {
 	var numScrollWindow = window.pageYOffset,
 		numWindowWidth  = window.innerWidth,
 		numWindowHeight = window.innerHeight,
-		numRatio = 0,
-		numThreshold = 0,
-		numLogoMargin = 0,
-		numRuleMargin = 0,
-		numWordmarkMargin = 0,
-		numLogoWidth = 0,
-		numFullWidth = 0,
-		numSectionMargin = 0,
-		numBeginReserve = 0,
-		numBeginFoodWine = 0,
-		numBeginBacaro = 0,
-		numBeginPrivate = 0,
-		numBeginPhotos = 0,
-		numBeginReserveAdjusted = 0;
+		numRatio,
+		numThreshold,
+		numLogoMargin,
+		numRuleMargin,
+		numWordmarkMargin,
+		numLogoWidth,
+		numFullWidth,
+		numSectionMargin,
+		numBeginReserve,
+		numBeginFoodWine,
+		numBeginBacaro,
+		numBeginPrivate,
+		numBeginPhotos,
+		numBeginReserveAdjusted;
+
+	// var boolSecondRun = false;
 
 
 	// Helper: Fire Window Resize Event Upon Finish
@@ -189,37 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// set height of div.wrap_wrap to toggled div.menu_list
 		elWrapMenu.style.height = numNewHeight + 'px';
 
-	}
-
-
-	// secretEmail: Add mailto link to footer
-	// ----------------------------------------------------------------------------
-	function secretEmail() {
-
-		var elLinkHeader = document.getElementById('email_header'),
-			elLinkFooter = document.getElementById('email_footer'),
-			prefix        = 'mailto',
-			local        = 'hello',
-			domain       = 'northandnavy',
-			suffix        = 'com';
-
-		elLinkHeader.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
-		elLinkFooter.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
-		elLinkFooter.innerHTML = local + '@' + domain + '.' + suffix;
-
-	}
-
-
-	// toggleNavLogo: Hide / Show N&N Logo in Navigation on Scroll
-	// ----------------------------------------------------------------------------
-	function toggleNavLogo() {
-
-		// was checking for numWindowWidth >= 1024 as well... but not really necessary
-		if (numScrollWindow >= 200) {
-			classie.add(elNav, 'scrolled'); // is a 'has' conditional worthwhile?
-		} else {
-			classie.remove(elNav, 'scrolled');
-		}
+		setTimeout(measureSectionHeight, 1200); // required to make safari calculate menuHeight before measureSectionHeight
 
 	}
 
@@ -253,6 +225,105 @@ document.addEventListener('DOMContentLoaded', function() {
 			elHeaderWordmark.removeAttribute('style');
 
 		}
+
+	}
+
+
+	// measureSectionHeight: Get the height of each section in arrSections
+	// ----------------------------------------------------------------------------
+	function measureSectionHeight() {
+
+		// we are currently not tracking the new foodwine height after toggling lunch / dinner...
+		// should probably do this
+
+		if (numWindowWidth < 1200) {
+			numSectionMargin = 80;
+		} else {
+			numSectionMargin = 160;
+		}
+
+		// for each object in arrSections,
+		// measure the height of that section and update 'height' property
+		for (var i = 0; i < arrSections.length; i++) {
+			arrSections[i].height = arrSections[i].section.offsetHeight;
+		}
+
+		// update section 'begin' scroll points
+		numBeginReserve  = arrSections[0].height; // after 'home'
+		numBeginFoodWine = numBeginReserve  + arrSections[1].height + numSectionMargin; // after 'reserve'
+		numBeginBacaro   = numBeginFoodWine + arrSections[2].height + numSectionMargin; // after 'foodwine'
+		numBeginPrivate  = numBeginBacaro   + arrSections[3].height + numSectionMargin; // after 'bacaro'
+		numBeginPhotos   = numBeginPrivate  + arrSections[4].height + numSectionMargin + arrSections[5].height; // after 'private'... includes gift section (since not in nav)
+
+		// set 'reserve' earlier than the rest
+		numBeginReserveAdjusted = Math.floor( numBeginReserve / 1.25 );
+
+	}
+
+
+	// navTrackSection: Track 'current' section (scroll distance < distance from top of doc)
+	// ----------------------------------------------------------------------------
+	function navTrackSection() {
+
+		if (numWindowWidth >= 768) {
+
+			switch (true) {
+				case (numScrollWindow < numBeginReserveAdjusted):
+					elNav.setAttribute('data-current', arrSections[0].title); // home
+					break;
+				case (numScrollWindow < numBeginFoodWine):
+					elNav.setAttribute('data-current', arrSections[1].title); // reserve
+					break;
+				case (numScrollWindow < numBeginBacaro):
+					elNav.setAttribute('data-current', arrSections[2].title); // foodwine
+					break;
+				case (numScrollWindow < numBeginPrivate):
+					elNav.setAttribute('data-current', arrSections[3].title); // bacaro
+					break;
+				case (numScrollWindow < numBeginPhotos):
+					elNav.setAttribute('data-current', arrSections[4].title); // private
+					break;
+				case (numScrollWindow > numBeginPhotos):
+					elNav.setAttribute('data-current', arrSections[6].title); // photos
+					break;
+				default:
+					elNav.setAttribute('data-current', 'footer');
+					break;
+			}
+
+		}
+
+	}
+
+
+	// toggleNavLogo: Hide / Show N&N Logo in Navigation on Scroll
+	// ----------------------------------------------------------------------------
+	function toggleNavLogo() {
+
+		// was checking for numWindowWidth >= 1024 as well... but not really necessary
+		if (numScrollWindow >= 200) {
+			classie.add(elNav, 'scrolled'); // is a 'has' conditional worthwhile?
+		} else {
+			classie.remove(elNav, 'scrolled');
+		}
+
+	}
+
+
+	// secretEmail: Add mailto link to footer
+	// ----------------------------------------------------------------------------
+	function secretEmail() {
+
+		var elLinkHeader = document.getElementById('email_header'),
+			elLinkFooter = document.getElementById('email_footer'),
+			prefix        = 'mailto',
+			local        = 'hello',
+			domain       = 'northandnavy',
+			suffix        = 'com';
+
+		elLinkHeader.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
+		elLinkFooter.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
+		elLinkFooter.innerHTML = local + '@' + domain + '.' + suffix;
 
 	}
 
@@ -296,73 +367,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// measureSectionHeight: Get the height of each section in arrSections
-	// ----------------------------------------------------------------------------
-	function measureSectionHeight() {
-
-		// we are currently not tracking the new foodwine height after toggling lunch / dinner...
-		// should probably do this
-
-		if (numWindowWidth < 1200) {
-			numSectionMargin = 80;
-		} else {
-			numSectionMargin = 160;
-		}
-
-		// for each object in arrSections,
-		// measure the height of that section and update 'height' property
-		for (var i = 0; i < arrSections.length; i++) {
-			arrSections[i].height = arrSections[i].section.offsetHeight;
-		}
-
-		// update section 'begin' scroll points
-		numBeginReserve  = arrSections[0].height; // after 'home'
-		numBeginFoodWine = numBeginReserve  + arrSections[1].height + numSectionMargin; // after 'reserve'
-		numBeginBacaro   = numBeginFoodWine + arrSections[2].height + numSectionMargin; // after 'foodwine'
-		numBeginPrivate  = numBeginBacaro   + arrSections[3].height + numSectionMargin; // after 'bacaro'
-		numBeginPhotos   = numBeginPrivate  + arrSections[4].height + numSectionMargin + arrSections[5].height; // after 'private'... includes gift section (since not in nav)
-
-		// set 'reserve' earlier than the rest
-		numBeginReserveAdjusted = Math.floor( numBeginReserve / 1.25 );
-
-	}
-
-
-	// navTrackSection: Smooth scrollin' for nav links
-	// ----------------------------------------------------------------------------
-	function navTrackSection() {
-
-		if (numWindowWidth >= 768) {
-
-			switch (true) {
-				case (numScrollWindow < numBeginReserveAdjusted):
-					elNav.setAttribute('data-current', arrSections[0].title); // home
-					break;
-				case (numScrollWindow < numBeginFoodWine):
-					elNav.setAttribute('data-current', arrSections[1].title); // reserve
-					break;
-				case (numScrollWindow < numBeginBacaro):
-					elNav.setAttribute('data-current', arrSections[2].title); // foodwine
-					break;
-				case (numScrollWindow < numBeginPrivate):
-					elNav.setAttribute('data-current', arrSections[3].title); // bacaro
-					break;
-				case (numScrollWindow < numBeginPhotos):
-					elNav.setAttribute('data-current', arrSections[4].title); // private
-					break;
-				case (numScrollWindow > numBeginPhotos):
-					elNav.setAttribute('data-current', arrSections[6].title); // photos
-					break;
-				default:
-					elNav.setAttribute('data-current', 'footer');
-					break;
-			}
-
-		}
-
-	}
-
-
 	// Window Events: On - Scroll, Resize
 	// ----------------------------------------------------------------------------
 	window.addEventListener('scroll', function(e) {
@@ -370,8 +374,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		// re-measure the window scroll distance
 		numScrollWindow = window.pageYOffset;
 
-		toggleNavLogo();
 		navTrackSection();
+		toggleNavLogo();
 
 	}, false);
 
@@ -385,7 +389,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		waitForFinalEvent(function() {
 
 			menuHeight();
-			measureSectionHeight();
 
 		}, 500, 'unique string');
 
@@ -397,10 +400,11 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Initialize Primary Functions
 	// ----------------------------------------------------------------------------
 	menuToggle();
-	menuHeight(); // must come before calculating section heights
-	secretEmail();
-	toggleNavLogo();
+	menuHeight();
 	viewportHeader();
+	measureSectionHeight();
+	toggleNavLogo();
+	secretEmail();
 	layoutPackery();
 
 	smoothScroll.init({
@@ -408,8 +412,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		easing: 'easeInOutQuint',
 		updateURL: false
 	});
-
-	measureSectionHeight(); // required to come last in order to get menuHeight adjusted size
 
 
 }, false);

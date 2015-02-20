@@ -226,7 +226,7 @@ h2.tagline {
 	display: inline-block;
 	padding-left: 1rem;
 	padding-right: 1rem;
-	font-size: 1.8rem; // 2.2rem;
+	font-size: 1.8rem;
 	color: $hsla_gold;
 	background-color: $hsla_L96;
 }
@@ -315,15 +315,14 @@ nav.scrolled a.nav_logo {
 // + navigation list + \\
 nav ul li {
 	display: inline-block;
-	margin-right: 2rem; // 3.2rem;
+	margin-right: 2rem;
 }
 nav ul li:last-child {
 	margin-right: 0;
 }
 nav ul li a {
 	padding: 1rem;
-	font-size: 1.6rem; // 1.8rem;
-	// background-color: hsla(0,0%,0%,0.4);
+	font-size: 1.6rem;
 }
 nav[data-current="reserve"] a[href="#reserve"],
 nav[data-current="foodwine"] a[href="#foodwine"],
@@ -501,7 +500,7 @@ div.divider svg {
 .tag_circle .tag_text {
 	display: inline-block;
 	padding: 1.4rem 2.2rem;
-	font-size: 1.4rem; // 1.5rem;
+	font-size: 1.4rem;
 	letter-spacing: 0.1rem;
 	line-height: 1.2;
 	text-transform: uppercase;
@@ -548,7 +547,6 @@ div.wrap_menu div.menu_list h6.lunch_time {
 	margin-bottom: 4rem;
 }
 // + menu toggle + \\
-h4.temp_title, // remove this
 ul.menu_toggle {
 	margin-bottom: 4rem;
 }
@@ -614,18 +612,12 @@ div.menu_list ul li span {
 	display: block;
 }
 div.menu_list ul li span.menu_item {
-	// margin-right: 1rem;
 	margin-bottom: 0.6rem;
 }
 // --- Wine --- \\
 article.wine div.wrap_heading h3 {
 	top: 58%;
 }
-/*
-article.wine div.wrap_content {
-	margin-bottom: 5.2rem;
-}
-*/
 a.tag_circle.wine_full {
 	color: $hsla_pink;
 	border-color: $hsla_pink;
@@ -638,7 +630,7 @@ a.tag_circle.wine_full:active {
 	color: $hsla_blue-D;
 	border-color: $hsla_blue-D;
 }
-// + temp? + \\
+// + temporary + \\
 p.wines {
 	margin: 0 auto 6rem auto;
 	max-width: 39rem;
@@ -744,11 +736,6 @@ svg.svg_ui-heart {
 	height: 8.8rem;
 	fill: $hsla_blue;
 }
-/*
-article.certificates div.wrap_content p {
-	margin-bottom: 4rem;
-}
-*/
 
 // Photos
 // ----------------------------------------------------------------------------
@@ -774,16 +761,18 @@ article.packery div.gutter-sizer {
 	height: 1.6rem;
 }
 article.packery .gallery_link {
-	// display: block;
 	width: calc(50% - 0.8rem);
 	opacity: 0.01;
+}
+article.packery a.gallery_link {
+	display: block;
 }
 article.packery .gallery_link.loaded {
 	opacity: 1;
 }
-article.packery .gallery_link:hover {
+article.packery a.gallery_link:hover {
 	opacity: 0.86;
 }
-article.packery .gallery_link:active {
+article.packery a.gallery_link:active {
 	opacity: 0.96;
 }
