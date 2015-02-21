@@ -75,8 +75,8 @@
 	a.phone {
 		margin-bottom: 4.8rem;
 	}
-	// --- Navigation --- \\
-	nav {
+	// --- Main Navigation --- \\
+	nav.nav_main {
 		display: block;
 	}
 
@@ -133,6 +133,9 @@
 	}
 	.tag_circle .tag_text {
 		padding: 2rem;
+	}
+	.tag_circle .tag_text br {
+		display: inline-block;
 	}
 
 	// Reserve
@@ -290,8 +293,8 @@
 
 	// Header
 	// ----------------------------------------------------------------------------
-	// --- Navigation --- \\
-	nav ul li {
+	// --- Main Navigation --- \\
+	nav.nav_main ul li {
 		margin-right: 3.2rem;
 	}
 
@@ -343,8 +346,8 @@
 
 	// Header
 	// ----------------------------------------------------------------------------
-	// --- Navigation --- \\
-	nav a.nav_logo {
+	// --- Main Navigation --- \\
+	nav.nav_main a.nav_logo {
 		display: block;
 	}
 
@@ -360,8 +363,8 @@
 	div.nn_logo {
 		display: none;
 	}
-	// --- Navigation --- \\
-	nav a.nav_logo {
+	// --- Main Navigation --- \\
+	nav.nav_main a.nav_logo {
 		opacity: 1;
 	}
 

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// Global Variables: Variables required for more than 1 function
 	// ----------------------------------------------------------------------------
 	var elBody           = document.body,
-		elNav            = document.getElementsByTagName('nav')[0],
+		elMainNav        = document.getElementById('nav_main'),
 		elHeaderLogo     = document.getElementById('resize_logo'),
 		elHeaderRule     = document.getElementById('resize_rule'),
 		elHeaderWordmark = document.getElementById('resize_wordmark'),
@@ -39,8 +39,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginPrivate,
 		numBeginPhotos,
 		numBeginReserveAdjusted;
-
-	// var boolSecondRun = false;
 
 
 	// Helper: Fire Window Resize Event Upon Finish
@@ -269,25 +267,25 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			switch (true) {
 				case (numScrollWindow < numBeginReserveAdjusted):
-					elNav.setAttribute('data-current', arrSections[0].title); // home
+					elMainNav.setAttribute('data-current', arrSections[0].title); // home
 					break;
 				case (numScrollWindow < numBeginFoodWine):
-					elNav.setAttribute('data-current', arrSections[1].title); // reserve
+					elMainNav.setAttribute('data-current', arrSections[1].title); // reserve
 					break;
 				case (numScrollWindow < numBeginBacaro):
-					elNav.setAttribute('data-current', arrSections[2].title); // foodwine
+					elMainNav.setAttribute('data-current', arrSections[2].title); // foodwine
 					break;
 				case (numScrollWindow < numBeginPrivate):
-					elNav.setAttribute('data-current', arrSections[3].title); // bacaro
+					elMainNav.setAttribute('data-current', arrSections[3].title); // bacaro
 					break;
 				case (numScrollWindow < numBeginPhotos):
-					elNav.setAttribute('data-current', arrSections[4].title); // private
+					elMainNav.setAttribute('data-current', arrSections[4].title); // private
 					break;
 				case (numScrollWindow > numBeginPhotos):
-					elNav.setAttribute('data-current', arrSections[6].title); // photos
+					elMainNav.setAttribute('data-current', arrSections[6].title); // photos
 					break;
 				default:
-					elNav.setAttribute('data-current', 'footer');
+					elMainNav.setAttribute('data-current', 'footer');
 					break;
 			}
 
@@ -302,9 +300,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// was checking for numWindowWidth >= 1024 as well... but not really necessary
 		if (numScrollWindow >= 200) {
-			classie.add(elNav, 'scrolled'); // is a 'has' conditional worthwhile?
+			classie.add(elMainNav, 'scrolled'); // is a 'has' conditional worthwhile?
 		} else {
-			classie.remove(elNav, 'scrolled');
+			classie.remove(elMainNav, 'scrolled');
 		}
 
 	}
@@ -332,8 +330,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function layoutPackery() {
 
-		var elPackeryContainer = document.getElementById('packery'),
-			arrImages          = document.getElementsByClassName('gallery_link');
+		var elPackeryContainer = document.getElementById('packery');
+		// var arrImages          = document.getElementsByClassName('gallery_link');
 
 		// layout Packery after all images have loaded
 		imagesLoaded(elPackeryContainer, function(instance) {
@@ -341,18 +339,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			// initalize packery
 			var elPackery = new Packery(elPackeryContainer, {
 				itemSelector: '.gallery_link',
-				gutter: 'div.gutter-sizer',
-				transitionDuration: '0.6s',
-				visibleStyle: {
-					opacity: 1,
-					transform: 'scale(1)'
-				},
-				hiddenStyle: {
-					opacity: 0,
-					transform: 'scale(1)'
-				}
+				gutter: 'div.gutter-sizer'
 			});
 
+/*
 			// iterate through each article and add 'loaded' class once ready
 			for (var i = 0; i < arrImages.length; i++) {
 				(function(i){
@@ -361,10 +351,260 @@ document.addEventListener('DOMContentLoaded', function() {
 					}, 200 * i);
 				})(i);
 			}
+*/
 
 		});
 
 	}
+
+
+
+
+
+/*
+	// Helper: Create and Destroy [data-overlay] element
+	// ----------------------------------------------------------------------------
+	function createOverlay() {
+
+		// first, create an empty <div>
+		var elOverlay = document.createElement('div');
+
+		// apply the attributes: id="overlay" & data-overlay="modal"
+		elOverlay.id = 'overlay';
+		elOverlay.setAttribute('data-overlay', 'modal'); // could maybe pass the attr value into the function?
+
+		// append this <div> to the document <body>
+		elBody.appendChild(elOverlay);
+
+		// make the element fully transparent
+		// (don't rely on a predefined CSS style... declare this with JS to getComputerStyle)
+		elOverlay.style.opacity = 0;
+
+		// make sure the initial state is applied
+		window.getComputedStyle(elOverlay).opacity;
+
+		// set opacity to 1 (predefined CSS transition will handle the fade)
+		elOverlay.style.opacity = 1;
+
+	}
+
+	function destroyOverlay() {
+
+		var elOverlay = document.getElementById('overlay');
+
+		elOverlay.style.opacity = 0;
+
+		transitionEvent && elOverlay.addEventListener(transitionEvent, function() {
+			elBody.removeChild(elOverlay);
+		});
+
+	}
+*/
+
+
+	// photoGallery: Photo section modal gallery
+	// ----------------------------------------------------------------------------
+	function photoGallery() {
+
+		var arrGalleryLinks = document.querySelectorAll('a.gallery_link'),
+			numGalleryCount = arrGalleryLinks.length;
+
+		// check if arrGalleryLinks is not empty
+		if (numGalleryCount === 0) {
+			return; // array is empty... exit function
+		}
+
+/*
+
+		var numGalleryCountAdjusted = numGalleryCount - 1,
+			elGalleryOverlay        = document.getElementById('gallery'),
+			elGalleryPrev           = document.getElementById('nav_prev'),
+			elGalleryNext           = document.getElementById('nav_next'),
+			elGalleryClose          = document.getElementById('nav_close'),
+			elGalleryTitle          = document.getElementById('title_current'),
+			elGalleryImage          = document.getElementById('gallery_image'),
+			arrGallerySource        = [],
+			arrGalleryTitle         = [],
+			dataCurrent,
+			dataSRC;
+
+		for (var i = 0; i < numGalleryCount; i++) {
+			launchGallery(arrGalleryLinks[i], i);
+		}
+
+		function launchGallery(thisGalleryLink, index) {
+
+			arrGallerySource.push(thisGalleryLink.getAttribute('href'));
+			arrGalleryTitle.push(thisGalleryLink.getAttribute('title'));
+
+			thisGalleryLink.addEventListener('click', function(e) {
+
+				dataCurrent = index;
+
+				loadImage();
+
+				classie.add(elHTML, 'overlay_active');
+
+				e.preventDefault();
+
+			});
+
+		}
+
+		function loadImage() {
+
+			// scroll the <aside> to 0 so we don't end up opening a new image that is scrolled half way down
+			elGalleryOverlay.scrollTop = 0;
+
+			// get the iamge source from our array
+			dataSRC = arrGallerySource[dataCurrent];
+
+			// set the new image source
+			elGalleryImage.src = dataSRC;
+
+			// set the new image title
+			elGalleryTitle.innerHTML = arrGalleryTitle[dataCurrent];
+
+			// current not used for anything... set data-current on <aside>
+			elGalleryOverlay.setAttribute('data-current', dataCurrent);
+
+		}
+
+		elGalleryPrev.addEventListener('click', function(e) {
+
+			if (dataCurrent <= 0) {
+				dataCurrent = numGalleryCountAdjusted;
+			} else {
+				dataCurrent--;
+			}
+
+			loadImage();
+
+			e.preventDefault();
+
+		});
+
+		elGalleryNext.addEventListener('click', function(e) {
+
+			if (dataCurrent >= numGalleryCountAdjusted) {
+				dataCurrent = 0;
+			} else {
+				dataCurrent++;
+			}
+
+			loadImage();
+
+			e.preventDefault();
+
+		});
+
+		elGalleryClose.addEventListener('click', function(e) {
+
+			classie.remove(elHTML, 'overlay_active');
+
+			e.preventDefault();
+
+		});
+
+*/
+
+	}
+
+
+
+/*
+
+	// toggleModal: Open & Close modal windows
+	// ----------------------------------------------------------------------------
+	function toggleModal() {
+
+		var arrModalOpen   = document.getElementsByClassName('modal_open'),
+			arrModalClose  = document.getElementsByClassName('modal_close'),
+			elTargetModal;
+
+		// check if a.modal_open exists and is not empty
+		if (typeof arrModalOpen !== 'undefined' && arrModalOpen.length > 0) {
+
+			for (var i = 0; i < arrModalOpen.length; i++) {
+				arrModalOpen[i].addEventListener('click', openModal, false);
+			}
+
+			for (var i = 0; i < arrModalClose.length; i++) {
+				arrModalClose[i].addEventListener('click', closeModal, false);
+			}
+
+		} else {
+
+			return; // array not found or empty... exit function
+
+		}
+
+		function openModal(e) {
+
+			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
+				elTargetModal   = document.getElementById(dataTargetModal); // get the modal we need to open
+
+			classie.add(elHTML, 'overlay_active'); // lock <body> scrolling with 'overlay_active'
+			classie.add(elTargetModal, 'loaded'); // visibility is initially set to "hidden", "loaded" class applied only once
+
+			// create overlay element and fade in modal
+			createOverlay();
+			elTargetModal.setAttribute('data-modal', 'active');
+
+			e.preventDefault();
+
+			document.addEventListener('click', documentClick, false);
+
+		}
+
+		function closeModal(e) {
+
+			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
+				elTargetModal   = document.getElementById(dataTargetModal); // get the modal we need to open
+
+			// once we have found the desired parent element, hide that modal
+			classie.remove(elHTML, 'overlay_active');
+			elTargetModal.setAttribute('data-modal', 'inactive');
+			destroyOverlay();
+
+			e.preventDefault();
+
+			document.removeEventListener('click', documentClick, false);
+
+		}
+
+		function documentClick(e) {
+
+			// if this is not the currently toggled dropdown
+			if ( e.target === document.getElementById('overlay') ) {
+
+				// ignore this event if preventDefault has been called
+				if (e.defaultPrevented) {
+					return;
+				}
+
+				// once we have found the desired parent element, hide that modal (copied from closeModal)
+				classie.remove(elHTML, 'overlay_active');
+				elTargetModal.setAttribute('data-modal', 'inactive');
+				destroyOverlay();
+
+				console.log('clicked on the overlay');
+
+			} else {
+
+				console.log('no, this is NOT the overlay');
+
+			}
+
+		}
+
+	}
+
+*/
+
+
+
+
 
 
 	// Window Events: On - Scroll, Resize
@@ -406,6 +646,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	toggleNavLogo();
 	secretEmail();
 	layoutPackery();
+	photoGallery();
 
 	smoothScroll.init({
 		speed: 1000,

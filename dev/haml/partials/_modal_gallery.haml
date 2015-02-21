@@ -1,0 +1,17 @@
+%div{"data-overlay" => "modal"}
+
+%aside#gallery{"data-modal" => "gallery", "data-current" => ""}
+
+	%nav#nav_gallery.nav_gallery
+
+		%a#nav_prev.nav_prev.wrap_svg{:href => "#", :title => "Previous Image"}
+			%svg.svg_ui-arrow
+				%use{"xlink:href" => "#ui_arrow"}
+
+		%a#nav_close.nav_close{:href => "#", :title => "Close Image"} Back
+
+		%a#nav_next.nav_next.wrap_svg{:href => "#", :title => "Next Image"}
+			%svg.svg_ui-arrow
+				%use{"xlink:href" => "#ui_arrow"}
+
+	%img#gallery_image{:src => "assets/img/full-nn_1.jpg", :alt => ""}

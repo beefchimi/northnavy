@@ -39,9 +39,9 @@ body {
 
 // Transitions
 // ----------------------------------------------------------------------------
-a,
-input,
-button {
+a {
+	// input,
+	// button
 	transition: all 0.3s ease-in-out;
 }
 svg {
@@ -57,14 +57,9 @@ div.wrap_menu div.menu_list {
 	transition: opacity 0.6s ease-in-out;
 	// will-change: opacity;
 }
-div.gallery_link {
-	transition: opacity 0.3s ease-in-out;
-}
-/*
 [data-overlay] {
-	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out; // visibility 0.3s ease-in-out
 }
-*/
 // --- Animations --- \\
 @keyframes animShow {
 	0%   { opacity: 0; }
@@ -86,9 +81,7 @@ div.gallery_link {
 }
 */
 // --- FOUT --- \\
-header {
-	position: relative;
-	z-index: 200;
+html:not(.ie9) header {
 	opacity: 0; // begin by setting opacity to 0
 	animation: animShow 0.6s ease-in-out 0.2s forwards;
 }
@@ -161,46 +154,105 @@ a:active {
 	border-color: $hsla_gold-D;
 }
 
-/*
-// --- Modals --- \\
-[data-modal] {
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	background-color: #000;
-	visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'loaded'
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-[data-modal] div.modal_body {
-	overflow: hidden;
-}
 
-// --- Overlays --- \\
+
+
+
+// --- Overlay --- \\
 // created and added (also destroyed) to DOM via JS
-// opacity and visibility applied via JS
-// transition applied through CSS
+// opacity applied via JS | transition via CSS
 [data-overlay] {
 	position: fixed;
-	z-index: 998;
+	z-index: 997;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: hsla(0,0%,0%,0.6);
+	background-color: hsla(0,0%,96%,0.8);
 }
 // --- Overlay Active --- \\
 html.overlay_active,
 html.overlay_active body {
 	overflow-y: hidden;
 }
-[data-modal].loaded,
-[data-overlay].loaded {
+// [data-overlay].loaded
+[data-modal].loaded {
 	visibility: visible;
 }
-*/
+
+
+aside[data-modal="gallery"] {
+
+}
+
+// --- Modal --- \\
+[data-modal] {
+	position: fixed;
+	z-index: 998;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	// width: 100%;
+	// height: 100%;
+	// visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'loaded'
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+
+[data-modal] div.modal_body {
+	overflow: hidden;
+}
+
+
+// --- Gallery Navigation --- \\
+nav.nav_gallery {
+	position: fixed;
+	z-index: 999;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 6.4rem;
+	text-align: center;
+	background-color: hsla(0,0%,100%,0.96);
+}
+nav.nav_gallery a.nav_close {
+	display: inline-block;
+	padding: 2.3rem 2rem 2.2rem 2rem;
+	font-size: 1.4rem;
+	text-transform: uppercase;
+	color: $hsla_blue;
+}
+nav.nav_gallery a.nav_close:hover {
+	color: $hsla_gold;
+}
+nav.nav_gallery a.nav_close:active {
+	color: $hsla_gold-D;
+}
+nav.nav_gallery a.wrap_svg {
+	position: absolute;
+	top: 0;
+	padding: 1.4rem;
+	width: 6.4rem; // actual width of svg: 3.6rem
+	height: 6.4rem; // actual height of svg: 3.6rem
+}
+nav.nav_gallery a.wrap_svg.nav_prev {
+	left: 0;
+	transform: rotate(180deg);
+}
+nav.nav_gallery a.wrap_svg.nav_next {
+	right: 0;
+}
+nav.nav_gallery a.wrap_svg svg {
+	fill: $hsla_blue;
+}
+nav.nav_gallery a.wrap_svg:hover svg {
+	fill: $hsla_gold;
+}
+nav.nav_gallery a.wrap_svg:active svg {
+	fill: $hsla_gold-D;
+}
+
 
 // ==|== common sections ======================================================
 // ============================================================================
@@ -208,6 +260,8 @@ html.overlay_active body {
 // Header
 // ----------------------------------------------------------------------------
 header {
+	position: relative;
+	z-index: 200;
 	padding: 6rem 1.6rem 10rem 1.6rem;
 }
 div.nn_logo {
@@ -279,8 +333,8 @@ ul.social_links li a.wrap_svg:hover svg {
 ul.social_links li a.wrap_svg:active svg {
 	fill: $hsla_gold-D;
 }
-// --- Navigation --- \\
-nav {
+// --- Main Navigation --- \\
+nav.nav_main {
 	display: none;
 	position: fixed;
 	z-index: 201;
@@ -291,7 +345,7 @@ nav {
 	background-color: hsla(0,0%,96%,0.98);
 	border-top: 0.6rem solid $hsla_blue;
 }
-nav a.nav_logo {
+nav.nav_main a.nav_logo {
 	display: none;
 	position: absolute;
 	top: 1.4rem;
@@ -300,35 +354,35 @@ nav a.nav_logo {
 	height: 5.2rem;
 	opacity: 0;
 }
-nav a.nav_logo svg {
+nav.nav_main a.nav_logo svg {
 	fill: $hsla_blue;
 }
-nav a.nav_logo:hover svg {
+nav.nav_main a.nav_logo:hover svg {
 	fill: $hsla_gold;
 }
-nav a.nav_logo:active svg {
+nav.nav_main a.nav_logo:active svg {
 	fill: $hsla_gold-D;
 }
-nav.scrolled a.nav_logo {
+nav.nav_main.scrolled a.nav_logo {
 	opacity: 1;
 }
 // + navigation list + \\
-nav ul li {
+nav.nav_main ul li {
 	display: inline-block;
 	margin-right: 2rem;
 }
-nav ul li:last-child {
+nav.nav_main ul li:last-child {
 	margin-right: 0;
 }
-nav ul li a {
+nav.nav_main ul li a {
 	padding: 1rem;
 	font-size: 1.6rem;
 }
-nav[data-current="reserve"] a[href="#reserve"],
-nav[data-current="foodwine"] a[href="#foodwine"],
-nav[data-current="bacaro"] a[href="#bacaro"],
-nav[data-current="private"] a[href="#private"],
-nav[data-current="photos"] a[href="#photos"] {
+nav.nav_main[data-current="reserve"] a[href="#reserve"],
+nav.nav_main[data-current="foodwine"] a[href="#foodwine"],
+nav.nav_main[data-current="bacaro"] a[href="#bacaro"],
+nav.nav_main[data-current="private"] a[href="#private"],
+nav.nav_main[data-current="photos"] a[href="#photos"] {
 	color: $hsla_gold;
 }
 
@@ -502,9 +556,12 @@ div.divider svg {
 	padding: 1.4rem 2.2rem;
 	font-size: 1.4rem;
 	letter-spacing: 0.1rem;
-	line-height: 1.2;
+	line-height: 1.4;
 	text-transform: uppercase;
 	vertical-align: middle;
+}
+.tag_circle .tag_text br {
+	display: none;
 }
 
 // Reserve
@@ -762,14 +819,14 @@ article.packery div.gutter-sizer {
 }
 article.packery .gallery_link {
 	width: calc(50% - 0.8rem);
-	opacity: 0.01;
+	// opacity: 0.01;
 }
 article.packery a.gallery_link {
 	display: block;
 }
-article.packery .gallery_link.loaded {
-	opacity: 1;
-}
+// article.packery .gallery_link.loaded {
+	// opacity: 1;
+// }
 article.packery a.gallery_link:hover {
 	opacity: 0.86;
 }

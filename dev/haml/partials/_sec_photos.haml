@@ -10,5 +10,5 @@
 		.gutter-sizer
 
 		- (1..17).each do |i|
-			.gallery_link
+			%a.gallery_link{:href => "assets/img/full-nn_#{i}.jpg", :title => "View Photo"}
 				%img{:src => "assets/img/nn_#{i}.jpg", :alt => ""}
