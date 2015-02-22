@@ -61,7 +61,7 @@ div.wrap_menu div.menu_list {
 
 [data-modal],
 [data-overlay] {
-	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+	transition: opacity 0.3s ease-in-out; // , visibility 0.3s ease-in-out
 }
 
 
@@ -75,16 +75,6 @@ div.wrap_menu div.menu_list {
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
-/*
-[data-modal="active"] {
-	left: 0;
-	animation: animShow 0.4s ease-in-out;
-}
-[data-modal="inactive"] {
-	left: -200%;
-	animation: animHide 0.4s ease-in-out forwards;
-}
-*/
 // --- FOUT --- \\
 html:not(.ie9) header {
 	opacity: 0; // begin by setting opacity to 0
@@ -163,63 +153,38 @@ a:active {
 
 
 
-// --- Overlay --- \\
+// --- Overlay & Modal --- \\
 // created and added (also destroyed) to DOM via JS
 // opacity applied via JS | transition via CSS
+[data-modal],
 [data-overlay] {
 	position: fixed;
-	z-index: 997;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
+}
+// + overlay + \\
+[data-overlay] {
+	z-index: 997;
 	background-color: $hsla_L96-A98;
 }
-// --- Overlay Active --- \\
+// + modal + \\
+[data-modal] {
+	z-index: 998;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+}
+// + overlay active + \\
 html.overlay_active,
 html.overlay_active body {
 	overflow-y: hidden;
 }
-/*
-// [data-overlay].loaded
-[data-modal].loaded {
-	visibility: visible;
-}
-*/
 
 
 
 
-
-
-// --- Modal --- \\
-[data-modal] {
-	position: fixed;
-	z-index: 998;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	left: 0;
-
-	// width: 100%;
-	// height: 100%;
-
-	opacity: 0;
-	visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'loaded'
-
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
-}
-[data-modal] div.modal_body {
-	overflow: hidden;
-}
-
-[data-modal] {
-	opacity: 1;
-	visibility: visible;
-}
-
-// + modal: gallery + \\
+// --- Gallery Modal --- \\
 aside[data-modal="gallery"] {
 	padding-top: 6.4rem;
 }
@@ -227,11 +192,7 @@ aside[data-modal="gallery"] img {
 	margin: 0 auto;
 }
 
-
-
-
-
-// --- Gallery Navigation --- \\
+// + gallery navigation + \\
 nav.nav_gallery {
 	position: fixed;
 	z-index: 999;

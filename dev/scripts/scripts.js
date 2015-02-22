@@ -13,14 +13,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		elMenuLunch      = document.getElementById('menu_lunch'),
 		elMenuDinner     = document.getElementById('menu_dinner');
 
-
-/*
-	var docFragment,
-		elOverlay,
-		elModal;
-*/
-
-
 	var arrSections = [
 		{ title: 'home',     height: 0, section: document.getElementsByTagName('header')[0] },
 		{ title: 'reserve',  height: 0, section: document.getElementById('reserve') },
@@ -48,6 +40,16 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginPrivate,
 		numBeginPhotos,
 		numBeginReserveAdjusted;
+
+
+
+	var elOverlay,
+		elGalleryModal,
+		elGalleryPrev,
+		elGalleryNext,
+		elGalleryClose,
+		elGalleryImage;
+
 
 
 	// Helper: Fire Window Resize Event Upon Finish
@@ -355,51 +357,63 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-	// Helper: Create and Destroy [data-overlay] element
+	// Helper: CSS Fade In / Out
+	// ----------------------------------------------------------------------------
+	function fadeIn(thisElement) {
+
+		// make the element fully transparent
+		// (don't rely on a predefined CSS style... declare this with JS to getComputerStyle)
+		thisElement.style.opacity = 0;
+
+		// make sure the initial state is applied
+		window.getComputedStyle(thisElement).opacity;
+
+		// set opacity to 1 (CSS transition will handle the fade)
+		thisElement.style.opacity = 1;
+
+	}
+
+	function fadeOut(thisElement) {
+
+		// set opacity to 0 (CSS transition will handle the fade)
+		thisElement.style.opacity = 0;
+
+	}
+
+
+	// Overlay: Create and Destroy [data-overlay] element
 	// ----------------------------------------------------------------------------
 	function createOverlay() {
 
 		// lock document scrolling
 		classie.add(elHTML, 'overlay_active');
 
-		// first, create the document fragment
-		// var docFragment = document.createDocumentFragment();
+		// create document fragment
+		var docFragment = document.createDocumentFragment();
 
-		// create an empty <div>
+		// create empty overlay <div>
 		elOverlay = document.createElement('div');
 
 		// apply the attributes: id="overlay" & data-overlay="modal"
-		// elOverlay.id = 'overlay';
+		elOverlay.id = 'overlay';
 		elOverlay.setAttribute('data-overlay', 'modal'); // could maybe pass the attr value into the function?
 
 		// append the #overlay to the document fragement
-		// docFragment.appendChild(elOverlay);
+		docFragment.appendChild(elOverlay);
 
 		// append this <div> to the document <body>
-		elBody.appendChild(elOverlay);
+		elBody.appendChild(docFragment);
 
-		// make the element fully transparent
-		// (don't rely on a predefined CSS style... declare this with JS to getComputerStyle)
-		elOverlay.style.opacity = 0;
-
-		// make sure the initial state is applied
-		window.getComputedStyle(elOverlay).opacity;
-
-		// set opacity to 1 (CSS transition will handle the fade)
-		elOverlay.style.opacity = 1;
+		fadeIn(elOverlay);
 
 	}
 
 	function destroyOverlay() {
 
-		// define empty elOverlay variable as the newly created div#overlay
-		// elOverlay = document.getElementById('overlay');
-
 		// unlock document scrolling
 		classie.remove(elHTML, 'overlay_active');
 
-		// set opacity to 0 (CSS transition will handle the fade)
-		elOverlay.style.opacity = 0;
+		fadeOut(elOverlay);
 
 		// listen for CSS transitionEnd before removing the element
 		elOverlay.addEventListener(transitionEvent, removeOverlay);
@@ -408,7 +422,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function removeOverlay() {
 
-		console.log('removeModal');
+		console.log('removeOverlay begin');
 
 		// remove elOverlay from <body>
 		elBody.removeChild(elOverlay);
@@ -416,25 +430,25 @@ document.addEventListener('DOMContentLoaded', function() {
 		// must remove event listener!
 		elOverlay.removeEventListener(transitionEvent, removeOverlay);
 
+		console.log('removeOverlay end');
+
 	}
 
 
-
-
+	// Modal: Create and Destroy [data-overlay] element
+	// ----------------------------------------------------------------------------
 	function createModal() {
 
 		// build modal elements
-		var docFragment  = document.createDocumentFragment(),
-			elModal      = document.createElement('aside');
+		var docFragment  = document.createDocumentFragment();
+
+		elGalleryModal   = document.createElement('aside');
 
 		// define <aside> attributes
-		elModal.id = 'gallery';
-		elModal.setAttribute('data-modal', 'gallery');
-		elModal.setAttribute('data-current', '');
-
-
-/*
-		elModal.innerHTML = '<nav id="nav_gallery" class="nav_gallery">'+
+		elGalleryModal.id = 'gallery';
+		elGalleryModal.setAttribute('data-modal', 'gallery');
+		elGalleryModal.setAttribute('data-current', '');
+		elGalleryModal.innerHTML = '<nav id="nav_gallery" class="nav_gallery">'+
 			'<a href="#" id="nav_prev" class="wrap_svg nav_prev" title="Previous Image">'+
 				'<svg class="svg_ui-arrow">'+
 					'<use xlink:href="#ui_arrow"></use>'+
@@ -452,64 +466,67 @@ document.addEventListener('DOMContentLoaded', function() {
 			'</a>'+
 		'</nav>'+
 		'<img id="gallery_image" src="" alt="">';
-*/
-
-
-		// build nav elements
-		var elModalNav   = document.createElement('nav'),
-			elModalImage = document.createElement('img'),
-			arrNavLinks  = [
-				{ id: 'prev',  title: 'Previous Image', svgClass: 'svg_ui-arrow', xlink: '#ui_arrow' },
-				{ id: 'next',  title: 'Next Image',     svgClass: 'svg_ui-arrow', xlink: '#ui_arrow' },
-				{ id: 'close', title: 'Close Image',    svgClass: 'svg_ui-close', xlink: '#ui_close' }
-			];
-
-		// define <nav> attributes
-		elModalNav.id = 'nav_gallery';
-		elModalNav.setAttribute('class', 'nav_gallery');
-
-		// define <img> attributes
-		elModalImage.id = 'gallery_image';
-		elModalImage.setAttribute('src', '');
-		elModalImage.setAttribute('alt', '');
-
-		// iterate through nav links array
-		for (var i = 0; i < arrNavLinks.length; i++) {
-
-			// build nav links (svg & use require a namespace)
-			var thisNavLink = document.createElement('a'),
-				thisSVG     = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-				thisUse     = document.createElementNS('http://www.w3.org/2000/svg', 'use');
-
-			// define nav link attributes
-			thisNavLink.id = 'nav_' + arrNavLinks[i].id;
-			thisNavLink.setAttribute('href', '#');
-			thisNavLink.setAttribute('title', arrNavLinks[i].title);
-			thisNavLink.setAttribute('class', 'wrap_svg nav_' + arrNavLinks[i].id);
-
-			// define namespaced element attributes
-			thisSVG.setAttribute('class', arrNavLinks[i].svgClass);
-			thisUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', arrNavLinks[i].xlink);
-
-			// append nav links
-			thisSVG.appendChild(thisUse);
-			thisNavLink.appendChild(thisSVG);
-			elModalNav.appendChild(thisNavLink);
-
-		}
-
-		// append nav and image
-		elModal.appendChild(elModalNav);
-		elModal.appendChild(elModalImage);
-
 
 		// append to document fragment and empty into <body>
-		docFragment.appendChild(elModal);
+		docFragment.appendChild(elGalleryModal);
 		elBody.appendChild(docFragment);
+
+		fadeIn(elGalleryModal);
+
+		// not sure how to do this properly...
+		elGalleryPrev  = document.getElementById('nav_prev');
+		elGalleryNext  = document.getElementById('nav_next');
+		elGalleryClose = document.getElementById('nav_close');
+		elGalleryImage = document.getElementById('gallery_image');
 
 	}
 
-	createModal();
+	function destroyModal() {
+
+		fadeOut(elGalleryModal);
+
+		// listen for CSS transitionEnd before removing the element
+		elGalleryModal.addEventListener(transitionEvent, removeModal);
+
+	}
+
+	function removeModal() {
+
+		console.log('removeModal begin');
+
+		// remove elOverlay from <body>
+		elBody.removeChild(elGalleryModal);
+
+		// must remove event listener!
+		elGalleryModal.removeEventListener(transitionEvent, removeModal);
+
+		console.log('removeModal end');
+
+	}
+
+
+
+
+	function testElements() {
+
+		var elFooter = document.getElementsByTagName('footer')[0];
+
+		elFooter.addEventListener('click', function(e) {
+
+			console.log(elOverlay);
+			console.log(elGalleryModal);
+			console.log(elGalleryPrev);
+			console.log(elGalleryNext);
+			console.log(elGalleryClose);
+			console.log(elGalleryImage);
+
+		});
+
+	}
+
+	testElements();
+
+
 
 
 	// photoGallery: Photo section modal gallery
@@ -525,34 +542,33 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 		var numGalleryCountAdjusted = numGalleryCount - 1,
-			elGalleryModal          = document.getElementById('gallery'),
-			elGalleryPrev           = document.getElementById('nav_prev'),
-			elGalleryNext           = document.getElementById('nav_next'),
-			elGalleryClose          = document.getElementById('nav_close'),
-			elGalleryImage          = document.getElementById('gallery_image'),
 			arrGallerySource        = [],
 			dataCurrent,
 			dataSRC;
 
 		for (var i = 0; i < numGalleryCount; i++) {
-			launchGallery(arrGalleryLinks[i], i);
-		}
-
-		function launchGallery(thisGalleryLink, index) {
 
 			// push a.gallery_link href to arrGallerySource array
-			arrGallerySource.push(thisGalleryLink.getAttribute('href'));
+			arrGallerySource.push(arrGalleryLinks[i].getAttribute('href'));
 
-			thisGalleryLink.addEventListener('click', function(e) {
+			// attach this a.gallery_link click event
+			arrGalleryLinks[i].addEventListener('click', launchGallery);
 
-				dataCurrent = index;
+		}
 
-				createOverlay();
-				loadImage();
+		function launchGallery(e) {
 
-				e.preventDefault();
+			dataCurrent = parseInt( this.getAttribute('data-gallery') );
 
-			});
+			createOverlay();
+			createModal();
+			loadImage();
+
+			elGalleryPrev.addEventListener('click', galleryPrevious);
+			elGalleryNext.addEventListener('click', galleryNext);
+			elGalleryClose.addEventListener('click', galleryClose);
+
+			e.preventDefault();
 
 		}
 
@@ -572,7 +588,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
-		elGalleryPrev.addEventListener('click', function(e) {
+		function galleryPrevious(e) {
 
 			if (dataCurrent <= 0) {
 				dataCurrent = numGalleryCountAdjusted;
@@ -584,9 +600,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			e.preventDefault();
 
-		});
+		}
 
-		elGalleryNext.addEventListener('click', function(e) {
+		function galleryNext(e) {
 
 			if (dataCurrent >= numGalleryCountAdjusted) {
 				dataCurrent = 0;
@@ -598,20 +614,24 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			e.preventDefault();
 
-		});
+		}
 
-		elGalleryClose.addEventListener('click', function(e) {
+		function galleryClose(e) {
 
 			destroyOverlay();
+			destroyModal();
+
+			elGalleryPrev.removeEventListener('click', galleryPrevious);
+			elGalleryNext.removeEventListener('click', galleryNext);
+			elGalleryClose.removeEventListener('click', galleryClose);
 
 			e.preventDefault();
 
-		});
+		}
+
+
 
 	}
-
-// photoGallery();
-
 
 
 
@@ -754,7 +774,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	toggleNavLogo();
 	secretEmail();
 	layoutPackery();
-	// photoGallery();
+	photoGallery();
 
 	smoothScroll.init({
 		speed: 1000,
