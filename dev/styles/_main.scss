@@ -53,18 +53,15 @@ ul.menu_toggle li a::before {
 div.wrap_menu {
 	transition: height 0.6s ease-in-out;
 }
+[data-overlay],
 div.wrap_menu div.menu_list {
 	transition: opacity 0.6s ease-in-out;
 	// will-change: opacity;
 }
-
-
-[data-modal],
-[data-overlay] {
-	transition: opacity 0.3s ease-in-out; // , visibility 0.3s ease-in-out
+div.loader_overlay,
+aside[data-modal="gallery"] img {
+	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
-
-
 // --- Animations --- \\
 @keyframes animShow {
 	0%   { opacity: 0; }
@@ -75,11 +72,73 @@ div.wrap_menu div.menu_list {
 	99%  { opacity: 0; left: 0; }
 	100% { opacity: 0; left: -200%; }
 }
+@keyframes anim360 {
+	to {
+		transform: rotate(360deg);
+	}
+}
 // --- FOUT --- \\
 html:not(.ie9) header {
 	opacity: 0; // begin by setting opacity to 0
 	animation: animShow 0.6s ease-in-out 0.2s forwards;
 }
+
+// CSS Loader
+// ----------------------------------------------------------------------------
+div.loader_overlay {
+	position: fixed;
+	z-index: 910;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	// background-color: $hsla_L96-A60;
+	opacity: 0;
+	visibility: hidden;
+}
+div.loader_overlay.visible {
+	opacity: 1;
+	visibility: visible;
+}
+// + rotator + \\
+svg.svg_ui-loader {
+	position: absolute;
+	z-index: 911;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	margin: auto;
+	width: 4.4rem;
+	height: 4.4rem;
+	fill: $hsla_blue;
+	animation: anim360 1s linear infinite forwards;
+}
+
+// + pulse circles + \\
+/*
+div.loader_pulse {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-align: center;
+}
+div.loader_pulse div.loader_circle {
+	display: inline-block;
+	width: 1.8rem;
+	height: 1.8rem;
+	background-color: $hsla_blue;
+	border-radius: 100%;
+	animation: loadPulse 1s ease-in-out infinite both;
+}
+div.loader_pulse div.circle-1 {
+	animation-delay: -0.32s;
+}
+div.loader_pulse div.circle-2 {
+	animation-delay: -0.16s;
+}
+*/
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -166,12 +225,12 @@ a:active {
 }
 // + overlay + \\
 [data-overlay] {
-	z-index: 997;
+	z-index: 900;
 	background-color: $hsla_L96-A98;
 }
 // + modal + \\
 [data-modal] {
-	z-index: 998;
+	z-index: 901;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
@@ -191,6 +250,13 @@ aside[data-modal="gallery"] {
 aside[data-modal="gallery"] img {
 	margin: 0 auto;
 }
+aside[data-modal="gallery"].img_loading img {
+	opacity: 0;
+}
+aside[data-modal="gallery"].img_loaded img {
+	opacity: 1;
+}
+
 
 // + gallery navigation + \\
 nav.nav_gallery {
