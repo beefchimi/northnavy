@@ -58,10 +58,16 @@ div.wrap_menu div.menu_list {
 	transition: opacity 0.6s ease-in-out;
 	// will-change: opacity;
 }
-div.loader_overlay,
-aside[data-modal="gallery"] img {
+div.loader_overlay {
 	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
+aside[data-modal="gallery"] img {
+	transition: opacity 0.4s ease-in-out;
+}
+
+
+
+
 // --- Animations --- \\
 @keyframes animShow {
 	0%   { opacity: 0; }
@@ -207,11 +213,6 @@ a:active {
 .button:active {
 	border-color: $hsla_gold-D;
 }
-
-
-
-
-
 // --- Overlay & Modal --- \\
 // created and added (also destroyed) to DOM via JS
 // opacity applied via JS | transition via CSS
@@ -239,25 +240,17 @@ html.overlay_active,
 html.overlay_active body {
 	overflow-y: hidden;
 }
-
-
-
-
 // --- Gallery Modal --- \\
 aside[data-modal="gallery"] {
 	padding-top: 6.4rem;
 }
 aside[data-modal="gallery"] img {
 	margin: 0 auto;
-}
-aside[data-modal="gallery"].img_loading img {
-	opacity: 0;
+	opacity: 0; // hide by default
 }
 aside[data-modal="gallery"].img_loaded img {
 	opacity: 1;
 }
-
-
 // + gallery navigation + \\
 nav.nav_gallery {
 	position: fixed;
@@ -269,31 +262,34 @@ nav.nav_gallery {
 	text-align: center;
 	background-color: $hsla_L96-A98;
 }
-nav.nav_gallery a.wrap_svg {
+nav.nav_gallery div[data-container] {
+	position: relative;
+}
+nav.nav_gallery div[data-container] a.wrap_svg {
 	position: absolute;
 	top: 0;
 	padding: 1.6rem;
 	width: 6.4rem; // actual width of svg: 3.2rem
 	height: 6.4rem; // actual height of svg: 3.2rem
 }
-nav.nav_gallery a.wrap_svg.nav_prev {
+nav.nav_gallery div[data-container] a.wrap_svg.nav_prev {
 	left: 0;
 	transform: rotate(180deg);
 }
-nav.nav_gallery a.wrap_svg.nav_next {
+nav.nav_gallery div[data-container] a.wrap_svg.nav_next {
 	right: 0;
 }
-nav.nav_gallery a.nav_close {
+nav.nav_gallery div[data-container] a.nav_close {
 	left: 50%;
 	margin-left: -3.2rem;
 }
-nav.nav_gallery a.wrap_svg svg {
+nav.nav_gallery div[data-container] a.wrap_svg svg {
 	fill: $hsla_blue;
 }
-nav.nav_gallery a.wrap_svg:hover svg {
+nav.nav_gallery div[data-container] a.wrap_svg:hover svg {
 	fill: $hsla_gold;
 }
-nav.nav_gallery a.wrap_svg:active svg {
+nav.nav_gallery div[data-container] a.wrap_svg:active svg {
 	fill: $hsla_gold-D;
 }
 
@@ -863,14 +859,14 @@ article.packery div.gutter-sizer {
 }
 article.packery .gallery_link {
 	width: calc(50% - 0.8rem);
-	// opacity: 0.01;
+	opacity: 0.01;
 }
 article.packery a.gallery_link {
 	display: block;
 }
-// article.packery .gallery_link.loaded {
-	// opacity: 1;
-// }
+article.packery .gallery_link.loaded {
+	opacity: 1;
+}
 article.packery a.gallery_link:hover {
 	opacity: 0.86;
 }

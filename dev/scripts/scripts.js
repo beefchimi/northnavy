@@ -376,7 +376,8 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function layoutPackery() {
 
-		var elPackeryContainer = document.getElementById('packery');
+		var elPackeryContainer = document.getElementById('packery'),
+			arrImages          = document.getElementsByClassName('gallery_link');
 
 		// layout Packery after all images have loaded
 		imagesLoaded(elPackeryContainer, function(instance) {
@@ -386,6 +387,15 @@ document.addEventListener('DOMContentLoaded', function() {
 				itemSelector: '.gallery_link',
 				gutter: 'div.gutter-sizer'
 			});
+
+			// iterate through each article and add 'loaded' class once ready
+			for (var i = 0; i < arrImages.length; i++) {
+				(function(i){
+					setTimeout(function() {
+						classie.add(arrImages[i], 'loaded');
+					}, 200 * i);
+				})(i);
+			}
 
 		});
 
@@ -449,8 +459,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function destroyOverlay() {
 
-		console.log('destroyOverlay begin');
-
 		// unlock document scrolling
 		classie.remove(elHTML, 'overlay_active');
 
@@ -459,15 +467,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		// listen for CSS transitionEnd before removing the element
 		elOverlay.addEventListener(transitionEvent, removeOverlay, false);
 
-		console.log('destroyOverlay end');
-
 	}
 
 	function removeOverlay(e) {
 
+		// only listen for the opacity property
 		if (e.propertyName == "opacity") {
-
-			console.log('removeOverlay begin');
 
 			// remove elOverlay from <body>
 			elBody.removeChild(elOverlay);
@@ -476,8 +481,6 @@ document.addEventListener('DOMContentLoaded', function() {
 			elOverlay.removeEventListener(transitionEvent, removeOverlay);
 
 			// document.removeEventListener('click', documentClick);
-
-			console.log('removeOverlay end');
 
 		}
 
@@ -524,7 +527,9 @@ document.addEventListener('DOMContentLoaded', function() {
 		// define & scope variables for child functions
 		var numGalleryCountAdjusted = numGalleryCount - 1,
 			arrGallerySource        = [],
+			boolFirstRun            = true,
 			elGalleryModal,
+			elGalleryNav,
 			elGalleryPrev,
 			elGalleryNext,
 			elGalleryClose,
@@ -551,8 +556,10 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryImage  = document.createElement('img');
 			elGalleryLoader = createLoader();
 
+			// create new modal variables
+			var elGalleryNavWrap = document.createElement('div');
+
 			// define <aside> attributes
-			elGalleryModal.id = 'gallery';
 			elGalleryModal.setAttribute('data-modal', 'gallery');
 
 			// define contents of nav links
@@ -563,11 +570,10 @@ document.addEventListener('DOMContentLoaded', function() {
 				];
 
 			// define <nav> attributes
-			elGalleryNav.id = 'nav_gallery';
 			elGalleryNav.setAttribute('class', 'nav_gallery');
+			elGalleryNavWrap.setAttribute('data-container', 'width_1200');
 
 			// define <img> attributes
-			elGalleryImage.id = 'gallery_image';
 			elGalleryImage.setAttribute('src', '');
 			elGalleryImage.setAttribute('alt', '');
 
@@ -580,7 +586,6 @@ document.addEventListener('DOMContentLoaded', function() {
 					thisUse     = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 
 				// define nav link attributes
-				thisNavLink.id = 'nav_' + arrNavLinks[i].id;
 				thisNavLink.setAttribute('href', '#');
 				thisNavLink.setAttribute('title', arrNavLinks[i].title);
 				thisNavLink.setAttribute('class', 'wrap_svg nav_' + arrNavLinks[i].id);
@@ -592,11 +597,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				// append nav link elements
 				thisSVG.appendChild(thisUse);
 				thisNavLink.appendChild(thisSVG);
-				elGalleryNav.appendChild(thisNavLink);
+				elGalleryNavWrap.appendChild(thisNavLink);
 
 			}
 
 			// append nav, image, and loader
+			elGalleryNav.appendChild(elGalleryNavWrap);
 			elGalleryModal.appendChild(elGalleryNav);
 			elGalleryModal.appendChild(elGalleryImage);
 			elGalleryModal.appendChild(elGalleryLoader);
@@ -605,9 +611,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			createOverlay(elGalleryModal, 'gallery');
 
 			// get reference to nav links
-			elGalleryPrev  = document.getElementById('nav_prev');
-			elGalleryNext  = document.getElementById('nav_next');
-			elGalleryClose = document.getElementById('nav_close');
+			elGalleryPrev  = document.getElementsByClassName('nav_prev')[0];
+			elGalleryNext  = document.getElementsByClassName('nav_next')[0];
+			elGalleryClose = document.getElementsByClassName('nav_close')[0];
 
 		}
 
@@ -622,7 +628,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			elGalleryPrev.addEventListener('click', galleryPrevious);
 			elGalleryNext.addEventListener('click', galleryNext);
-			elGalleryClose.addEventListener('click', galleryClose);
+			elGalleryClose.addEventListener('click', clickClose);
+			elGalleryModal.addEventListener('click', clickModal);
 
 			e.preventDefault();
 
@@ -631,18 +638,43 @@ document.addEventListener('DOMContentLoaded', function() {
 		// load the next image
 		function loadImage() {
 
-			// scroll the <aside> to 0 so we don't end up opening a new image that is scrolled half way down
-			// elGalleryModal.scrollTop = 0;
+			if (boolFirstRun) {
 
-			// remove a possible previously set 'img_loaded' class
-			classie.remove(elGalleryModal, 'img_loaded');
+				// add loading classes
+				classie.add(elGalleryLoader, 'visible');
 
-			// add loading classes
-			classie.add(elGalleryModal, 'img_loading');
-			classie.add(elGalleryLoader, 'visible');
+				updateImageSrc();
+				boolFirstRun = false;
 
-			// listen for CSS transitionEnd before setting new image src
-			elGalleryImage.addEventListener(transitionEvent, galleryTransitionEnd);
+			} else {
+
+				// scroll the <aside> to 0 so we don't end up opening a new image that is scrolled half way down
+				// elGalleryModal.scrollTop = 0;
+
+				// add loading classes
+				classie.add(elGalleryLoader, 'visible');
+
+				// remove 'img_loaded' class - return to opacity: 0;
+				classie.remove(elGalleryModal, 'img_loaded');
+
+				// listen for CSS transitionEnd before setting new image src
+				elGalleryImage.addEventListener(transitionEvent, galleryTransitionEnd);
+
+			}
+
+		}
+
+		function updateImageSrc() {
+
+
+
+			// set the new image source
+			elGalleryImage.src = arrGallerySource[dataCurrent];
+
+			// use imagesLoaded to check image progress
+			var imgLoad = imagesLoaded(elGalleryModal);
+
+			imgLoad.on('always', onAlways);
 
 		}
 
@@ -652,14 +684,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// once opacity has reached 0
 			if (e.propertyName == "opacity") {
 
-				// set the new image source
-				elGalleryImage.src = arrGallerySource[dataCurrent];
-
-				// use imagesLoaded to check image progress
-				var imgLoad = imagesLoaded(elGalleryModal);
-
-				imgLoad.on('progress', onProgress);
-				imgLoad.on('always', onAlways);
+				updateImageSrc();
 
 				// must remove event listener!
 				elGalleryImage.removeEventListener(transitionEvent, galleryTransitionEnd);
@@ -668,20 +693,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
-		// triggered after each image is loaded
-		function onProgress(imgLoad, image) {
-
-			// check if the new image src has been downloaded
-			if (image.isLoaded) {
-				classie.add(elGalleryModal, 'img_loaded');
-			}
-
-		}
-
 		// hide status when done
 		function onAlways() {
 
-			classie.remove(elGalleryModal, 'img_loading');
+			classie.add(elGalleryModal, 'img_loaded');
 			classie.remove(elGalleryLoader, 'visible');
 
 		}
@@ -689,16 +704,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		// #nav_prev click event
 		function galleryPrevious(e) {
 
-			// if we are on the very first image (0),
-			// clicking 'prev' should take us to the last image,
-			// otherwise, increment down
-			if (dataCurrent <= 0) {
-				dataCurrent = numGalleryCountAdjusted;
-			} else {
-				dataCurrent--;
-			}
+			// do not allow click is the image has not loaded
+			if ( classie.has(elGalleryModal, 'img_loaded') ) {
 
-			loadImage();
+				// if we are on the very first image (0),
+				// clicking 'prev' should take us to the last image,
+				// otherwise, increment down
+				if (dataCurrent <= 0) {
+					dataCurrent = numGalleryCountAdjusted;
+				} else {
+					dataCurrent--;
+				}
+
+				loadImage();
+
+			}
 
 			e.preventDefault();
 
@@ -707,23 +727,30 @@ document.addEventListener('DOMContentLoaded', function() {
 		// #nav_next click event
 		function galleryNext(e) {
 
-			// if we are on the very last image,
-			// clicking 'next' should take us to the first image (0),
-			// otherwise, increment up
-			if (dataCurrent >= numGalleryCountAdjusted) {
-				dataCurrent = 0;
-			} else {
-				dataCurrent++;
-			}
+			// do not allow click is the image has not loaded
+			if ( classie.has(elGalleryModal, 'img_loaded') ) {
 
-			loadImage();
+				// if we are on the very last image,
+				// clicking 'next' should take us to the first image (0),
+				// otherwise, increment up
+				if (dataCurrent >= numGalleryCountAdjusted) {
+					dataCurrent = 0;
+				} else {
+					dataCurrent++;
+				}
+
+				loadImage();
+
+			}
 
 			e.preventDefault();
 
 		}
 
-		// #nav_close click event
-		function galleryClose(e) {
+		// destroy the modal + overlay
+		function galleryClose() {
+
+			boolFirstRun = true;
 
 			// destroy [data-overlay], including <aside> child
 			destroyOverlay();
@@ -731,15 +758,37 @@ document.addEventListener('DOMContentLoaded', function() {
 			// remove click event from nav links (does this matter?)
 			elGalleryPrev.removeEventListener('click', galleryPrevious);
 			elGalleryNext.removeEventListener('click', galleryNext);
-			elGalleryClose.removeEventListener('click', galleryClose);
+			elGalleryClose.removeEventListener('click', clickClose);
+			elGalleryModal.removeEventListener('click', clickModal);
+
+		}
+
+		// #nav_close click event
+		function clickClose(e) {
+
+			galleryClose();
 
 			e.preventDefault();
 
 		}
 
+		// gallery modal click event (ignore image or nav)
+		function clickModal(e) {
+
+			if (e.target === elGalleryModal) {
+
+				// ignore this event if preventDefault has been called
+				if (e.defaultPrevented) {
+					return;
+				}
+
+				galleryClose();
+
+			}
+
+		}
+
 	}
-
-
 
 
 /*

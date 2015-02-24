@@ -46,6 +46,20 @@
 		border-top: none;
 	}
 
+	// General Styles
+	// ----------------------------------------------------------------------------
+	// --- Gallery Modal --- \\
+	aside[data-modal="gallery"] {
+		padding-top: 8.6rem;
+	}
+	// + gallery navigation + \\
+	nav.nav_gallery {
+		height: 8.6rem;
+	}
+	nav.nav_gallery div[data-container] a.wrap_svg {
+		top: 1.1rem;
+	}
+
 // ==|== common sections ======================================================
 // ============================================================================
 
