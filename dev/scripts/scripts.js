@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
 
-	// Global Variables: Variables required for more than 1 function
+	// Global Variables: Variables requiring a global scope
 	// ----------------------------------------------------------------------------
 	var elHTML           = document.documentElement,
 		elBody           = document.body,
@@ -116,26 +116,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function createLoader() {
 
-/*
-		var elLoader = document.createElement('div'),
-			elLoaderWrap = document.createElement('div');
-
-		elLoader.id = 'loader';
-		elLoader.setAttribute('class', 'loader_overlay');
-
-		elLoaderWrap.setAttribute('class', 'loader_pulse');
-
-		for (var i = 1; i < 4; i++) {
-
-			var elLoaderCircle = document.createElement('div');
-
-			elLoaderCircle.setAttribute('class', 'loader_circle circle-' + i);
-
-			elLoaderWrap.appendChild(elLoaderCircle);
-
-		}
-*/
-
 		// create loader elements
 		var elLoader    = document.createElement('div'),
 			elLoaderSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
@@ -143,7 +123,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// define loader attributes
 		elLoader.setAttribute('class', 'loader_overlay');
-		elLoaderSVG.setAttribute('class', 'svg_ui-loader');
 		elLoaderUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_loader');
 
 		// append loader elements
@@ -535,7 +514,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryClose,
 			elGalleryImage,
 			elGalleryLoader,
-			dataCurrent;
+			dataCurrent,
+			dataNewImage;
 
 		for (var i = 0; i < numGalleryCount; i++) {
 
@@ -564,9 +544,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// define contents of nav links
 			var arrNavLinks  = [
-					{ id: 'prev',  title: 'Previous Image', svgClass: 'svg_ui-arrow', xlink: '#ui_arrow' },
-					{ id: 'next',  title: 'Next Image',     svgClass: 'svg_ui-arrow', xlink: '#ui_arrow' },
-					{ id: 'close', title: 'Close Image',    svgClass: 'svg_ui-close', xlink: '#ui_close' }
+					{ id: 'prev',  xlink: '#ui_arrow', title: 'Previous Image' },
+					{ id: 'next',  xlink: '#ui_arrow', title: 'Next Image'     },
+					{ id: 'close', xlink: '#ui_close', title: 'Close Image'    }
 				];
 
 			// define <nav> attributes
@@ -591,7 +571,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				thisNavLink.setAttribute('class', 'wrap_svg nav_' + arrNavLinks[i].id);
 
 				// define namespaced element attributes
-				thisSVG.setAttribute('class', arrNavLinks[i].svgClass);
 				thisUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', arrNavLinks[i].xlink);
 
 				// append nav link elements
@@ -666,10 +645,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function updateImageSrc() {
 
+			// set dataNewImage as the newest image source
+			dataNewImage = arrGallerySource[dataCurrent];
 
-
-			// set the new image source
-			elGalleryImage.src = arrGallerySource[dataCurrent];
+			// apply the new image source
+			elGalleryImage.src = dataNewImage;
 
 			// use imagesLoaded to check image progress
 			var imgLoad = imagesLoaded(elGalleryModal);
@@ -695,6 +675,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// hide status when done
 		function onAlways() {
+
+/*
+			console.log(elGalleryImage.getAttribute('src'));
+			console.log(dataNewImage);
+
+			if (elGalleryImage.getAttribute('src') != dataNewImage) {
+				console.log('image has not been updated');
+			} else {
+				console.log('SUCCESS!');
+			}
+*/
 
 			classie.add(elGalleryModal, 'img_loaded');
 			classie.remove(elGalleryLoader, 'visible');

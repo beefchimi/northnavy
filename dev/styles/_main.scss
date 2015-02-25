@@ -106,8 +106,7 @@ div.loader_overlay.visible {
 	opacity: 1;
 	visibility: visible;
 }
-// + rotator + \\
-svg.svg_ui-loader {
+div.loader_overlay svg {
 	position: absolute;
 	z-index: 911;
 	top: 0;
@@ -120,31 +119,6 @@ svg.svg_ui-loader {
 	fill: $hsla_blue;
 	animation: anim360 1s linear infinite forwards;
 }
-
-// + pulse circles + \\
-/*
-div.loader_pulse {
-	position: absolute;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%,-50%);
-	text-align: center;
-}
-div.loader_pulse div.loader_circle {
-	display: inline-block;
-	width: 1.8rem;
-	height: 1.8rem;
-	background-color: $hsla_blue;
-	border-radius: 100%;
-	animation: loadPulse 1s ease-in-out infinite both;
-}
-div.loader_pulse div.circle-1 {
-	animation-delay: -0.32s;
-}
-div.loader_pulse div.circle-2 {
-	animation-delay: -0.16s;
-}
-*/
 
 // General Styles
 // ----------------------------------------------------------------------------
@@ -183,8 +157,8 @@ div.loader_pulse div.circle-2 {
 	width: 100%;
 	height: 100%;
 }
-.wrap_svg svg[viewBox] {
-	display: inline; // doesn't seem to work in webkit
+svg.svg_inline {
+	display: inline; // [viewBox] attribute selector does not work in webkit
 }
 // --- Links --- \\
 a {
@@ -329,7 +303,6 @@ div.nn_wordmark {
 }
 div.nn_logo svg,
 div.nn_wordmark svg {
-	display: inline; // webkit does not respect [viewBox] attribute selector
 	fill: $hsla_blue;
 }
 h3.address {
@@ -355,7 +328,6 @@ ul.social_links li a.wrap_svg {
 	height: 2.8rem;
 }
 ul.social_links li a.wrap_svg svg {
-	display: inline; // webkit does not respect [viewBox] attribute selector
 	fill: $hsla_blue;
 }
 ul.social_links li.social_twitter {
@@ -609,6 +581,23 @@ div.divider svg {
 section.reserve article div.wrap_content {
 	margin-bottom: 4.8rem;
 }
+section.reserve article div.wrap_content h6 {
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	font-size: 1.2rem;
+	letter-spacing: 0.1rem;
+	line-height: 1.6;
+	text-transform: uppercase;
+	color: $hsla_gold;
+}
+section.reserve article div.wrap_content h6 span {
+	display: block;
+}
+section.reserve article div.wrap_content h6.time_lunch {
+	margin-bottom: 2rem;
+}
+section.reserve article div.wrap_content h6.time_dinner {
+	margin-bottom: 8rem;
+}
 section.reserve article div.wrap_content p:first-of-type a[target] {
 	text-decoration: none;
 }
@@ -827,7 +816,7 @@ article.certificates div.wrap_content {
 	padding: 3.2rem 1.6rem;
 	border: 0.1rem solid $hsla_gold;
 }
-svg.svg_ui-heart {
+svg.ui_heart {
 	margin: 0 auto 3.2rem auto;
 	width: 5.2rem;
 	height: 8.8rem;
@@ -847,7 +836,7 @@ section.photos div.wrap_svg {
 	padding: 0 1.4rem;
 	background-color: $hsla_L96;
 }
-svg.svg_ui-eye {
+svg.ui_eye {
 	width: 4.6rem;
 	height: 2.8rem;
 	fill: $hsla_blue;
