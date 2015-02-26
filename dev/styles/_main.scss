@@ -58,16 +58,10 @@ div.wrap_menu div.menu_list {
 	transition: opacity 0.6s ease-in-out;
 	// will-change: opacity;
 }
-div.loader_overlay {
-	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
-}
+div.loader_overlay,
 aside[data-modal="gallery"] img {
 	transition: opacity 0.4s ease-in-out;
 }
-
-
-
-
 // --- Animations --- \\
 @keyframes animShow {
 	0%   { opacity: 0; }
@@ -100,11 +94,10 @@ div.loader_overlay {
 	left: 0;
 	// background-color: $hsla_L96-A60;
 	opacity: 0;
-	visibility: hidden;
+	// visibility: hidden; // webkit will stop the animation if visibility is changed
 }
 div.loader_overlay.visible {
 	opacity: 1;
-	visibility: visible;
 }
 div.loader_overlay svg {
 	position: absolute;
@@ -190,22 +183,22 @@ a:active {
 // --- Overlay & Modal --- \\
 // created and added (also destroyed) to DOM via JS
 // opacity applied via JS | transition via CSS
-[data-modal],
 [data-overlay] {
 	position: fixed;
+	z-index: 900;
 	top: 0;
 	right: 0;
 	bottom: 0;
 	left: 0;
-}
-// + overlay + \\
-[data-overlay] {
-	z-index: 900;
 	background-color: $hsla_L96-A98;
 }
-// + modal + \\
-[data-modal] {
+[data-modal] { // if styled the same way as [data-overlay], webkit will not treat positioning / height the same way
+	position: fixed;
 	z-index: 901;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
 	overflow-y: scroll;
 	-webkit-overflow-scrolling: touch;
 }
@@ -225,6 +218,26 @@ aside[data-modal="gallery"] img {
 aside[data-modal="gallery"].img_loaded img {
 	opacity: 1;
 }
+
+
+#testEl {
+	position: absolute;
+	z-index: 999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	padding: 3.2rem;
+	max-width: 22rem;
+	font-family: futura;
+	font-size: 1.3rem;
+	font-weight: 700;
+	letter-spacing: 0.1rem;
+	color: #fff;
+	background-color: hsla(0,0%,0%,0.6);
+}
+
+
+
 // + gallery navigation + \\
 nav.nav_gallery {
 	position: fixed;
@@ -358,13 +371,13 @@ nav.nav_main {
 	border-top: 0.6rem solid $hsla_blue;
 }
 nav.nav_main a.nav_logo {
-	display: none;
 	position: absolute;
 	top: 1.4rem;
 	left: 3.2rem;
 	width: 6.4rem;
 	height: 5.2rem;
 	opacity: 0;
+	visibility: hidden;
 }
 nav.nav_main a.nav_logo svg {
 	fill: $hsla_blue;
@@ -377,6 +390,7 @@ nav.nav_main a.nav_logo:active svg {
 }
 nav.nav_main.scrolled a.nav_logo {
 	opacity: 1;
+	visibility: visible;
 }
 // + navigation list + \\
 nav.nav_main ul li {

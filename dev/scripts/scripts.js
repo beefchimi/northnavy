@@ -444,10 +444,13 @@ document.addEventListener('DOMContentLoaded', function() {
 		fadeOut(elOverlay);
 
 		// listen for CSS transitionEnd before removing the element
-		elOverlay.addEventListener(transitionEvent, removeOverlay, false);
+		elOverlay.addEventListener(transitionEvent, removeOverlay);
 
 	}
 
+	// move this into destoryOverlay?
+	// add id to overlay element and get it within destory?
+	// maybe expand this to be passed an ID, and it can destroy / remove any element?
 	function removeOverlay(e) {
 
 		// only listen for the opacity property
@@ -514,8 +517,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryClose,
 			elGalleryImage,
 			elGalleryLoader,
-			dataCurrent,
-			dataNewImage;
+			dataCurrent;
 
 		for (var i = 0; i < numGalleryCount; i++) {
 
@@ -627,9 +629,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			} else {
 
-				// scroll the <aside> to 0 so we don't end up opening a new image that is scrolled half way down
-				// elGalleryModal.scrollTop = 0;
-
 				// add loading classes
 				classie.add(elGalleryLoader, 'visible');
 
@@ -645,11 +644,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		function updateImageSrc() {
 
-			// set dataNewImage as the newest image source
-			dataNewImage = arrGallerySource[dataCurrent];
-
 			// apply the new image source
-			elGalleryImage.src = dataNewImage;
+			elGalleryImage.src = arrGallerySource[dataCurrent];
 
 			// use imagesLoaded to check image progress
 			var imgLoad = imagesLoaded(elGalleryModal);
@@ -676,16 +672,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// hide status when done
 		function onAlways() {
 
-/*
-			console.log(elGalleryImage.getAttribute('src'));
-			console.log(dataNewImage);
-
-			if (elGalleryImage.getAttribute('src') != dataNewImage) {
-				console.log('image has not been updated');
-			} else {
-				console.log('SUCCESS!');
-			}
-*/
+			// setTimeout(function() {}, 1000);
 
 			classie.add(elGalleryModal, 'img_loaded');
 			classie.remove(elGalleryLoader, 'visible');
