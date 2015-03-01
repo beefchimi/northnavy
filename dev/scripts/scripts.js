@@ -117,17 +117,20 @@ document.addEventListener('DOMContentLoaded', function() {
 	function createLoader() {
 
 		// create loader elements
-		var elLoader    = document.createElement('div'),
-			elLoaderSVG = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
-			elLoaderUse = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+		var elLoader     = document.createElement('div'),
+			elLoaderWrap = document.createElement('div'),
+			elLoaderSVG  = document.createElementNS('http://www.w3.org/2000/svg', 'svg'),
+			elLoaderUse  = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 
 		// define loader attributes
 		elLoader.setAttribute('class', 'loader_overlay');
+		elLoaderWrap.setAttribute('class', 'wrap_svg');
 		elLoaderUse.setAttributeNS('http://www.w3.org/1999/xlink', 'xlink:href', '#ui_loader');
 
 		// append loader elements
 		elLoaderSVG.appendChild(elLoaderUse);
-		elLoader.appendChild(elLoaderSVG);
+		elLoaderWrap.appendChild(elLoaderSVG);
+		elLoader.appendChild(elLoaderWrap);
 
 		return elLoader;
 

@@ -10,8 +10,10 @@ optgroup,
 select,
 textarea {
 	font-family: 'Archer SSm A', 'Archer SSm B', Georgia, Times, 'Times New Roman', serif;
-	// font-variant-numeric: lining-nums;
 	color: $hsla_blue;
+}
+html {
+	min-height: 100%;
 }
 body {
 	position: relative;
@@ -99,7 +101,7 @@ div.loader_overlay {
 div.loader_overlay.visible {
 	opacity: 1;
 }
-div.loader_overlay svg {
+div.loader_overlay div.wrap_svg {
 	position: absolute;
 	z-index: 911;
 	top: 0;
@@ -109,8 +111,10 @@ div.loader_overlay svg {
 	margin: auto;
 	width: 4.4rem;
 	height: 4.4rem;
-	fill: $hsla_blue;
 	animation: anim360 1s linear infinite forwards;
+}
+div.loader_overlay div.wrap_svg svg {
+	fill: $hsla_blue;
 }
 
 // General Styles
@@ -218,26 +222,6 @@ aside[data-modal="gallery"] img {
 aside[data-modal="gallery"].img_loaded img {
 	opacity: 1;
 }
-
-
-#testEl {
-	position: absolute;
-	z-index: 999;
-	top: 50%;
-	left: 50%;
-	transform: translate(-50%, -50%);
-	padding: 3.2rem;
-	max-width: 22rem;
-	font-family: futura;
-	font-size: 1.3rem;
-	font-weight: 700;
-	letter-spacing: 0.1rem;
-	color: #fff;
-	background-color: hsla(0,0%,0%,0.6);
-}
-
-
-
 // + gallery navigation + \\
 nav.nav_gallery {
 	position: fixed;
@@ -875,4 +859,60 @@ article.packery a.gallery_link:hover {
 }
 article.packery a.gallery_link:active {
 	opacity: 0.96;
+}
+
+// Error 404
+// ----------------------------------------------------------------------------
+body.error_404 {
+	height: 100%;
+	border-top: none;
+	background-color: $hsla_blue;
+	background-image: url('../img/bg_bacaro.png');
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+}
+body.error_404 main {
+	display: table;
+	table-layout: fixed;
+	width: 100%;
+	height: 100vh;
+}
+section.error {
+	display: table-cell;
+	vertical-align: middle;
+	padding-left: 1.6rem;
+	padding-right: 1.6rem;
+}
+article.oops h1,
+article.oops p {
+	color: $hsla_L96;
+}
+article.oops h1 {
+	margin-bottom: 1em;
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	font-size: 3.6rem;
+	letter-spacing: 0.6rem;
+	text-transform: uppercase;
+}
+article.oops p {
+	margin-bottom: 8rem;
+	font-size: 1.6rem;
+}
+article.oops a {
+	color: $hsla_gold;
+}
+article.oops a:hover {
+	color: $hsla_L96;
+}
+article.oops a:active {
+	color: $hsla_L96;
+	opacity: 0.8;
+}
+article.oops a.button {
+	border-color: $hsla_gold;
+}
+article.oops a.button:hover,
+article.oops a.button:active {
+	border-color: $hsla_L96;
 }

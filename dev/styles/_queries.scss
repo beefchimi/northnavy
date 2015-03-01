@@ -314,6 +314,17 @@
 		width: calc(33.3333333% - 2.2rem);
 	}
 
+	// Error 404
+	// ----------------------------------------------------------------------------
+	article.oops h1 {
+		font-size: 4.2rem;
+		letter-spacing: 1rem;
+	}
+	article.oops p {
+		margin-bottom: 12rem;
+		font-size: 1.8rem;
+	}
+
 }
 
 @media only screen and (min-width: 60em) { // 960px / 16px = 60em

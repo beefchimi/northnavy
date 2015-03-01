@@ -1,0 +1,23 @@
+!!!
+/[if IE 9] <html class="ie9" lang="en">
+<!--[if gt IE 9]><!-->
+%html{:lang => "en"}<>
+	<!--<![endif]-->
+
+	= Haml::Engine.new(File.read("dev/haml/partials/_doc_head.haml")).render
+
+	%body.error_404
+
+		%main{:role => "main"}
+
+			%section#error.error
+
+				%article.oops{"data-container" => "width_660"}
+
+					.wrap_content
+
+						%h1 Error 404
+						:plain
+							<p>It appears the page you are looking for does not exist. Please return to <a href="index.html" title="Return Home">northandnavy.com</a> and try again.</p>
+
+						%a.button{:href => "index.html", :title => "Return Home"} Return Home
