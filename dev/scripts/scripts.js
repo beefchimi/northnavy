@@ -264,9 +264,10 @@ document.addEventListener('DOMContentLoaded', function() {
 	function launchForm() {
 
 		// get all opentable links
-		var elOpenTable = document.getElementById('opentable'),
-			arrTriggers = document.getElementsByClassName('opentable'),
-			numTriggers = arrTriggers.length;
+		var elOpenTable    = document.getElementById('opentable'),
+			elSubmitButton = document.getElementById('submit'),
+			arrTriggers    = document.getElementsByClassName('opentable'),
+			numTriggers    = arrTriggers.length;
 
 		// check if div.wrap_select exists and is not empty
 		if (typeof arrTriggers !== 'undefined' && numTriggers > 0) {
@@ -300,8 +301,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			elOpenTable.addEventListener('click', function(e) {
 
 				// if this is the desired element
-				if (e.target === elOpenTable) {
+				if (e.target === elOpenTable || e.target === elSubmitButton) {
 					elOpenTable.setAttribute('data-opentable', 'inactive');
+					console.log('yes');
+				} else {
+					console.log('NO');
 				}
 
 			});
