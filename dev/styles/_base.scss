@@ -80,3 +80,197 @@ td, th { padding: 0; }
 .clearfix::before, .clearfix::after { content: " "; display: table; }
 .clearfix::after { clear: both; }
 .truncate { overflow: hidden; padding-bottom: 0.1em; width: 100%; text-overflow: ellipsis; white-space: nowrap; }
+
+
+// ==|== plugins ==============================================================
+// ============================================================================
+
+// Pikaday.js
+// ----------------------------------------------------------------------------
+.pika-prev::before,
+.pika-next::before {
+	transition: border-color 0.3s ease-in-out;
+}
+div.pika-single {
+	transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+}
+.pika-single {
+	position: relative;
+	z-index: 101;
+	top: 0;
+	left: 0;
+	color: $hsla_blue;
+	background-color: $hsla_white;
+	opacity: 1;
+	visibility: visible;
+}
+.pika-lendar {
+	width: 100%;
+}
+// + pikaday helper classes + \\
+.pika-single.is-hidden {
+	opacity: 0;
+	visibility: hidden;
+}
+.pika-single.is-bound {
+	position: absolute;
+	box-shadow: $boxshadow_drop;
+}
+// --- Calendar Title --- \\
+.pika-title {
+	position: relative;
+	height: 4.8rem;
+	line-height: 4.8rem;
+	text-align: center;
+}
+.pika-label {
+	pointer-events: none;
+	position: relative;
+	display: inline-block;
+	margin: 0 0.6rem;
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	font-weight: 400;
+	font-size: 1.4rem;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+}
+.pika-title select {
+	// visuallyhidden
+	clip: rect(0 0 0 0);
+	overflow: hidden;
+	position: absolute;
+	margin: -0.1rem;
+	padding: 0;
+	width: 0.1rem;
+	height: 0.1rem;
+	border: 0;
+}
+// --- Calendar Nav --- \\
+.pika-prev,
+.pika-next {
+	display: block;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	outline: none;
+	border: 0;
+	padding: 0;
+	width: 4rem;
+	height: 4.8rem;
+	text-indent: 8rem;
+	white-space: nowrap;
+	overflow: hidden;
+}
+.pika-prev {
+	left: 0;
+}
+.pika-next {
+	right: 0;
+}
+.pika-prev::before,
+.pika-next::before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 1.6rem;
+	width: 0;
+	height: 0;
+	border-top: 0.7rem solid transparent;
+	border-bottom: 0.7rem solid transparent;
+}
+.pika-prev::before {
+	left: 1.2rem;
+	border-right: 1.3rem solid $hsla_blue;
+}
+.pika-next::before {
+	left: 1.6rem;
+	border-left: 1.3rem solid $hsla_blue;
+}
+.pika-prev.is-disabled,
+.pika-next.is-disabled {
+	cursor: default;
+	opacity: 0.4;
+}
+// + interaction + \\
+.pika-prev:hover::before {
+	border-right-color: $hsla_gold;
+}
+.pika-next:hover::before {
+	border-left-color: $hsla_gold;
+}
+.pika-prev:active::before {
+	border-right-color: $hsla_gold-D;
+}
+.pika-next:active::before {
+	border-left-color: $hsla_gold-D;
+}
+.pika-prev.is-disabled:hover::before {
+	border-right-color: $hsla_blue;
+}
+.pika-next.is-disabled:hover::before {
+	border-left-color: $hsla_blue;
+}
+.pika-prev.is-disabled:active::before {
+	border-right-color: $hsla_blue;
+}
+.pika-next.is-disabled:active::before {
+	border-left-color: $hsla_blue;
+}
+// --- Calendar Table --- \\
+.pika-table {
+	table-layout: fixed;
+	width: 100%;
+}
+.pika-table abbr {
+	border-bottom: none;
+}
+.pika-table th:first-child,
+.pika-table td:first-child {
+	display: none;
+}
+.pika-table th {
+	padding-top: 0.4rem;
+	padding-bottom: 1.2rem;
+	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
+	font-size: 1.1rem;
+	font-weight: 400;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	text-align: center;
+	color: hsla(0,0%,48%,1);
+}
+// + button + \\
+.pika-button {
+	cursor: pointer;
+	display: block;
+	box-sizing: border-box;
+	outline: none;
+	border: 0;
+	margin: 0;
+	padding-top: 1.2rem;
+	padding-bottom: 1.2rem;
+	width: 100%;
+	color: $hsla_blue;
+	font-size: 1.4rem;
+	text-align: center;
+	background-color: hsla(0,0%,98%,1);
+}
+.is-today .pika-button {
+	color: $hsla_pink;
+}
+.is-selected .pika-button {
+	color: $hsla_white;
+	background-color: $hsla_pink;
+}
+.is-disabled .pika-button {
+	pointer-events: none;
+	cursor: default;
+	opacity: 0.4;
+}
+.pika-button:hover {
+	color: $hsla_white;
+	background-color: $hsla_gold;
+}
+.pika-button:active {
+	background-color: $hsla_gold-D;
+}

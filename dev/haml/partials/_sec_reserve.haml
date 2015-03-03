@@ -13,7 +13,9 @@
 
 			%h5 Reserve
 			:plain
-				<p>To reserve a table, <a href="http://www.opentable.com/north-and-navy-reservations-ottawa?rid=162793&restref=162793" title="Make a reservation" target="_blank">book online</a> or give us a call at <a href="tel:+1-613-232-6289" title="Call us">(613) 232-6289</a>. You can also stop by our Bacaro anytime and enjoy a snack and a drink. No reservations necessary. For large groups, we also offer a private dining room that’s perfect for parties or meetings.</p>
+				<p>To reserve a table, <a href="http://www.opentable.com/north-and-navy-reservations-ottawa?rid=162793&restref=162793" class="opentable" title="Make a reservation" target="_blank">book online</a> or give us a call at <a href="tel:+1-613-232-6289" title="Call us">(613) 232-6289</a>. You can also stop by our Bacaro anytime and enjoy a snack and a drink. No reservations necessary. For large groups, we also offer a private dining room that’s perfect for parties or meetings.</p>
 				<p>North & Navy is located at 226 Nepean Street in downtown Ottawa. <a href="https://www.google.com/maps/place/45%C2%B025%2701.6%22N+75%C2%B041%2755.2%22W/@45.4171105,-75.6986667,15z/data=!3m1!4b1!4m2!3m1!1s0x0:0x0" title="Get Directions" target="_blank">Get directions.</a></p>
 
-		%a.button{:href => "http://www.opentable.com/north-and-navy-reservations-ottawa?rid=162793&restref=162793", :title => "Reserve a Table", :target => "_blank"} Reserve a Table
+		%a.button.opentable{:href => "http://www.opentable.com/north-and-navy-reservations-ottawa?rid=162793&restref=162793", :title => "Reserve a Table", :target => "_blank"} Reserve a Table
+
+		= Haml::Engine.new(File.read("dev/haml/partials/_form_opentable.haml")).render

@@ -173,6 +173,15 @@
 		display: inline-block;
 		margin-left: 1.6rem;
 	}
+	// --- Reservation Form --- \\
+	form.form_reserve {
+		padding: 3.2rem;
+		width: 33.2rem;
+		height: 29rem;
+	}
+	form.form_reserve .pika-single {
+		top: 4.8rem;
+	}
 
 	// Food & Wine
 	// ----------------------------------------------------------------------------
@@ -195,7 +204,7 @@
 		margin-bottom: 3.2rem;
 		font-size: 1.6rem;
 	}
-	div.wrap_menu div.menu_list h6.lunch_time {
+	div.wrap_menu div.menu_list h6.menu_subhead {
 		margin-bottom: 6rem;
 	}
 	// + menu toggle + \\

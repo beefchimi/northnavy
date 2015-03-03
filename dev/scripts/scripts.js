@@ -3,7 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Global Variables: Variables requiring a global scope
 	// ----------------------------------------------------------------------------
-	var elHTML           = document.documentElement,
+	var transitionEvent  = whichTransitionEvent(),
+		animationEvent   = whichAnimationEvent(),
+		elHTML           = document.documentElement,
 		elBody           = document.body,
 		elMainNav        = document.getElementById('nav_main'),
 		elHeaderLogo     = document.getElementById('resize_logo'),
@@ -87,7 +89,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	}
 
-/*
 	function whichAnimationEvent() {
 
 		var anim,
@@ -106,10 +107,53 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
-*/
 
-	var transitionEvent = whichTransitionEvent(); // listen for a transition
-	// var animationEvent  = whichAnimationEvent(); // listen for a animation
+
+	// Helper: Find Parent Element by Class or Tag Name
+	// ----------------------------------------------------------------------------
+	function findParentClass(el, className) {
+
+		while (el && !classie.has(el, className) ) {
+			el = el.parentNode;
+		}
+
+		return el;
+
+	}
+
+	function findParentTag(el, tagName) {
+
+		while (el && el.nodeName !== tagName) {
+			el = el.parentNode;
+		}
+
+		return el;
+
+	};
+
+
+	// Helper: CSS Fade In / Out
+	// ----------------------------------------------------------------------------
+	function fadeIn(thisElement) {
+
+		// make the element fully transparent
+		// (don't rely on a predefined CSS style... declare this with JS to getComputedStyle)
+		thisElement.style.opacity = 0;
+
+		// make sure the initial state is applied
+		window.getComputedStyle(thisElement).opacity;
+
+		// set opacity to 1 (CSS transition will handle the fade)
+		thisElement.style.opacity = 1;
+
+	}
+
+	function fadeOut(thisElement) {
+
+		// set opacity to 0 (CSS transition will handle the fade)
+		thisElement.style.opacity = 0;
+
+	}
 
 
 	// Helper: Create loading animation
@@ -135,6 +179,137 @@ document.addEventListener('DOMContentLoaded', function() {
 		return elLoader;
 
 	}
+
+
+	// Helper: Create and Destroy [data-overlay] element
+	// ----------------------------------------------------------------------------
+	function createOverlay(childElement, strLabel) {
+
+		// create document fragment
+		var docFragment = document.createDocumentFragment();
+
+		// lock document scrolling
+		classie.add(elHTML, 'overlay_active');
+
+		// create empty overlay <div>
+		elOverlay = document.createElement('div');
+
+		// set data-overlay attribute as passed strLabel value
+		elOverlay.setAttribute('data-overlay', strLabel);
+
+		// append passed child elements
+		elOverlay.appendChild(childElement);
+
+		// append the [data-overlay] to the document fragement
+		docFragment.appendChild(elOverlay);
+
+		// empty document fragment into <body>
+		elBody.appendChild(docFragment);
+
+		fadeIn(elOverlay);
+
+	}
+
+	function destroyOverlay() {
+
+		// unlock document scrolling
+		classie.remove(elHTML, 'overlay_active');
+
+		fadeOut(elOverlay);
+
+		// listen for CSS transitionEnd before removing the element
+		elOverlay.addEventListener(transitionEvent, removeOverlay);
+
+	}
+
+	// move this into destoryOverlay?
+	// add id to overlay element and get it within destory?
+	// maybe expand this to be passed an ID, and it can destroy / remove any element?
+	function removeOverlay(e) {
+
+		// only listen for the opacity property
+		if (e.propertyName == "opacity") {
+
+			// remove elOverlay from <body>
+			elBody.removeChild(elOverlay);
+
+			// must remove event listener!
+			elOverlay.removeEventListener(transitionEvent, removeOverlay);
+
+		}
+
+	}
+
+
+	// pageLoaded: Execute once the page has loaded and the FOUT animation has ended
+	// ----------------------------------------------------------------------------
+	function pageLoaded() {
+
+		var elHeader = document.getElementsByTagName('header')[0];
+
+		elHeader.addEventListener(animationEvent, removeFOUT);
+
+		function removeFOUT() {
+
+			classie.add(elHTML, 'ready');
+			elHeader.removeEventListener(animationEvent, removeFOUT);
+
+		}
+
+	}
+
+
+	// launchForm: Display the opentable form
+	// ----------------------------------------------------------------------------
+	function launchForm() {
+
+		// get all opentable links
+		var elOpenTable = document.getElementById('opentable'),
+			arrTriggers = document.getElementsByClassName('opentable'),
+			numTriggers = arrTriggers.length;
+
+		// check if div.wrap_select exists and is not empty
+		if (typeof arrTriggers !== 'undefined' && numTriggers > 0) {
+
+			for (var i = 0; i < numTriggers; i++) {
+				toggleForm(arrTriggers[i]);
+			}
+
+			closeForm();
+
+		} else {
+
+			return; // array not found or empty... exit function
+
+		}
+
+		function toggleForm(thisTrigger) {
+
+			thisTrigger.addEventListener('click', function(e) {
+
+				elOpenTable.setAttribute('data-opentable', 'active');
+
+				e.preventDefault();
+
+			});
+
+		}
+
+		function closeForm() {
+
+			elOpenTable.addEventListener('click', function(e) {
+
+				// if this is the desired element
+				if (e.target === elOpenTable) {
+					elOpenTable.setAttribute('data-opentable', 'inactive');
+				}
+
+			});
+
+		}
+
+	}
+
 
 	// menuToggle: Lunch & Dinner menu toggle
 	// ----------------------------------------------------------------------------
@@ -326,8 +501,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	// ----------------------------------------------------------------------------
 	function toggleNavLogo() {
 
-		// was checking for numWindowWidth >= 1024 as well... but not really necessary
-		if (numScrollWindow >= 200) {
+		if (numWindowWidth >= 1024 && numScrollWindow >= 200) {
 			classie.add(elMainNav, 'scrolled'); // is a 'has' conditional worthwhile?
 		} else {
 			classie.remove(elMainNav, 'scrolled');
@@ -350,6 +524,148 @@ document.addEventListener('DOMContentLoaded', function() {
 		elLinkHeader.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
 		elLinkFooter.setAttribute('href', prefix + ':' + local + '@' + domain + '.' + suffix);
 		elLinkFooter.innerHTML = local + '@' + domain + '.' + suffix;
+
+	}
+
+
+	// selectDropdown: Pair each <select> element with its <ul> sibling
+	// ----------------------------------------------------------------------------
+	function selectDropdown() {
+
+		// search for any div.wrap_select elements
+		var arrSelectWrap   = document.getElementsByClassName('wrap_select'),
+			numSelectLength = arrSelectWrap.length;
+
+		// check if div.wrap_select exists and is not empty
+		if (typeof arrSelectWrap !== 'undefined' && numSelectLength > 0) {
+
+			for (var i = 0; i < numSelectLength; i++) {
+				dropdownToggle(arrSelectWrap[i]);
+			}
+
+			passSelectValue();
+
+		} else {
+
+			return; // array not found or empty... exit function
+
+		}
+
+		// function for toggling dropdowns
+		function dropdownToggle(thisSelectWrap) {
+
+			var thisDropdownToggle = thisSelectWrap.getElementsByClassName('dropdown_toggle')[0];
+
+			thisDropdownToggle.addEventListener('click', function(e) {
+
+				// run through each div.wrap_select...
+				for (var i = 0; i < numSelectLength; i++) {
+
+					// and if this is NOT the parent div.wrap_select we have clicked on...
+					if (arrSelectWrap[i] != thisSelectWrap) {
+						classie.remove(arrSelectWrap[i], 'toggle_show');
+					}
+
+				}
+
+				classie.toggle(thisSelectWrap, 'toggle_show');
+
+				e.preventDefault(); // requires the event.preventDefault for the document listener to work
+
+			});
+
+			// click outside of element to close dropdown
+			document.addEventListener('click', function(e) {
+
+				// if this is not the currently toggled dropdown
+				if (e.target != thisDropdownToggle) {
+
+					// ignore this event if preventDefault has been called
+					if (e.defaultPrevented) {
+						return;
+					}
+
+					// hide dropdown
+					classie.remove(thisSelectWrap, 'toggle_show');
+
+				}
+
+			});
+
+		}
+
+		// function for passing <ul> values to the corresponding <select>
+		function passSelectValue() {
+
+			var arrDropdownLinks = document.getElementsByClassName('dropdown_link');
+
+			// assign the click event to each a.dropdown_link found in the document
+			for (var i = 0; i < arrDropdownLinks.length; i++) {
+				optionChange(arrDropdownLinks[i]);
+			}
+
+			function optionChange(thisDropdownLink) {
+
+				thisDropdownLink.addEventListener('click', function(e) {
+
+					var dataValue        = this.getAttribute('data-value'),
+						dataLabel        = this.innerHTML,
+						elParentLI       = this.parentNode,
+						elParentUL       = elParentLI.parentNode,
+						elParentWrap     = findParentClass(elParentUL, 'wrap_select'),
+						elSiblingLabel   = findParentClass(elParentUL, 'wrap_dropdown').previousElementSibling.childNodes[1], // 1st child = empty textNode
+						elMatchedOption  = elParentWrap.querySelector('option[value="' + dataValue + '"]'),
+						dataPrevSelected = elParentWrap.getAttribute('data-selected'),
+						elPrevSelected   = elParentUL.querySelector('a[data-value="' + dataPrevSelected + '"]');
+
+					// define the correct <option> as :selected
+					elMatchedOption.selected = true;
+
+					// set 'data-selected' to new value
+					elParentWrap.setAttribute('data-selected', dataValue);
+
+					// replace div.dropdown_label innerHTML with the selected option text
+					elSiblingLabel.innerHTML = dataLabel;
+
+					// remove 'selected' class from previous <li>, if it exists...
+					if (elPrevSelected != null) {
+						classie.remove(elPrevSelected.parentNode, 'selected');
+					}
+
+					// then add 'selected' class to parent <li> of newly chosen a[data-value]
+					classie.add(elParentLI, 'selected');
+
+					// hide the parent dropdown
+					classie.remove(elParentWrap, 'toggle_show');
+
+					e.preventDefault();
+
+				});
+
+			}
+
+		}
+
+	}
+
+
+	// initPikaday: Initialize date picker
+	// ----------------------------------------------------------------------------
+	function initPikaday() {
+
+		var dateNow      = moment(),
+			dateFuture   = moment().add(3, 'months'),
+			elDateWrap   = document.getElementById('wrap_input-date'),
+			elDateInput  = document.getElementById('startDate'),
+			elDatePicker = new Pikaday({
+				field: elDateInput,
+				container: elDateWrap,
+				position: 'top left',
+				reposition: false,
+				format: 'L',
+				minDate: dateNow.toDate(),
+				maxDate: dateFuture.toDate()
+			});
 
 	}
 
@@ -382,118 +698,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 
 	}
-
-
-	// Helper: CSS Fade In / Out
-	// ----------------------------------------------------------------------------
-	function fadeIn(thisElement) {
-
-		// make the element fully transparent
-		// (don't rely on a predefined CSS style... declare this with JS to getComputedStyle)
-		thisElement.style.opacity = 0;
-
-		// make sure the initial state is applied
-		window.getComputedStyle(thisElement).opacity;
-
-		// set opacity to 1 (CSS transition will handle the fade)
-		thisElement.style.opacity = 1;
-
-	}
-
-	function fadeOut(thisElement) {
-
-		// set opacity to 0 (CSS transition will handle the fade)
-		thisElement.style.opacity = 0;
-
-	}
-
-
-	// Overlay: Create and Destroy [data-overlay] element
-	// ----------------------------------------------------------------------------
-	function createOverlay(childElement, strLabel) {
-
-		// create document fragment
-		var docFragment = document.createDocumentFragment();
-
-		// lock document scrolling
-		classie.add(elHTML, 'overlay_active');
-
-		// create empty overlay <div>
-		elOverlay = document.createElement('div');
-
-		// set data-overlay attribute as passed strLabel value
-		elOverlay.setAttribute('data-overlay', strLabel);
-
-		// append passed child elements
-		elOverlay.appendChild(childElement);
-
-		// append the [data-overlay] to the document fragement
-		docFragment.appendChild(elOverlay);
-
-		// empty document fragment into <body>
-		elBody.appendChild(docFragment);
-
-		fadeIn(elOverlay);
-
-		// document.addEventListener('click', documentClick);
-
-	}
-
-	function destroyOverlay() {
-
-		// unlock document scrolling
-		classie.remove(elHTML, 'overlay_active');
-
-		fadeOut(elOverlay);
-
-		// listen for CSS transitionEnd before removing the element
-		elOverlay.addEventListener(transitionEvent, removeOverlay);
-
-	}
-
-	// move this into destoryOverlay?
-	// add id to overlay element and get it within destory?
-	// maybe expand this to be passed an ID, and it can destroy / remove any element?
-	function removeOverlay(e) {
-
-		// only listen for the opacity property
-		if (e.propertyName == "opacity") {
-
-			// remove elOverlay from <body>
-			elBody.removeChild(elOverlay);
-
-			// must remove event listener!
-			elOverlay.removeEventListener(transitionEvent, removeOverlay);
-
-			// document.removeEventListener('click', documentClick);
-
-		}
-
-	}
-
-/*
-	function documentClick(e) {
-
-		// if this is the currently toggled dropdown
-		if ( e.target === elOverlay ) { // document.getElementById('overlay')
-
-			// ignore this event if preventDefault has been called
-			if (e.defaultPrevented) {
-				return;
-			}
-
-			destroyOverlay();
-
-			console.log('clicked on the overlay');
-
-		} else {
-
-			console.log('no, this is NOT the overlay');
-
-		}
-
-	}
-*/
 
 
 	// photoGallery: Photo section modal gallery
@@ -772,101 +976,6 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
-/*
-	// toggleModal: Open & Close modal windows
-	// ----------------------------------------------------------------------------
-	function toggleModal() {
-
-		var arrModalOpen   = document.getElementsByClassName('modal_open'),
-			arrModalClose  = document.getElementsByClassName('modal_close'),
-			elTargetModal;
-
-		// check if a.modal_open exists and is not empty
-		if (typeof arrModalOpen !== 'undefined' && arrModalOpen.length > 0) {
-
-			for (var i = 0; i < arrModalOpen.length; i++) {
-				arrModalOpen[i].addEventListener('click', openModal, false);
-			}
-
-			for (var i = 0; i < arrModalClose.length; i++) {
-				arrModalClose[i].addEventListener('click', closeModal, false);
-			}
-
-		} else {
-
-			return; // array not found or empty... exit function
-
-		}
-
-		function openModal(e) {
-
-			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
-				elTargetModal   = document.getElementById(dataTargetModal); // get the modal we need to open
-
-			classie.add(elHTML, 'overlay_active'); // lock <body> scrolling with 'overlay_active'
-			classie.add(elTargetModal, 'loaded'); // visibility is initially set to "hidden", "loaded" class applied only once
-
-			// create overlay element and fade in modal
-			createOverlay();
-			elTargetModal.setAttribute('data-modal', 'active');
-
-			e.preventDefault();
-
-			document.addEventListener('click', documentClick, false);
-
-		}
-
-		function closeModal(e) {
-
-			var dataTargetModal = this.getAttribute('href').substring(1); // capture the href of the clicked element, remove the # prefix
-				elTargetModal   = document.getElementById(dataTargetModal); // get the modal we need to open
-
-			// once we have found the desired parent element, hide that modal
-			classie.remove(elHTML, 'overlay_active');
-			elTargetModal.setAttribute('data-modal', 'inactive');
-			destroyOverlay();
-
-			e.preventDefault();
-
-			document.removeEventListener('click', documentClick, false);
-
-		}
-
-		function documentClick(e) {
-
-			// if this is not the currently toggled dropdown
-			if ( e.target === document.getElementById('overlay') ) {
-
-				// ignore this event if preventDefault has been called
-				if (e.defaultPrevented) {
-					return;
-				}
-
-				// once we have found the desired parent element, hide that modal (copied from closeModal)
-				classie.remove(elHTML, 'overlay_active');
-				elTargetModal.setAttribute('data-modal', 'inactive');
-				destroyOverlay();
-
-				console.log('clicked on the overlay');
-
-			} else {
-
-				console.log('no, this is NOT the overlay');
-
-			}
-
-		}
-
-	}
-*/
-
-
-
-
-
-
-
-
 	// Window Events: On - Scroll, Resize
 	// ----------------------------------------------------------------------------
 	window.addEventListener('scroll', function(e) {
@@ -877,7 +986,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		navTrackSection();
 		toggleNavLogo();
 
-	}, false);
+	});
 
 	window.addEventListener('resize', function(e) {
 
@@ -894,17 +1003,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		viewportHeader();
 
-	}, false);
+	});
 
 
 	// Initialize Primary Functions
 	// ----------------------------------------------------------------------------
+	pageLoaded();
+	launchForm();
 	menuToggle();
 	menuHeight();
 	viewportHeader();
 	measureSectionHeight();
 	toggleNavLogo();
 	secretEmail();
+	selectDropdown();
+	initPikaday();
 	layoutPackery();
 	photoGallery();
 
@@ -915,4 +1028,4 @@ document.addEventListener('DOMContentLoaded', function() {
 	});
 
 
-}, false);
+});
