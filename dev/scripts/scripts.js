@@ -655,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function initPikaday() {
 
 		var dateNow      = moment(),
-			dateFuture   = moment().add(3, 'months'),
+			dateFuture   = moment().add(2, 'months'),
 			elDateWrap   = document.getElementById('wrap_input-date'),
 			elDateInput  = document.getElementById('startDate'),
 			elDatePicker = new Pikaday({

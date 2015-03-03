@@ -7,7 +7,7 @@
 			#wrap_select-size.wrap_select-size.wrap_select{"data-selected" => ""}
 
 				%select#PartySize.visuallyhidden{:name => "PartySize", :tabindex => "-1", :required => true}
-					%option{:disabled => true, :selected => true, :value => true} Size
+					%option{:disabled => true, :selected => true, :value => true} Party
 					%option{:value => "1"} 1
 					%option{:value => "2"} 2
 					%option{:value => "3"} 3
@@ -18,7 +18,7 @@
 					%option{:value => "8"} 8
 
 				.dropdown_toggle
-					%span.dropdown_placeholder Size
+					%span.dropdown_placeholder Party
 					.wrap_svg.input_svg
 						%svg.ui_arrow{:viewBox => "0 0 64 64"}
 							%use{"xlink:href" => "#ui_arrow-thick"}
@@ -54,8 +54,8 @@
 					%option{:disabled => true, :selected => true, :value => true} Time
 					%option{:value => "11:00 AM"} 11:00 AM
 					%option{:value => "11:30 AM"} 11:30 AM
-					%option{:value => "12:00 AM"} 12:00 AM
-					%option{:value => "12:30 AM"} 12:30 AM
+					%option{:value => "12:00 PM"} 12:00 PM
+					%option{:value => "12:30 PM"} 12:30 PM
 					%option{:value => "1:00 PM"} 1:00 PM
 					%option{:value => "1:30 PM"} 1:30 PM
 					%option{:value => "2:00 PM"} 2:00 PM
@@ -89,9 +89,9 @@
 							%li.dropdown_option
 								%a.dropdown_link{:href => "#", "data-value" => "11:30 AM"} 11:30 AM
 							%li.dropdown_option
-								%a.dropdown_link{:href => "#", "data-value" => "12:00 AM"} 12:00 AM
+								%a.dropdown_link{:href => "#", "data-value" => "12:00 PM"} 12:00 PM
 							%li.dropdown_option
-								%a.dropdown_link{:href => "#", "data-value" => "12:30 AM"} 12:30 AM
+								%a.dropdown_link{:href => "#", "data-value" => "12:30 PM"} 12:30 PM
 							%li.dropdown_option
 								%a.dropdown_link{:href => "#", "data-value" => "1:00 PM"} 1:00 PM
 							%li.dropdown_option
