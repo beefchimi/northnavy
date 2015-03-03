@@ -6,7 +6,7 @@
 
 			#wrap_select-size.wrap_select-size.wrap_select{"data-selected" => ""}
 
-				%select#PartySize.visuallyhidden{:name => "PartySize", :required => true, :tabindex => "-1"}
+				%select#PartySize.visuallyhidden{:name => "PartySize", :tabindex => "-1", :required => true}
 					%option{:disabled => true, :selected => true, :value => true} Size
 					%option{:value => "1"} 1
 					%option{:value => "2"} 2
@@ -50,7 +50,7 @@
 
 			#wrap_select-time.wrap_select-time.wrap_select{"data-selected" => ""}
 
-				%select#ResTime.visuallyhidden{:name => "ResTime", :required => true, :tabindex => "-1"}
+				%select#ResTime.visuallyhidden{:name => "ResTime", :tabindex => "-1", :required => true}
 					%option{:disabled => true, :selected => true, :value => true} Time
 					%option{:value => "11:00 AM"} 11:00 AM
 					%option{:value => "11:30 AM"} 11:30 AM
@@ -123,7 +123,7 @@
 
 
 		#wrap_input-date.wrap_date
-			%input#startDate{:name => "startDate", :type => "text", :value => "", :placeholder => "Date", :tabindex => "-1"}
+			%input#startDate{:name => "startDate", :type => "text", :value => "", :placeholder => "Date", :tabindex => "-1", :readonly => true, :required => true}
 			.wrap_svg.input_svg
 				%svg.ui_arrow{:viewBox => "0 0 64 64"}
 					%use{"xlink:href" => "#ui_arrow-thick"}

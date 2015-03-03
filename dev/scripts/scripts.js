@@ -303,9 +303,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				// if this is the desired element
 				if (e.target === elOpenTable || e.target === elSubmitButton) {
 					elOpenTable.setAttribute('data-opentable', 'inactive');
-					console.log('yes');
-				} else {
-					console.log('NO');
 				}
 
 			});
