@@ -22,7 +22,9 @@
 }());
 
 
-// smooth-scroll v5.3.3 | copyright Chris Ferdinandi | http://github.com/cferdinandi/smooth-scroll | Licensed under MIT: http://gomakethings.com/mit/
+// smooth-scroll v5.3.3
+// copyright Chris Ferdinandi | http://github.com/cferdinandi/smooth-scroll | Licensed under MIT: http://gomakethings.com/mit/
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 (function (root, factory) {
 	if ( typeof define === 'function' && define.amd ) {
 		define('smoothScroll', factory(root));
@@ -445,134 +447,11 @@
 });
 
 
-// Packery + imagesLoaded:
-
-// Bridget makes jQuery widgets | v1.1.0 | MIT license
-(function(window) {
-
-	// -------------------------- utils -------------------------- //
-	var slice = Array.prototype.slice;
-
-	function noop() {}
-
-	// -------------------------- definition -------------------------- //
-	function defineBridget($) {
-
-		// bail if no jQuery
-		if (!$) {
-			return;
-		}
-
-		// -------------------------- addOptionMethod -------------------------- //
-		/**
-		 * adds option method -> $().plugin('option', {...})
-		 * @param {Function} PluginClass - constructor class
-		 */
-
-		function addOptionMethod(PluginClass) {
-			// don't overwrite original option method
-			if (PluginClass.prototype.option) {
-				return;
-			}
-			// option setter
-			PluginClass.prototype.option = function(opts) {
-				// bail out if not an object
-				if (!$.isPlainObject(opts)) {
-					return;
-				}
-				this.options = $.extend(true, this.options, opts);
-			};
-		}
-
-		// -------------------------- plugin bridge -------------------------- //
-		// helper function for logging errors
-		// $.error breaks jQuery chaining
-		var logError = typeof console === 'undefined' ? noop : function(message) {
-				console.error(message);
-			};
-		/**
-		 * jQuery plugin bridge, access methods like $elem.plugin('method')
-		 * @param {String} namespace - plugin name
-		 * @param {Function} PluginClass - constructor class
-		 */
-
-		function bridge(namespace, PluginClass) {
-			// add to jQuery fn namespace
-			$.fn[namespace] = function(options) {
-				if (typeof options === 'string') {
-					// call plugin method when first argument is a string
-					// get arguments for method
-					var args = slice.call(arguments, 1);
-					for (var i = 0, len = this.length; i < len; i++) {
-						var elem = this[i];
-						var instance = $.data(elem, namespace);
-						if (!instance) {
-							logError("cannot call methods on " + namespace + " prior to initialization; " + "attempted to call '" + options + "'");
-							continue;
-						}
-						if (!$.isFunction(instance[options]) || options.charAt(0) === '_') {
-							logError("no such method '" + options + "' for " + namespace + " instance");
-							continue;
-						}
-						// trigger method with arguments
-						var returnValue = instance[options].apply(instance, args);
-						// break look and return first value if provided
-						if (returnValue !== undefined) {
-							return returnValue;
-						}
-					}
-					// return this if no return value
-					return this;
-				} else {
-					return this.each(function() {
-						var instance = $.data(this, namespace);
-						if (instance) {
-							// apply options & init
-							instance.option(options);
-							instance._init();
-						} else {
-							// initialize new instance
-							instance = new PluginClass(this, options);
-							$.data(this, namespace, instance);
-						}
-					});
-				}
-			};
-		}
-
-		// -------------------------- bridget -------------------------- //
-		/**
-		 * converts a Prototypical class into a proper jQuery plugin
-		 *   the class must have a ._init method
-		 * @param {String} namespace - plugin name, used in $().pluginName
-		 * @param {Function} PluginClass - constructor class
-		 */
-		$.bridget = function(namespace, PluginClass) {
-			addOptionMethod(PluginClass);
-			bridge(namespace, PluginClass);
-		};
-
-		return $.bridget;
-
-	}
-
-	// transport
-	if (typeof define === 'function' && define.amd) {
-		// AMD
-		define('jquery-bridget/jquery.bridget', ['jquery'], defineBridget);
-	} else if (typeof exports === 'object') {
-		defineBridget(require('jquery'));
-	} else {
-		// get jquery from browser global
-		defineBridget(window.jQuery);
-	}
-
-})(window);
-
+// Packery JS
+// by David DeSandro | http://masonry.desandro.com | MIT License
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 
 // classie v1.0.1 - class helper functions | from bonzo https://github.com/ded/bonzo | MIT license
-/* jshint browser: true, strict: true, undef: true, unused: true */
-/* global define: false, module: false */
 (function(window) {
 
 	// class helper functions from bonzo https://github.com/ded/bonzo
@@ -640,8 +519,6 @@
 
 
 // getStyleProperty v1.0.4 - original by kangax | http://perfectionkills.com/feature-testing-css-properties/ | MIT license
-/* jshint browser: true, strict: true, undef: true */
-/* global define: false, exports: false, module: false */
 (function(window) {
 
 	var prefixes = 'Webkit Moz ms Ms O'.split(' ');
@@ -685,8 +562,6 @@
 
 
 // getSize v1.2.2 - measure size of elements - MIT license
-/* jshint browser: true, strict: true, undef: true, unused: true */
-/* global define: false, exports: false, require: false, module: false, console: false */
 (function(window, undefined) {
 
 	// -------------------------- helpers -------------------------- //
@@ -881,8 +756,6 @@
 
 
 // eventie v1.0.6 - event binding helper | MIT license
-/* jshint browser: true, undef: true, unused: true */
-/* global define: false, module: false */
 (function(window) {
 
 	var docElem = document.documentElement;
@@ -954,8 +827,6 @@
 
 
 // docReady v1.0.4 | Cross browser DOMContentLoaded event emitter | MIT license
-/* jshint browser: true, strict: true, undef: true, unused: true */
-/* global define: false, require: false, module: false */
 (function(window) {
 
 	var document = window.document;
@@ -1439,8 +1310,6 @@
 
 
 // matchesSelector v1.0.2 | matchesSelector(element, '.selector') | MIT license
-/* jshint browser: true, strict: true, undef: true, unused: true */
-/* global define: false, module: false */
 (function(ElemProto) {
 
 	var matchesMethod = (function() {
@@ -4052,7 +3921,9 @@ function factory(window, EventEmitter, eventie) {
 });
 
 
-// moment v2.9.0 | Copyright © 2014 Tim Wood, Iskren Chernev, Moment.js contributors - momentjs.com | MIT license
+// moment v2.9.0
+// copyright © 2014 Tim Wood, Iskren Chernev, Moment.js contributors - momentjs.com | MIT license
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 (function (undefined) {
 	/************************************
 		Constants
@@ -7092,7 +6963,9 @@ function factory(window, EventEmitter, eventie) {
 }).call(this);
 
 
-// pikaday v1.3.0 - date picker | Copyright © 2014 David Bushell https://github.com/dbushell/Pikaday | BSD & MIT license
+// pikaday v1.3.0 - date picker
+// copyright © 2014 David Bushell https://github.com/dbushell/Pikaday | BSD & MIT license
+// --------------------------------------------------------------------------------------------------------------------------------------------------------
 (function (root, factory)
 {
 	'use strict';

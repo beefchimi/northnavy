@@ -10,8 +10,11 @@
 	// Photos
 	// ----------------------------------------------------------------------------
 	// --- Packery --- \\
+	article.packery div.gutter-sizer {
+		width: 3.571429%;
+	}
 	article.packery .gallery_link {
-		width: calc(33.3333333% - 1.1rem);
+		width: 30.9523813%;
 	}
 
 }
@@ -316,11 +319,11 @@
 	}
 	// --- Packery --- \\
 	article.packery div.gutter-sizer {
-		width: 3.2rem;
+		width: 4.545455%;
 		height: 3.2rem;
 	}
 	article.packery .gallery_link {
-		width: calc(33.3333333% - 2.2rem);
+		width: 30.30303%;
 	}
 
 	// Error 404
@@ -380,11 +383,11 @@
 	// ----------------------------------------------------------------------------
 	// --- Packery --- \\
 	article.packery div.gutter-sizer {
-		width: 10.5rem;
+		width: 11.71875%;
 		height: 10.5rem;
 	}
 	article.packery .gallery_link {
-		width: calc(33.3333333% - 7.2rem);
+		width: 25.5208333%;
 	}
 
 }

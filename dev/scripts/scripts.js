@@ -14,7 +14,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		elWrapMenu       = document.getElementById('wrap_menu'),
 		elMenuLunch      = document.getElementById('menu_lunch'),
 		elMenuDinner     = document.getElementById('menu_dinner'),
-		elOverlay;
+		elOverlay,
+		elPackery;
 
 	// window measurement variables
 	var numScrollWindow   = window.pageYOffset,
@@ -736,7 +737,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		imagesLoaded(elPackeryContainer, function(instance) {
 
 			// initalize packery
-			var elPackery = new Packery(elPackeryContainer, {
+			elPackery = new Packery(elPackeryContainer, {
 				itemSelector: '.gallery_link',
 				gutter: 'div.gutter-sizer'
 			});
@@ -749,6 +750,11 @@ document.addEventListener('DOMContentLoaded', function() {
 					}, 200 * i);
 				})(i);
 			}
+
+			// announce once the layout has completed
+			// elPackery.on('layoutComplete', function() {
+				// console.log('layout is complete');
+			// });
 
 		});
 
@@ -1059,6 +1065,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		waitForFinalEvent(function() {
 
 			menuHeight();
+
+			// required to fire layout a second time...
+			// packery seems to layout too quickly and sometimes miscalculates
+			elPackery.layout();
 
 		}, 500, 'unique string');
 
