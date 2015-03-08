@@ -52,46 +52,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginReserveAdjusted;
 
 
-	// Helper: Detect if browser has visible or hidden scrollbars
-	// ----------------------------------------------------------------------------
-/*
-
-	function hasScrollbar() {
-
-		// the modern solution
-		if (typeof window.innerWidth === 'number') {
-			return window.innerWidth > document.documentElement.clientWidth;
-		}
-
-		var rootElem = document.documentElement || document.body, // rootElem for quirksmode
-			overflowStyle,
-			overflowYStyle;
-
-		// check overflow style property on body for fauxscrollbars
-		if (typeof rootElem.currentStyle !== 'undefined') {
-			overflowStyle = rootElem.currentStyle.overflow;
-		}
-
-		overflowStyle = overflowStyle || window.getComputedStyle(rootElem, '').overflow;
-
-		// also need to check the Y axis overflow
-		if (typeof rootElem.currentStyle !== 'undefined') {
-			overflowYStyle = rootElem.currentStyle.overflowY;
-		}
-
-		overflowYStyle = overflowYStyle || window.getComputedStyle(rootElem, '').overflowY;
-
-		var contentOverflows  = rootElem.scrollHeight > rootElem.clientHeight,
-			overflowShown     = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle),
-			alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
-
-		return (contentOverflows && overflowShown) || (alwaysShowScroll);
-
-	}
-
-*/
-
-
 	// Helper: Fire Window Resize Event Upon Finish
 	// ----------------------------------------------------------------------------
 	var waitForFinalEvent = (function() {
