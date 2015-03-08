@@ -40,7 +40,8 @@ body {
 // ----------------------------------------------------------------------------
 a,
 input,
-button {
+button,
+div.gallery_link {
 	transition: all 0.3s ease-in-out;
 }
 svg {
@@ -98,6 +99,8 @@ div.loader_overlay {
 	left: 0;
 	opacity: 0;
 	// visibility: hidden; // webkit will stop the animation if visibility is changed
+	overflow: hidden;
+	pointer-events: none;
 }
 div.loader_overlay.visible {
 	opacity: 1;
@@ -349,8 +352,10 @@ a:active {
 	bottom: 0;
 	left: 0;
 	background-color: $hsla_L96-A98;
+	overflow: hidden;
 }
-[data-modal] { // if styled the same way as [data-overlay], webkit will not treat positioning / height the same way
+[data-modal],
+[data-opentable] { // if styled the same way as [data-overlay], webkit will not treat positioning / height the same way
 	position: fixed;
 	z-index: 901;
 	top: 0;
@@ -504,6 +509,9 @@ nav.nav_main {
 	top: 0;
 	left: 0;
 	right: 0;
+}
+nav.nav_main div.wrap_nav {
+	// required since nav is fixed, needed for scrollbar to be visible beneath background-color
 	padding: 3.2rem 0;
 	background-color: $hsla_L96-A98;
 	border-top: 0.6rem solid $hsla_blue;
@@ -756,16 +764,9 @@ section.reserve article div.wrap_content p:first-of-type a[target] {
 }
 // --- Reservation Form --- \\
 [data-opentable] {
-	position: fixed;
-	z-index: 999;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
+	// shares styles with [data-modal]
 	background-color: hsla(0,0%,0%,0.6);
 	visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'ready'
-	overflow-y: scroll;
-	-webkit-overflow-scrolling: touch;
 }
 html.ready [data-opentable] {
 	visibility: visible;

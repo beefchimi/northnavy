@@ -16,6 +16,15 @@ document.addEventListener('DOMContentLoaded', function() {
 		elMenuDinner     = document.getElementById('menu_dinner'),
 		elOverlay;
 
+	// window measurement variables
+	var numScrollWindow   = window.pageYOffset,
+		numWindowWidth    = window.innerWidth,
+		numWindowHeight   = window.innerHeight,
+		numClientWidth    = document.documentElement.clientWidth,
+		numScrollbarWidth = numWindowWidth - numClientWidth,
+		hasScrollbar      = numScrollbarWidth > 0 ? true : false;
+
+	// section data for scroll functions
 	var arrSections = [
 		{ title: 'home',     height: 0, section: document.getElementsByTagName('header')[0] },
 		{ title: 'reserve',  height: 0, section: document.getElementById('reserve') },
@@ -26,10 +35,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		{ title: 'photos',   height: 0, section: document.getElementById('photos') }
 	];
 
-	var numScrollWindow = window.pageYOffset,
-		numWindowWidth  = window.innerWidth,
-		numWindowHeight = window.innerHeight,
-		numRatio,
+	// variables to be scoped globally, defined later
+	var numRatio,
 		numThreshold,
 		numLogoMargin,
 		numRuleMargin,
@@ -43,6 +50,46 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginPrivate,
 		numBeginPhotos,
 		numBeginReserveAdjusted;
+
+
+	// Helper: Detect if browser has visible or hidden scrollbars
+	// ----------------------------------------------------------------------------
+/*
+
+	function hasScrollbar() {
+
+		// the modern solution
+		if (typeof window.innerWidth === 'number') {
+			return window.innerWidth > document.documentElement.clientWidth;
+		}
+
+		var rootElem = document.documentElement || document.body, // rootElem for quirksmode
+			overflowStyle,
+			overflowYStyle;
+
+		// check overflow style property on body for fauxscrollbars
+		if (typeof rootElem.currentStyle !== 'undefined') {
+			overflowStyle = rootElem.currentStyle.overflow;
+		}
+
+		overflowStyle = overflowStyle || window.getComputedStyle(rootElem, '').overflow;
+
+		// also need to check the Y axis overflow
+		if (typeof rootElem.currentStyle !== 'undefined') {
+			overflowYStyle = rootElem.currentStyle.overflowY;
+		}
+
+		overflowYStyle = overflowYStyle || window.getComputedStyle(rootElem, '').overflowY;
+
+		var contentOverflows  = rootElem.scrollHeight > rootElem.clientHeight,
+			overflowShown     = /^(visible|auto)$/.test(overflowStyle) || /^(visible|auto)$/.test(overflowYStyle),
+			alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
+
+		return (contentOverflows && overflowShown) || (alwaysShowScroll);
+
+	}
+
+*/
 
 
 	// Helper: Fire Window Resize Event Upon Finish
@@ -181,6 +228,34 @@ document.addEventListener('DOMContentLoaded', function() {
 	}
 
 
+	// Helper: Lock / Unlock Body Scrolling
+	// ----------------------------------------------------------------------------
+	function lockBody() {
+
+		classie.add(elHTML, 'overlay_active');
+
+		// if necessary, accomodate for scrollbar width
+		if (hasScrollbar) {
+			elBody.style.paddingRight = numScrollbarWidth + 'px';
+			elMainNav.style.paddingRight = numScrollbarWidth + 'px';
+		}
+
+	}
+
+	function unlockBody() {
+
+		classie.remove(elHTML, 'overlay_active');
+
+		// if necessary, remove scrollbar width styles
+		// should be expanded to restore original padding if needed
+		if (hasScrollbar) {
+			elBody.style.paddingRight = '0px';
+			elMainNav.style.paddingRight = '0px';
+		}
+
+	}
+
+
 	// Helper: Create and Destroy [data-overlay] element
 	// ----------------------------------------------------------------------------
 	function createOverlay(childElement, strLabel) {
@@ -188,8 +263,7 @@ document.addEventListener('DOMContentLoaded', function() {
 		// create document fragment
 		var docFragment = document.createDocumentFragment();
 
-		// lock document scrolling
-		classie.add(elHTML, 'overlay_active');
+		lockBody();
 
 		// create empty overlay <div>
 		elOverlay = document.createElement('div');
@@ -212,9 +286,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function destroyOverlay() {
 
-		// unlock document scrolling
-		classie.remove(elHTML, 'overlay_active');
-
 		fadeOut(elOverlay);
 
 		// listen for CSS transitionEnd before removing the element
@@ -229,6 +300,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		// only listen for the opacity property
 		if (e.propertyName == "opacity") {
+
+			unlockBody();
 
 			// remove elOverlay from <body>
 			elBody.removeChild(elOverlay);
@@ -284,9 +357,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		}
 
+		// accomodate for scrollbar if needed
+		if (hasScrollbar) {
+			elOpenTable.style.right = -numScrollbarWidth + 'px';
+			elOpenTable.style.width = 'calc(100% + ' + numScrollbarWidth + 'px)';
+		}
+
 		function toggleForm(thisTrigger) {
 
 			thisTrigger.addEventListener('click', function(e) {
+
+				lockBody();
 
 				elOpenTable.setAttribute('data-opentable', 'active');
 
@@ -302,10 +383,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				// if this is the desired element
 				if (e.target === elOpenTable || e.target === elSubmitButton) {
+
 					elOpenTable.setAttribute('data-opentable', 'inactive');
+
+					elOpenTable.addEventListener(animationEvent, restoreScroll);
+
 				}
 
 			});
+
+		}
+
+		function restoreScroll(e) {
+
+			unlockBody();
+
+			// must remove event listener!
+			elOpenTable.removeEventListener(animationEvent, restoreScroll);
 
 		}
 
@@ -751,6 +845,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
 			// define <aside> attributes
 			elGalleryModal.setAttribute('data-modal', 'gallery');
+
+			// hide scroll bar if necessary (don't worry about removing this, as the element will get destroyed)
+			if (hasScrollbar) {
+				elGalleryModal.style.right = -numScrollbarWidth + 'px';
+				elGalleryModal.style.width = 'calc(100% + ' + numScrollbarWidth + 'px)';
+			}
 
 			// define contents of nav links
 			var arrNavLinks  = [

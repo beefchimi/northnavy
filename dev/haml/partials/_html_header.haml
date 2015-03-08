@@ -5,22 +5,23 @@
 		%div{"data-container" => "width_848"}
 
 			%nav#nav_main.nav_main{"data-current" => "home"}
-				%a.nav_logo.wrap_svg{:href => "#home", :title => "Back To Top", "data-scroll" => true}
-					%svg.nn_logo-thick{:viewBox => "0 0 64 52"}
-						%use{"xlink:href" => "#nn_logo-thick"}
-				%ul
-					%li
-						%a{:href => "#reserve", :title => "Reserve", "data-scroll" => true, "data-options" => '{"offset":150}'} Reserve
-					%li
-						%a{:href => "#foodwine", :title => "Food and Wine", "data-scroll" => true, "data-options" => '{"offset":86}'} Food &amp; Wine
-					%li
-						%a{:href => "#bacaro", :title => "Bacaro", "data-scroll" => true, "data-options" => '{"offset":86}'} Bacaro
-					%li
-						%a{:href => "#private", :title => "Private Dining", "data-scroll" => true} Private Dining
-					%li
-						%a{:href => "#photos", :title => "Photos", "data-scroll" => true, "data-options" => '{"offset":86}'} Photos
-					%li
-						%a#email_header{:href => "#", :title => "Get in Touch"} Get in Touch
+				.wrap_nav
+					%a.nav_logo.wrap_svg{:href => "#home", :title => "Back To Top", "data-scroll" => true}
+						%svg.nn_logo-thick{:viewBox => "0 0 64 52"}
+							%use{"xlink:href" => "#nn_logo-thick"}
+					%ul
+						%li
+							%a{:href => "#reserve", :title => "Reserve", "data-scroll" => true, "data-options" => '{"offset":150}'} Reserve
+						%li
+							%a{:href => "#foodwine", :title => "Food and Wine", "data-scroll" => true, "data-options" => '{"offset":86}'} Food &amp; Wine
+						%li
+							%a{:href => "#bacaro", :title => "Bacaro", "data-scroll" => true, "data-options" => '{"offset":86}'} Bacaro
+						%li
+							%a{:href => "#private", :title => "Private Dining", "data-scroll" => true} Private Dining
+						%li
+							%a{:href => "#photos", :title => "Photos", "data-scroll" => true, "data-options" => '{"offset":86}'} Photos
+						%li
+							%a#email_header{:href => "#", :title => "Get in Touch"} Get in Touch
 
 			#resize_logo.nn_logo.wrap_svg
 				%svg.nn_logo.svg_inline{:viewBox => "0 0 120 98"}
