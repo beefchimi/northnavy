@@ -3,8 +3,6 @@
 
 // gulp requires
 var gulp       = require('gulp'),
-	// del        = require('del'),
-	// cheerio    = require('cheerio'), // used by gulp-svgstore for transforms
 	pngcrush   = require('imagemin-pngcrush'),
 	// gutil = require('gulp-util'), // does it make sense to define this outside of load-plugins?
 	// livereload = require('gulp-livereload'), // does it make sense to define this outside of load-plugins?
@@ -47,19 +45,6 @@ var paths = {
 
 /* Gulp Tasks
 ---------------------------------------------------------------------------- */
-
-/*
-// Delete all build files
-gulp.task('clean', function(cb) {
-
-	// deletes all files and files within folders, but keeps empty folder structure
-	// should consider using an "Are You Sure?" prompt
-	del(['build/assets/css/*.css', 'build/assets/img/*.*', 'build/assets/js/*.js', 'build/*.*', 'build/.htaccess'], cb);
-
-});
-*/
-
-
 // Compile only main HAML files (partials are included via the main files)
 gulp.task('haml', function() {
 
@@ -69,24 +54,6 @@ gulp.task('haml', function() {
 		.pipe(plugins.livereload());
 
 });
-
-
-/*
-// Minify HTML
-gulp.task('minify-html', function() {
-
-	var opts = {
-		empty: true,
-		comments: true
-	};
-
-	// paths.haml.dest
-	return gulp.src('build/index.html')
-		.pipe(plugins.minifyHtml(opts))
-		.pipe(gulp.dest('build/'));
-
-});
-*/
 
 
 // Compile and Output Styles
