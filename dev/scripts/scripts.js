@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		return el;
 
-	};
+	}
 
 
 	// Helper: CSS Fade In / Out
@@ -222,7 +222,7 @@ document.addEventListener('DOMContentLoaded', function() {
 	function createOverlay(childElement, strLabel) {
 
 		// create document fragment
-		var docFragment = document.createDocumentFragment();
+		var docFrag = document.createDocumentFragment();
 
 		lockBody();
 
@@ -236,10 +236,10 @@ document.addEventListener('DOMContentLoaded', function() {
 		elOverlay.appendChild(childElement);
 
 		// append the [data-overlay] to the document fragement
-		docFragment.appendChild(elOverlay);
+		docFrag.appendChild(elOverlay);
 
 		// empty document fragment into <body>
-		elBody.appendChild(docFragment);
+		elBody.appendChild(docFrag);
 
 		fadeIn(elOverlay);
 
@@ -252,23 +252,21 @@ document.addEventListener('DOMContentLoaded', function() {
 		// listen for CSS transitionEnd before removing the element
 		elOverlay.addEventListener(transitionEvent, removeOverlay);
 
-	}
+		// maybe expand this to be passed an ID, and it can destroy / remove any element?
+		function removeOverlay(e) {
 
-	// move this into destoryOverlay?
-	// add id to overlay element and get it within destory?
-	// maybe expand this to be passed an ID, and it can destroy / remove any element?
-	function removeOverlay(e) {
+			// only listen for the opacity property
+			if (e.propertyName == "opacity") {
 
-		// only listen for the opacity property
-		if (e.propertyName == "opacity") {
+				unlockBody();
 
-			unlockBody();
+				// remove elOverlay from <body>
+				elBody.removeChild(elOverlay);
 
-			// remove elOverlay from <body>
-			elBody.removeChild(elOverlay);
+				// must remove event listener!
+				elOverlay.removeEventListener(transitionEvent, removeOverlay);
 
-			// must remove event listener!
-			elOverlay.removeEventListener(transitionEvent, removeOverlay);
+			}
 
 		}
 
@@ -751,11 +749,6 @@ document.addEventListener('DOMContentLoaded', function() {
 				})(i);
 			}
 
-			// announce once the layout has completed
-			// elPackery.on('layoutComplete', function() {
-				// console.log('layout is complete');
-			// });
-
 		});
 
 	}
@@ -803,7 +796,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			// create and define modal variables as new elements
 			elGalleryModal  = document.createElement('aside');
 			elGalleryNav    = document.createElement('nav');
-			elGalleryImage  = document.createElement('img');
+			// elGalleryImage  = document.createElement('img');
 			elGalleryLoader = createLoader();
 
 			// create new modal variables
@@ -819,7 +812,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			}
 
 			// define contents of nav links
-			var arrNavLinks  = [
+			var arrNavLinks = [
 					{ id: 'prev',  xlink: '#ui_arrow', title: 'Previous Image' },
 					{ id: 'next',  xlink: '#ui_arrow', title: 'Next Image'     },
 					{ id: 'close', xlink: '#ui_close', title: 'Close Image'    }
@@ -830,8 +823,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryNavWrap.setAttribute('data-container', 'width_1200');
 
 			// define <img> attributes
-			elGalleryImage.setAttribute('src', '');
-			elGalleryImage.setAttribute('alt', '');
+			// elGalleryImage.setAttribute('src', '');
 
 			// iterate through each nav link
 			for (var i = 0; i < arrNavLinks.length; i++) {
@@ -859,7 +851,9 @@ document.addEventListener('DOMContentLoaded', function() {
 			// append nav, image, and loader
 			elGalleryNav.appendChild(elGalleryNavWrap);
 			elGalleryModal.appendChild(elGalleryNav);
-			elGalleryModal.appendChild(elGalleryImage);
+
+			// elGalleryModal.appendChild(elGalleryImage);
+
 			elGalleryModal.appendChild(elGalleryLoader);
 
 			// create overlay and append gallery modal, pass 'gallery' as data-overlay value
@@ -919,7 +913,12 @@ document.addEventListener('DOMContentLoaded', function() {
 		function updateImageSrc() {
 
 			// apply the new image source
-			elGalleryImage.src = arrGallerySource[dataCurrent];
+			// elGalleryImage.src = arrGallerySource[dataCurrent];
+
+			// build new image
+			elGalleryImage = document.createElement('img');
+			elGalleryImage.setAttribute('src', arrGallerySource[dataCurrent]);
+			elGalleryModal.appendChild(elGalleryImage);
 
 			// use imagesLoaded to check image progress
 			var imgLoad = imagesLoaded(elGalleryModal);
@@ -934,10 +933,13 @@ document.addEventListener('DOMContentLoaded', function() {
 			// once opacity has reached 0
 			if (e.propertyName == "opacity") {
 
+				// remove previous image
+				elGalleryModal.removeChild(elGalleryImage);
+
 				updateImageSrc();
 
 				// must remove event listener!
-				elGalleryImage.removeEventListener(transitionEvent, galleryTransitionEnd);
+				// elGalleryImage.removeEventListener(transitionEvent, galleryTransitionEnd);
 
 			}
 
@@ -946,10 +948,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		// hide status when done
 		function onAlways() {
 
-			// setTimeout(function() {}, 1000);
-
-			classie.add(elGalleryModal, 'img_loaded');
 			classie.remove(elGalleryLoader, 'visible');
+			classie.add(elGalleryModal, 'img_loaded');
 
 		}
 
