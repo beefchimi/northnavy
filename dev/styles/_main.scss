@@ -768,6 +768,9 @@ section.reserve article div.wrap_content p:first-of-type a[target] {
 	background-color: hsla(0,0%,0%,0.6);
 	visibility: hidden; // requires visibility in order to hide animation on initial page load... set to 'visible' via JS class 'ready'
 }
+html.ie9 [data-opentable] {
+	display: none;
+}
 html.ready [data-opentable] {
 	visibility: visible;
 }

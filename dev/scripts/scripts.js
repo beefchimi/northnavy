@@ -53,29 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginReserveAdjusted;
 
 
-	// Helper: Fire Window Resize Event Upon Finish
-	// ----------------------------------------------------------------------------
-	var waitForFinalEvent = (function() {
-
-		var timers = {};
-
-		return function(callback, ms, uniqueId) {
-
-			if (!uniqueId) {
-				uniqueId = 'beefchimi'; // Don't call this twice without a uniqueId
-			}
-
-			if (timers[uniqueId]) {
-				clearTimeout(timers[uniqueId]);
-			}
-
-			timers[uniqueId] = setTimeout(callback, ms);
-
-		};
-
-	})();
-
-
 	// Helper: Check when a CSS transition or animation has ended
 	// ----------------------------------------------------------------------------
 	function whichTransitionEvent() {
@@ -115,6 +92,29 @@ document.addEventListener('DOMContentLoaded', function() {
 		}
 
 	}
+
+
+	// Helper: Fire Window Resize Event Upon Finish
+	// ----------------------------------------------------------------------------
+	var waitForFinalEvent = (function() {
+
+		var timers = {};
+
+		return function(callback, ms, uniqueId) {
+
+			if (!uniqueId) {
+				uniqueId = 'beefchimi'; // Don't call this twice without a uniqueId
+			}
+
+			if (timers[uniqueId]) {
+				clearTimeout(timers[uniqueId]);
+			}
+
+			timers[uniqueId] = setTimeout(callback, ms);
+
+		};
+
+	})();
 
 
 	// Helper: Find Parent Element by Class or Tag Name
@@ -247,24 +247,33 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	function destroyOverlay() {
 
-		fadeOut(elOverlay);
+		if ( classie.has(elHTML, 'ie9') ) {
 
-		// listen for CSS transitionEnd before removing the element
-		elOverlay.addEventListener(transitionEvent, removeOverlay);
+			unlockBody();
+			elBody.removeChild(elOverlay);
 
-		// maybe expand this to be passed an ID, and it can destroy / remove any element?
-		function removeOverlay(e) {
+		} else {
 
-			// only listen for the opacity property
-			if (e.propertyName == "opacity") {
+			fadeOut(elOverlay);
 
-				unlockBody();
+			// listen for CSS transitionEnd before removing the element
+			elOverlay.addEventListener(transitionEvent, removeOverlay);
 
-				// remove elOverlay from <body>
-				elBody.removeChild(elOverlay);
+			// maybe expand this to be passed an ID, and it can destroy / remove any element?
+			function removeOverlay(e) {
 
-				// must remove event listener!
-				elOverlay.removeEventListener(transitionEvent, removeOverlay);
+				// only listen for the opacity property
+				if (e.propertyName == "opacity") {
+
+					unlockBody();
+
+					// remove elOverlay from <body>
+					elBody.removeChild(elOverlay);
+
+					// must remove event listener!
+					elOverlay.removeEventListener(transitionEvent, removeOverlay);
+
+				}
 
 			}
 
@@ -300,6 +309,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			elSubmitButton = document.getElementById('submit'),
 			arrTriggers    = document.getElementsByClassName('opentable'),
 			numTriggers    = arrTriggers.length;
+
+		// exit if IE9
+		if ( classie.has(elHTML, 'ie9') ) {
+			return;
+		}
 
 		// check if div.wrap_select exists and is not empty
 		if (typeof arrTriggers !== 'undefined' && numTriggers > 0) {
@@ -374,6 +388,8 @@ document.addEventListener('DOMContentLoaded', function() {
 			targetToggle,
 			targetEvent;
 
+		// REDUNDANT CLICK FUNCTIONS!!! THIS CAN BE MORE EFFICIENT!!!!
+
 		// toggle the Lunch menu
 		elLunchToggle.addEventListener('click', function(e) {
 
@@ -388,7 +404,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				classie.remove(elMenuDinner, 'toggled');
 				classie.remove(elDinnerToggle, 'toggled');
 
-				targetEvent.addEventListener(transitionEvent, menuTrackTransition);
+				if ( classie.has(elHTML, 'ie9') ) {
+					menuHeight();
+					classie.add(targetToggle, 'toggled');
+				} else {
+					targetEvent.addEventListener(transitionEvent, menuTrackTransition);
+				}
 
 			}
 
@@ -410,7 +431,12 @@ document.addEventListener('DOMContentLoaded', function() {
 				classie.remove(elMenuLunch, 'toggled');
 				classie.remove(elLunchToggle, 'toggled');
 
-				targetEvent.addEventListener(transitionEvent, menuTrackTransition);
+				if ( classie.has(elHTML, 'ie9') ) {
+					menuHeight();
+					classie.add(targetToggle, 'toggled');
+				} else {
+					targetEvent.addEventListener(transitionEvent, menuTrackTransition);
+				}
 
 			}
 
@@ -903,8 +929,13 @@ document.addEventListener('DOMContentLoaded', function() {
 				// remove 'img_loaded' class - return to opacity: 0;
 				classie.remove(elGalleryModal, 'img_loaded');
 
-				// listen for CSS transitionEnd before setting new image src
-				elGalleryImage.addEventListener(transitionEvent, galleryTransitionEnd);
+				if ( classie.has(elHTML, 'ie9') ) {
+					elGalleryModal.removeChild(elGalleryImage);
+					updateImageSrc();
+				} else {
+					// listen for CSS transitionEnd before setting new image src
+					elGalleryImage.addEventListener(transitionEvent, galleryTransitionEnd);
+				}
 
 			}
 
