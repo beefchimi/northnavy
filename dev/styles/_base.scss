@@ -99,8 +99,8 @@ div.pika-single {
 	z-index: 101;
 	top: 0;
 	left: 0;
-	color: $hsla_blue;
-	background-color: $hsla_white;
+	color: $hsl_blue;
+	background-color: $hsl_white;
 	opacity: 1;
 	visibility: visible;
 }
@@ -180,11 +180,11 @@ div.pika-single {
 }
 .pika-prev::before {
 	left: 1.2rem;
-	border-right: 1.3rem solid $hsla_blue;
+	border-right: 1.3rem solid $hsl_blue;
 }
 .pika-next::before {
 	left: 1.6rem;
-	border-left: 1.3rem solid $hsla_blue;
+	border-left: 1.3rem solid $hsl_blue;
 }
 .pika-prev.is-disabled,
 .pika-next.is-disabled {
@@ -193,28 +193,28 @@ div.pika-single {
 }
 // + interaction + \\
 .pika-prev:hover::before {
-	border-right-color: $hsla_gold;
+	border-right-color: $hsl_gold;
 }
 .pika-next:hover::before {
-	border-left-color: $hsla_gold;
+	border-left-color: $hsl_gold;
 }
 .pika-prev:active::before {
-	border-right-color: $hsla_gold-D;
+	border-right-color: darken($hsl_gold, 17%);
 }
 .pika-next:active::before {
-	border-left-color: $hsla_gold-D;
+	border-left-color: darken($hsl_gold, 17%);
 }
 .pika-prev.is-disabled:hover::before {
-	border-right-color: $hsla_blue;
+	border-right-color: $hsl_blue;
 }
 .pika-next.is-disabled:hover::before {
-	border-left-color: $hsla_blue;
+	border-left-color: $hsl_blue;
 }
 .pika-prev.is-disabled:active::before {
-	border-right-color: $hsla_blue;
+	border-right-color: $hsl_blue;
 }
 .pika-next.is-disabled:active::before {
-	border-left-color: $hsla_blue;
+	border-left-color: $hsl_blue;
 }
 // --- Calendar Table --- \\
 .pika-table {
@@ -250,17 +250,17 @@ div.pika-single {
 	padding-top: 1.2rem;
 	padding-bottom: 1.2rem;
 	width: 100%;
-	color: $hsla_blue;
+	color: $hsl_blue;
 	font-size: 1.4rem;
 	text-align: center;
 	background-color: hsla(0,0%,98%,1);
 }
 .is-today .pika-button {
-	color: $hsla_pink;
+	color: $hsl_pink;
 }
 .is-selected .pika-button {
-	color: $hsla_white;
-	background-color: $hsla_pink;
+	color: $hsl_white;
+	background-color: $hsl_pink;
 }
 .is-disabled .pika-button {
 	pointer-events: none;
@@ -268,9 +268,9 @@ div.pika-single {
 	opacity: 0.4;
 }
 .pika-button:hover {
-	color: $hsla_white;
-	background-color: $hsla_gold;
+	color: $hsl_white;
+	background-color: $hsl_gold;
 }
 .pika-button:active {
-	background-color: $hsla_gold-D;
+	background-color: darken($hsl_gold, 17%);
 }

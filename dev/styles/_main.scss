@@ -10,7 +10,7 @@ optgroup,
 select,
 textarea {
 	font-family: 'Archer SSm A', 'Archer SSm B', Georgia, Times, 'Times New Roman', serif;
-	color: $hsla_blue;
+	color: $hsl_blue;
 }
 html {
 	min-height: 100%;
@@ -18,22 +18,22 @@ html {
 body {
 	position: relative;
 	text-align: center;
-	background: $hsla_L96;
-	border-top: 0.6rem solid $hsla_blue;
+	background: $hsl_L96;
+	border-top: 0.6rem solid $hsl_blue;
 }
 ::selection {
-	color: $hsla_blue;
-	background-color: $hsla_gold;
+	color: $hsl_blue;
+	background-color: $hsl_gold;
 }
 ::-webkit-input-placeholder {
-	color: $hsla_blue;
+	color: $hsl_blue;
 }
 ::-moz-placeholder {
-	color: $hsla_blue;
+	color: $hsl_blue;
 	opacity: 1;
 }
 :-ms-input-placeholder {
-	color: $hsla_blue;
+	color: $hsl_blue;
 }
 
 // Transitions
@@ -118,7 +118,7 @@ div.loader_overlay div.wrap_svg {
 	animation: anim360 1s linear infinite forwards;
 }
 div.loader_overlay div.wrap_svg svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 
 // Forms
@@ -129,12 +129,12 @@ input[type="text"] {
 	width: 100%;
 	height: 4.8rem;
 	font-size: 1.6rem;
-	color: $hsla_blue;
-	background-color: $hsla_L96;
-	box-shadow: inset 0 0 0 0.1rem $hsla_blue;
+	color: $hsl_blue;
+	background-color: $hsl_L96;
+	box-shadow: inset 0 0 0 0.1rem $hsl_blue;
 }
 input[type="text"]:hover {
-	background-color: $hsla_white;
+	background-color: $hsl_white;
 }
 input[type="text"]:active {
 	background-color: hsla(0,0%,98%,1);
@@ -163,7 +163,7 @@ div.wrap_svg.input_svg {
 	transform: rotate(90deg);
 }
 div.wrap_svg.input_svg svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 // --- Select Dropdown --- \\
 div.wrap_select div.dropdown_toggle {
@@ -171,8 +171,8 @@ div.wrap_select div.dropdown_toggle {
 	position: relative;
 	z-index: 102;
 	height: 4.8rem;
-	background-color: $hsla_L96;
-	box-shadow: inset 0 0 0 0.1rem $hsla_blue;
+	background-color: $hsl_L96;
+	box-shadow: inset 0 0 0 0.1rem $hsl_blue;
 }
 div.wrap_select div.dropdown_toggle span {
 	display: block;
@@ -182,7 +182,7 @@ div.wrap_select div.dropdown_toggle span {
 	font-size: 1.6rem;
 	text-align: left;
 	line-height: 4.8rem;
-	color: $hsla_blue;
+	color: $hsl_blue;
 	white-space: nowrap;
 }
 // + dropdown list + \\
@@ -190,7 +190,7 @@ div.wrap_select div.wrap_dropdown,
 div.wrap_select div.wrap_dropdown ul,
 div.wrap_select div.wrap_dropdown.scrollable,
 div.wrap_select div.wrap_dropdown span.fix_ios-scroll {
-	background-color: $hsla_white; // be sure there is no chance ios rubber band will show a difference background
+	background-color: $hsl_white; // be sure there is no chance ios rubber band will show a difference background
 }
 div.wrap_select div.wrap_dropdown {
 	position: absolute;
@@ -207,11 +207,11 @@ div.wrap_select div.wrap_dropdown ul li a {
 	display: block;
 	padding: 1.6rem;
 	font-size: 1.6rem;
-	color: $hsla_blue;
+	color: $hsl_blue;
 }
 div.wrap_select div.wrap_dropdown ul li.selected a {
 	pointer-events: none;
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 // + dropdown scrollable + \\
 div.wrap_select div.wrap_dropdown.scrollable {
@@ -239,14 +239,14 @@ div.wrap_select div.wrap_dropdown span.fix_ios-scroll ul::-webkit-scrollbar {
 	background-color: hsla(0,0%,0%,1);
 }
 div.wrap_select div.wrap_dropdown span.fix_ios-scroll ul::-webkit-scrollbar-track {
-	background-color: $hsla_gold;
+	background-color: $hsl_gold;
 }
 div.wrap_select div.wrap_dropdown span.fix_ios-scroll ul::-webkit-scrollbar-thumb {
-	background-color: $hsla_blue;
+	background-color: $hsl_blue;
 }
 // + interaction + \\
 div.wrap_select:hover div.dropdown_toggle {
-	background-color: $hsla_white;
+	background-color: $hsl_white;
 }
 div.wrap_select:active div.dropdown_toggle {
 	background-color: hsla(0,0%,98%,1);
@@ -255,7 +255,7 @@ div.wrap_select div.wrap_dropdown ul li a:hover {
 	background-color: hsla(0,0%,98%,1);
 }
 div.wrap_select div.wrap_dropdown ul li a:active {
-	background-color: $hsla_white;
+	background-color: $hsl_white;
 }
 // + hide / show dropdown + \\
 div.wrap_select div.wrap_dropdown {
@@ -314,13 +314,13 @@ svg.svg_inline {
 }
 // --- Links --- \\
 a {
-	color: $hsla_blue;
+	color: $hsl_blue;
 }
 a:hover {
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 a:active {
-	color: $hsla_gold-D;
+	color: darken($hsl_gold, 17%);
 }
 // + buttons + \\
 .button {
@@ -331,15 +331,15 @@ a:active {
 	letter-spacing: 0.2rem;
 	text-align: center;
 	text-transform: uppercase;
-	border: 0.1rem solid $hsla_blue;
+	border: 0.1rem solid $hsl_blue;
 }
 .button:hover {
-	color: $hsla_gold;
-	border-color: $hsla_gold;
+	color: $hsl_gold;
+	border-color: $hsl_gold;
 }
 .button:active {
-	color: $hsla_gold-D;
-	border-color: $hsla_gold-D;
+	color: darken($hsl_gold, 17%);
+	border-color: darken($hsl_gold, 17%);
 }
 // --- Overlay & Modal --- \\
 // created and added (also destroyed) to DOM via JS
@@ -351,7 +351,7 @@ a:active {
 	right: 0;
 	bottom: 0;
 	left: 0;
-	background-color: $hsla_L96-A98;
+	background-color: $hsla_L96-98;
 	overflow: hidden;
 }
 [data-modal],
@@ -390,7 +390,7 @@ nav.nav_gallery {
 	left: 0;
 	height: 6.4rem;
 	text-align: center;
-	background-color: $hsla_L96-A98;
+	background-color: $hsla_L96-98;
 }
 nav.nav_gallery div[data-container] {
 	position: relative;
@@ -414,13 +414,13 @@ nav.nav_gallery div[data-container] a.nav_close {
 	margin-left: -3.2rem;
 }
 nav.nav_gallery div[data-container] a.wrap_svg svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 nav.nav_gallery div[data-container] a.wrap_svg:hover svg {
-	fill: $hsla_gold;
+	fill: $hsl_gold;
 }
 nav.nav_gallery div[data-container] a.wrap_svg:active svg {
-	fill: $hsla_gold-D;
+	fill: darken($hsl_gold, 17%);
 }
 
 
@@ -451,15 +451,15 @@ h2.tagline {
 	padding-left: 1rem;
 	padding-right: 1rem;
 	font-size: 1.8rem;
-	color: $hsla_gold;
-	background-color: $hsla_L96;
+	color: $hsl_gold;
+	background-color: $hsl_L96;
 }
 div.nn_wordmark {
 	margin-bottom: 6rem;
 }
 div.nn_logo svg,
 div.nn_wordmark svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 h3.address {
 	margin-bottom: 1.6rem;
@@ -484,7 +484,7 @@ ul.social_links li a.wrap_svg {
 	height: 2.8rem;
 }
 ul.social_links li a.wrap_svg svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 ul.social_links li.social_twitter {
 	margin-right: 1.4rem;
@@ -496,10 +496,10 @@ ul.social_links li.social_instagram a.wrap_svg {
 	width: 2.8rem; // webkit requires an explicit width
 }
 ul.social_links li a.wrap_svg:hover svg {
-	fill: $hsla_gold;
+	fill: $hsl_gold;
 }
 ul.social_links li a.wrap_svg:active svg {
-	fill: $hsla_gold-D;
+	fill: darken($hsl_gold, 17%);
 }
 // --- Main Navigation --- \\
 nav.nav_main {
@@ -513,8 +513,8 @@ nav.nav_main {
 nav.nav_main div.wrap_nav {
 	// required since nav is fixed, needed for scrollbar to be visible beneath background-color
 	padding: 3.2rem 0;
-	background-color: $hsla_L96-A98;
-	border-top: 0.6rem solid $hsla_blue;
+	background-color: $hsla_L96-98;
+	border-top: 0.6rem solid $hsl_blue;
 }
 nav.nav_main a.nav_logo {
 	position: absolute;
@@ -526,13 +526,13 @@ nav.nav_main a.nav_logo {
 	visibility: hidden;
 }
 nav.nav_main a.nav_logo svg {
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 nav.nav_main a.nav_logo:hover svg {
-	fill: $hsla_gold;
+	fill: $hsl_gold;
 }
 nav.nav_main a.nav_logo:active svg {
-	fill: $hsla_gold-D;
+	fill: darken($hsl_gold, 17%);
 }
 nav.nav_main.scrolled a.nav_logo {
 	opacity: 1;
@@ -555,7 +555,7 @@ nav.nav_main[data-current="foodwine"] a[href="#foodwine"],
 nav.nav_main[data-current="bacaro"] a[href="#bacaro"],
 nav.nav_main[data-current="private"] a[href="#private"],
 nav.nav_main[data-current="photos"] a[href="#photos"] {
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 
 // Footer
@@ -603,7 +603,7 @@ ul.footer_pride li {
 ul.footer_pride li svg {
 	width: 2rem;
 	height: 2rem;
-	fill: $hsla_gold;
+	fill: $hsl_gold;
 }
 ul.footer_pride li.pride_cross {
 	margin: 0 2rem;
@@ -704,7 +704,7 @@ div.wrap_rule::before {
 	right: 0;
 	left: 0;
 	height: 0.1rem;
-	background-color: $hsla_gold;
+	background-color: $hsl_gold;
 }
 // --- Divider --- \\
 div.divider {
@@ -713,14 +713,14 @@ div.divider {
 	height: 2.6rem;
 }
 div.divider svg {
-	fill: $hsla_gold;
+	fill: $hsl_gold;
 }
 // --- Tag: Circle --- \\
 .tag_circle {
 	display: inline-block;
 	margin-bottom: 5.2rem;
-	color: $hsla_gold;
-	border: 0.1rem solid $hsla_gold;
+	color: $hsl_gold;
+	border: 0.1rem solid $hsl_gold;
 	overflow: hidden;
 }
 .tag_circle .tag_text {
@@ -748,7 +748,7 @@ section.reserve article div.wrap_content h6 {
 	letter-spacing: 0.1rem;
 	line-height: 1.6;
 	text-transform: uppercase;
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 section.reserve article div.wrap_content h6 span {
 	display: block;
@@ -793,7 +793,7 @@ form.form_reserve {
 	padding: 2.6rem 1.6rem;
 	width: 30rem;
 	height: 27.8rem;
-	background-color: $hsla_L96;
+	background-color: $hsl_L96;
 }
 form.form_reserve div.wrap_inputs div.wrap_select {
 	float: left;
@@ -861,7 +861,7 @@ ul.menu_toggle li.menu_lunch::after {
 	font-family: FFMarkWebPro, Futura, 'Trebuchet MS', Arial, sans-serif;
 	font-size: 1.8rem;
 	font-weight: 400;
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 ul.menu_toggle li a {
 	display: block;
@@ -877,12 +877,12 @@ ul.menu_toggle li a::before {
 	margin: 0 auto;
 	width: 0%;
 	height: 0.1rem;
-	background-color: $hsla_gold;
+	background-color: $hsl_gold;
 	opacity: 0;
 }
 ul.menu_toggle li a.toggled {
 	pointer-events: none;
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 ul.menu_toggle li a.toggled::before {
 	width: 100%;
@@ -914,16 +914,16 @@ article.wine div.wrap_heading h3 {
 	top: 58%;
 }
 a.tag_circle.wine_full {
-	color: $hsla_pink;
-	border-color: $hsla_pink;
+	color: $hsl_pink;
+	border-color: $hsl_pink;
 }
 a.tag_circle.wine_full:hover {
-	color: $hsla_blue;
-	border-color: $hsla_blue;
+	color: $hsl_blue;
+	border-color: $hsl_blue;
 }
 a.tag_circle.wine_full:active {
-	color: $hsla_blue-D;
-	border-color: $hsla_blue-D;
+	color: darken($hsl_blue, 12%);
+	border-color: darken($hsl_blue, 12%);
 }
 // + temporary + \\
 p.wines {
@@ -938,7 +938,7 @@ p.wines {
 section.bacaro {
 	padding-top: 8rem;
 	padding-bottom: 8rem;
-	background-color: $hsla_blue;
+	background-color: $hsl_blue;
 	background-image: url('../img/bg_bacaro.png');
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -952,7 +952,7 @@ article.message h5 {
 }
 article.message h5,
 article.message p {
-	color: $hsla_L96;
+	color: $hsl_L96;
 }
 
 // Private Dining
@@ -979,8 +979,8 @@ img.octo-btm {
 span.divider_double {
 	display: block;
 	height: 2.6rem;
-	border-top: 0.1rem solid $hsla_gold;
-	border-bottom: 0.1rem solid $hsla_gold;
+	border-top: 0.1rem solid $hsl_gold;
+	border-bottom: 0.1rem solid $hsl_gold;
 }
 // + dining content + \\
 article.dining {
@@ -994,7 +994,7 @@ article.dining div.wrap_content ul {
 	margin: 0 auto 3.2rem auto;
 	padding: 3.2rem 1.6rem;
 	max-width: 51.6rem;
-	border: 0.1rem solid $hsla_blue;
+	border: 0.1rem solid $hsl_blue;
 }
 article.dining div.wrap_content ul li {
 	margin-bottom: 1rem;
@@ -1016,20 +1016,20 @@ article.dining div.wrap_content p:last-child {
 // ----------------------------------------------------------------------------
 article.certificates,
 article.certificates div.wrap_content {
-	border: 0.1rem solid $hsla_gold;
+	border: 0.1rem solid $hsl_gold;
 }
 article.certificates {
 	padding: 1.6rem;
 }
 article.certificates div.wrap_content {
 	padding: 3.2rem 1.6rem;
-	border: 0.1rem solid $hsla_gold;
+	border: 0.1rem solid $hsl_gold;
 }
 svg.ui_heart {
 	margin: 0 auto 3.2rem auto;
 	width: 5.2rem;
 	height: 8.8rem;
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 
 // Photos
@@ -1038,17 +1038,17 @@ section.photos div.wrap_rule {
 	margin-bottom: 4.8rem;
 }
 section.photos div.wrap_rule::before {
-	background-color: $hsla_blue;
+	background-color: $hsl_blue;
 }
 section.photos div.wrap_svg {
 	display: inline-block;
 	padding: 0 1.4rem;
-	background-color: $hsla_L96;
+	background-color: $hsl_L96;
 }
 svg.ui_eye {
 	width: 4.6rem;
 	height: 2.8rem;
-	fill: $hsla_blue;
+	fill: $hsl_blue;
 }
 // --- Packery --- \\
 article.packery div.gutter-sizer {
@@ -1077,7 +1077,7 @@ article.packery a.gallery_link:active {
 body.error_404 {
 	height: 100%;
 	border-top: none;
-	background-color: $hsla_blue;
+	background-color: $hsl_blue;
 	background-image: url('../img/bg_bacaro.png');
 	background-repeat: no-repeat;
 	background-position: center center;
@@ -1097,7 +1097,7 @@ section.error {
 }
 article.oops h1,
 article.oops p {
-	color: $hsla_L96;
+	color: $hsl_L96;
 }
 article.oops h1 {
 	margin-bottom: 1em;
@@ -1112,19 +1112,19 @@ article.oops p {
 	font-size: 1.6rem;
 }
 article.oops a {
-	color: $hsla_gold;
+	color: $hsl_gold;
 }
 article.oops a:hover {
-	color: $hsla_L96;
+	color: $hsl_L96;
 }
 article.oops a:active {
-	color: $hsla_L96;
+	color: $hsl_L96;
 	opacity: 0.8;
 }
 article.oops a.button {
-	border-color: $hsla_gold;
+	border-color: $hsl_gold;
 }
 article.oops a.button:hover,
 article.oops a.button:active {
-	border-color: $hsla_L96;
+	border-color: $hsl_L96;
 }
