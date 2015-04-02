@@ -495,6 +495,11 @@ document.addEventListener('DOMContentLoaded', function() {
 			numLogoWidth      = 120 * numThreshold;
 			numFullWidth      = 912 * numThreshold;
 
+			// do not allow it to be wider than the max-width
+			if (numFullWidth > 848) {
+				numFullWidth = 848;
+			}
+
 			// apply updated inline styles
 			elHeaderLogo.style.marginBottom = numLogoMargin + 'px';
 			elHeaderRule.style.cssText     += '; width:' + numFullWidth + 'px; margin-bottom:' + numRuleMargin + 'px';

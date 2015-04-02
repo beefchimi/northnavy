@@ -487,10 +487,16 @@ ul.social_links li a.wrap_svg svg {
 	fill: $hsl_blue;
 }
 ul.social_links li.social_twitter {
-	margin-right: 1.4rem;
+	margin-right: 0.8rem;
+}
+ul.social_links li.social_facebook {
+	margin-right: 1.2rem;
 }
 ul.social_links li.social_twitter a.wrap_svg {
 	width: 3.9rem; // webkit requires an explicit width
+}
+ul.social_links li.social_facebook a.wrap_svg {
+	width: 4.4rem; // webkit requires an explicit width
 }
 ul.social_links li.social_instagram a.wrap_svg {
 	width: 2.8rem; // webkit requires an explicit width
