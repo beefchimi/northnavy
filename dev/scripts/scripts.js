@@ -3,9 +3,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 	// Global Variables: Variables requiring a global scope
 	// ----------------------------------------------------------------------------
-	var transitionEvent  = whichTransitionEvent(),
-		animationEvent   = whichAnimationEvent(),
-		elHTML           = document.documentElement,
+	var elHTML           = document.documentElement,
 		elBody           = document.body,
 		elMainNav        = document.getElementById('nav_main'),
 		elHeaderLogo     = document.getElementById('resize_logo'),
@@ -51,117 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		numBeginPrivate,
 		numBeginPhotos,
 		numBeginReserveAdjusted;
-
-
-	// Helper: Check when a CSS transition or animation has ended
-	// ----------------------------------------------------------------------------
-	function whichTransitionEvent() {
-
-		var trans,
-			element     = document.createElement('fakeelement'),
-			transitions = {
-				'transition'       : 'transitionend',
-				'OTransition'      : 'oTransitionEnd',
-				'MozTransition'    : 'transitionend',
-				'WebkitTransition' : 'webkitTransitionEnd'
-			}
-
-		for (trans in transitions) {
-			if (element.style[trans] !== undefined) {
-				return transitions[trans];
-			}
-		}
-
-	}
-
-	function whichAnimationEvent() {
-
-		var anim,
-			element    = document.createElement('fakeelement'),
-			animations = {
-				'animation'       : 'animationend',
-				'OAnimation'      : 'oAnimationEnd',
-				'MozAnimation'    : 'animationend',
-				'WebkitAnimation' : 'webkitAnimationEnd'
-			}
-
-		for (anim in animations) {
-			if (element.style[anim] !== undefined) {
-				return animations[anim];
-			}
-		}
-
-	}
-
-
-	// Helper: Fire Window Resize Event Upon Finish
-	// ----------------------------------------------------------------------------
-	var waitForFinalEvent = (function() {
-
-		var timers = {};
-
-		return function(callback, ms, uniqueId) {
-
-			if (!uniqueId) {
-				uniqueId = 'beefchimi'; // Don't call this twice without a uniqueId
-			}
-
-			if (timers[uniqueId]) {
-				clearTimeout(timers[uniqueId]);
-			}
-
-			timers[uniqueId] = setTimeout(callback, ms);
-
-		};
-
-	})();
-
-
-	// Helper: Find Parent Element by Class or Tag Name
-	// ----------------------------------------------------------------------------
-	function findParentClass(el, className) {
-
-		while (el && !classie.has(el, className) ) {
-			el = el.parentNode;
-		}
-
-		return el;
-
-	}
-
-	function findParentTag(el, tagName) {
-
-		while (el && el.nodeName !== tagName) {
-			el = el.parentNode;
-		}
-
-		return el;
-
-	}
-
-
-	// Helper: CSS Fade In / Out
-	// ----------------------------------------------------------------------------
-	function fadeIn(thisElement) {
-
-		// make the element fully transparent
-		// (don't rely on a predefined CSS style... declare this with JS to getComputedStyle)
-		thisElement.style.opacity = 0;
-
-		// make sure the initial state is applied
-		window.getComputedStyle(thisElement).opacity;
-
-		// set opacity to 1 (CSS transition will handle the fade)
-		thisElement.style.opacity = 1;
-
-	}
-
-	function fadeOut(thisElement) {
-
-		// set opacity to 0 (CSS transition will handle the fade)
-		thisElement.style.opacity = 0;
-
-	}
 
 
 	// Helper: Create loading animation
@@ -254,26 +141,27 @@ document.addEventListener('DOMContentLoaded', function() {
 
 		} else {
 
-			fadeOut(elOverlay);
-
 			// listen for CSS transitionEnd before removing the element
 			elOverlay.addEventListener(transitionEvent, removeOverlay);
 
-			// maybe expand this to be passed an ID, and it can destroy / remove any element?
-			function removeOverlay(e) {
+			// fadeout overlay after adding event listener
+			fadeOut(elOverlay);
 
-				// only listen for the opacity property
-				if (e.propertyName == "opacity") {
+		}
 
-					unlockBody();
+		// maybe expand this to be passed an ID, and it can destroy / remove any element?
+		function removeOverlay(e) {
 
-					// remove elOverlay from <body>
-					elBody.removeChild(elOverlay);
+			// only listen for the opacity property
+			if (e.propertyName == "opacity") {
 
-					// must remove event listener!
-					elOverlay.removeEventListener(transitionEvent, removeOverlay);
+				unlockBody();
 
-				}
+				// must remove event listener!
+				elOverlay.removeEventListener(transitionEvent, removeOverlay);
+
+				// remove elOverlay from <body>
+				elBody.removeChild(elOverlay);
 
 			}
 
@@ -910,6 +798,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryNext.addEventListener('click', galleryNext);
 			elGalleryClose.addEventListener('click', clickClose);
 			elGalleryModal.addEventListener('click', clickModal);
+			window.addEventListener('keydown', keyboardControls);
 
 			e.preventDefault();
 
@@ -1048,6 +937,7 @@ document.addEventListener('DOMContentLoaded', function() {
 			elGalleryNext.removeEventListener('click', galleryNext);
 			elGalleryClose.removeEventListener('click', clickClose);
 			elGalleryModal.removeEventListener('click', clickModal);
+			window.removeEventListener('keydown', keyboardControls);
 
 		}
 
@@ -1072,6 +962,23 @@ document.addEventListener('DOMContentLoaded', function() {
 
 				galleryClose();
 
+			}
+
+		}
+
+		// allow for keyboard entry
+		function keyboardControls(e) {
+
+			// if pressing keys too quickly, gallery will stall
+
+			if (e.keyCode === 37) {
+				galleryPrevious(e);
+			} else if (e.keyCode === 39) {
+				galleryNext(e);
+			} else if (e.keyCode === 27) {
+				clickClose(e);
+			} else if (e.keyCode === 13) {
+				e.preventDefault(); // 'enter' key seems to cause the slider to stall, so we must prevent default
 			}
 
 		}

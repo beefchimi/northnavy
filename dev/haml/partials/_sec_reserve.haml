@@ -19,3 +19,16 @@
 		%a.button.opentable{:href => "http://www.opentable.com/north-and-navy-reservations-ottawa?rid=162793&restref=162793", :title => "Reserve a Table", :target => "_blank"} Reserve a Table
 
 		= Haml::Engine.new(File.read("dev/haml/partials/_form_opentable.haml")).render
+
+		.wrap_enroute{"data-container" => "width_620"}
+			.enroute
+
+				%h6.visuallyhidden Air Canada
+				.logo_aircanada.wrap_svg
+					%svg.logo_aircanada{:viewBox => "0 0 64 62"}
+						%use{"xlink:href" => "#logo_aircanada"}
+
+				:plain
+					<p>We've been nominated for enRoute's list of <a href="http://eatandvote.com/en/restaurants/north-and-navy" title="Vote for us" target="_blank">Canada's Best New Restaurants of 2015.</a></p>
+
+				%a.button{:href => "http://eatandvote.com/en/restaurants/north-and-navy", :title => "Vote for us", :target => "_blank"} Vote For Us

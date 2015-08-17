@@ -6,17 +6,17 @@
 	%title North &amp; Navy | A Northern Italian Kitchen
 
 	%meta{:name => "description", :content => "Inspired by tradition and dictated by the quality and availability of ingredients."}
-	%meta{:name => "viewport", :content => "width=device-width, initial-scale=1.0"}
+	%meta{:name => "viewport", :content => "width=device-width, initial-scale=1"}
 
+	%meta{:name => "format-detection", :content => "telephone=no"}
 	%meta{:name => "apple-mobile-web-app-capable", :content => "yes"}
 	%meta{:name => "apple-mobile-web-app-status-bar-style", :content => "black"}
 
 	-# !!! REMOVE FOR LIVE !!!
-	%meta{:name => "robots", :content => "noindex, nofollow"}
+	-# %meta{:name => "robots", :content => "noindex, nofollow"}
 
 	%link{:rel => "stylesheet", :type => "text/css", :href => "//cloud.typography.com/7172754/762086/css/fonts.css"}
 	%link{:rel => "stylesheet", :type => "text/css", :href => "assets/css/styles.min.css?v=2"}
 
 	%script
 		= Haml::Engine.new(File.read("dev/haml/partials/_js_fonts.haml")).render
-		= Haml::Engine.new(File.read("dev/haml/partials/_js_svg.haml")).render

@@ -18,7 +18,7 @@ html {
 body {
 	position: relative;
 	text-align: center;
-	background: $hsl_L96;
+	background-color: $hsl_L96;
 	border-top: 0.6rem solid $hsl_blue;
 }
 ::selection {
@@ -297,11 +297,10 @@ div.wrap_select.toggle_show div.dropdown_toggle {
 [data-container="width_660"] {
 	max-width: 66rem;
 }
-// --- SVGs --- \\
-#svgInject {
-	display: none;
-	visibility: hidden;
+[data-container="width_620"] {
+	max-width: 62rem;
 }
+// --- SVGs --- \\
 .wrap_svg {
 	display: block;
 }
@@ -813,6 +812,56 @@ form.form_reserve div.wrap_select-time {
 }
 form.form_reserve button.button {
 	width: 100%;
+}
+// --- Enroute --- \\
+div.wrap_enroute {
+	margin-top: 6rem;
+	padding: 1.6rem;
+	background: repeating-linear-gradient(-45deg, $hsl_red, $hsl_red 1.6rem, $hsl_L96 1.6rem, $hsl_L96 3.2rem);
+}
+div.enroute {
+	padding: 3.2rem 1.6rem;
+	background-color: $hsl_L96;
+	border: 0.1rem solid $hsl_red;
+}
+div.logo_aircanada {
+	margin: 0 auto 3.2rem auto;
+	width: 4.4rem;
+}
+div.logo_aircanada svg {
+	fill: $hsl_aircan;
+}
+div.enroute p {
+	margin-bottom: 3.2rem;
+	font-size: 1.4rem;
+	line-height: 1.3;
+	color: $hsl_red;
+}
+div.enroute p a {
+	text-decoration: underline;
+	color: $hsl_red;
+}
+div.enroute a.button {
+	width: 100%;
+	max-width: 22.4rem;
+	font-style: italic;
+	color: $hsl_red;
+	border-color: $hsl_red;
+}
+// + interaction + \\
+div.enroute p a:hover {
+	color: $hsl_blue;
+}
+div.enroute a.button:hover {
+	color: $hsl_blue;
+	border-color: $hsl_blue;
+}
+div.enroute p a:active {
+	color: darken($hsl_blue, 10%);
+}
+div.enroute a.button:active {
+	color: darken($hsl_blue, 10%);
+	border-color: darken($hsl_blue, 10%);
 }
 
 // Food & Wine

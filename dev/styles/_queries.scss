@@ -185,6 +185,20 @@
 	form.form_reserve .pika-single {
 		top: 4.8rem;
 	}
+	// --- Enroute --- \\
+	div.wrap_enroute {
+		margin-top: 12rem;
+		padding: 2rem;
+		background: repeating-linear-gradient(-45deg, $hsl_red, $hsl_red 1.6rem, $hsl_L96 1.6rem, $hsl_L96 4.8rem);
+	}
+	div.enroute {
+		padding: 6.2rem 3.2rem;
+	}
+	div.enroute p {
+		margin-bottom: 4.8rem;
+		font-size: 2.2rem;
+		line-height: 1.5;
+	}
 
 	// Food & Wine
 	// ----------------------------------------------------------------------------
